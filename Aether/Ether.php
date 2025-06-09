@@ -14,7 +14,7 @@ define('AETHER_REPO', getcwd());
 
 define('AETHER_COPYRIGHT', 'RUNE {{COPYRIGHT-VERSION}} | Created By @anwarachilles');
 
-define('AETHER_VERSION', 'v3.0.0');
+define('AETHER_VERSION', '1.0.0');
 
 define('AETHER_SELF_WEAVER', __DIR__.'/weaver/');
 
