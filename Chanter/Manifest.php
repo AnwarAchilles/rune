@@ -17,7 +17,7 @@ class Manifest extends \Rune\Manifest {
   }
 
 
-  public static function run() {
+  public static function awaken() {
     global $AETHER_FAMILIAR;
 
     $args = chanter_args();
@@ -34,6 +34,7 @@ class Manifest extends \Rune\Manifest {
       whisper_nl('{{COLOR-SECONDARY}}{{ICON-INFO}}{{LABEL-INFO}}Rune process end in ' . aether_stopwatch());
       whisper_nl('{{COLOR-SECONDARY}}{{ICON-INFO}}{{LABEL-INFO}}Rune memory usage is ' . aether_memoryusage());
   }
+
   
   public static function get( String $arg ) {
     global $CHANTER_LIST;
@@ -77,6 +78,15 @@ class Manifest extends \Rune\Manifest {
     $arg = chanter_option_clean($arg);
     $CHANTER_LIST[$arg] = $callable;
   }
+
+  public static function run( String $arg ) {
+    global $AETHER_FAMILIAR;
+    
+    aether_log("Chanter.manifest.run: " . $arg);
+    $arg = chanter_option_clean($arg);
+    self::get($arg)();
+  }
+
 
   public static function note( String $arg, String $text ) {
     global $CHANTER_NOTE;

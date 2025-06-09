@@ -1,6 +1,8 @@
 <?php
 
-function chanter() {}
+function chanter() {
+  return true;
+}
 
 function chanter_arg( String $newArg = '' ) {
   global $CHANTER_ARG;

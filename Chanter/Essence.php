@@ -1,7 +1,7 @@
 <?php
 
 
-$GLOBALS['CHANTER'] = '';
+$GLOBALS['CHANTER'] = true;
 
 $GLOBALS['CHANTER_LIST'] = [];
 

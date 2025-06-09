@@ -60,21 +60,6 @@ class Manifest extends \Rune\Manifest {
     foreach (glob(__DIR__.'/bindrune/*.php') as $enchant) {
       require_once $enchant;
     }
-
-    // if (file_exists(AETHER_REPO . '/.bindrune/')) {
-    //   spl_autoload_register(function ($class) {
-    //      // Hapus prefix 'Rune\' dari nama class
-    //     $classPath = str_replace('Rune\\', '', $class);
-    //     $classPath = str_replace('\\', '/', $classPath); // Ubah ke path
-
-    //     $customPath = AETHER_REPO . '/.bindrune/' . $classPath . '.php';
-
-    //     if (file_exists($customPath)) {
-    //       require_once $customPath;
-    //       return;
-    //     }
-    //   });
-    // }
   }
 
   public static function awaken()
@@ -85,7 +70,7 @@ class Manifest extends \Rune\Manifest {
     global $CHANTER_REGISTERED;
     global $CHANTER_NOTE;
     
-    Chanter::run();
+    Chanter::awaken();
 
     if (aether_has_entity('keeper')) {
       keeper_set('information.json', json_encode([

@@ -21,7 +21,12 @@ class Phantasm {
     // manifest
     [
       'type'=> 'manifest',
-      'call'=> 'run()',
+      'call'=> 'awaken()',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'manifest',
+      'call'=> 'set( String $arg, Callable $callable )',
       'note'=> '',
     ],
     [
@@ -31,23 +36,13 @@ class Phantasm {
     ],
     [
       'type'=> 'manifest',
-      'call'=> 'set( String $arg, Callable $callable )',
+      'call'=> 'run( String $arg )',
       'note'=> '',
     ],
     // ether
     [
       'type'=> 'ether',
       'call'=> 'CHANTER',
-      'note'=> '',
-    ],
-    [
-      'type'=> 'ether',
-      'call'=> 'CHANTER_STRICT_1',
-      'note'=> '',
-    ],
-    [
-      'type'=> 'ether',
-      'call'=> 'CHANTER_STRICT_2',
       'note'=> '',
     ],
     // essence
@@ -69,6 +64,11 @@ class Phantasm {
     [
       'type'=> 'essence',
       'call'=> '$CHANTER_ARG',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'essence',
+      'call'=> '$CHANTER_REGISTERED',
       'note'=> '',
     ],
     // entity
@@ -95,11 +95,6 @@ class Phantasm {
     [
       'type'=> 'entity',
       'call'=> 'chanter_option_clean( String $str )',
-      'note'=> '',
-    ],
-    [
-      'type'=> 'entity',
-      'call'=> 'chanter_match( String $withArgs, String $strict = "true" )',
       'note'=> '',
     ],
   ];

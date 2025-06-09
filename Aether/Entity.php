@@ -34,7 +34,13 @@ function aether_formatFileSize($size, $precision = 2) {
 }
 
 function aether_has_entity( $function ) {
-  return function_exists($function);
+  return (function_exists($function)) ? true : false;
+}
+function aether_has_ether( $rune ) {
+  return (defined($rune)) ? true : false;
+}
+function aether_has_essence( $rune ) {
+  return (isset($GLOBALS[$rune])) ? true : false;
 }
 
 
@@ -66,4 +72,24 @@ function aether_log_clear() {
 function aether_dd($data) { 
   print_r($data); 
   die;
+}
+
+
+
+
+
+
+/* ARCANE
+ * need: Forger, Keeper
+ *  */
+function aether_arcane( String $text ) {
+  if (aether_has_entity('forger')) {
+    forger_folder(AETHER_REPO . '/.echoes');
+    forger_folder(AETHER_LOGS);
+    $text = '[' . date('Y-m-d H:i:s') . '] ' . $text;
+    $last = (forger_file(AETHER_LOGS.date('Y-m-d').'.txt')) ?: '';
+    $data = $last . PHP_EOL . $text;
+    $data = str_replace(PHP_EOL.PHP_EOL, PHP_EOL, $data);
+    forger_set(AETHER_LOGS.date('Y-m-d').'.txt', $data);
+  }
 }

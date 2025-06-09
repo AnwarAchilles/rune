@@ -27,9 +27,86 @@ class Phantasm {
   public $list = [
     [
       'type' => 'manifest',
-      'call' => 'run()',
-      'note'=> 'Todo call the built in rune.',
-    ]
+      'call' => 'origin()',
+      'note'=> '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'awaken()',
+      'note'=> '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'awakening()',
+      'note'=> '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'localhost()',
+      'note'=> '',
+    ],
+    [
+      'type' => 'ether',
+      'call' => 'AETHER_FILE',
+      'note'=> '',
+    ],
+    [
+      'type' => 'ether',
+      'call' => 'AETHER_REPO',
+      'note'=> '',
+    ],
+    [
+      'type' => 'ether',
+      'call' => 'AETHER_VERSION',
+      'note'=> '',
+    ],
+    [
+      'type' => 'ether',
+      'call' => 'AETHER_COPYRIGHT',
+      'note'=> '',
+    ],
+    [
+      'type' => 'ether',
+      'call' => 'AETHER_RUNE_LOCATION',
+      'note'=> '',
+    ],
+    [
+      'type' => 'ether',
+      'call' => 'AETHER_ECHOES',
+      'note'=> '',
+    ],
+    // essence
+    [
+      'type' => 'essence',
+      'call' => '$AETHER_STOPWATCH',
+      'note'=> '',
+    ],
+    // entity
+    [
+      'type' => 'entity',
+      'call' => 'aether_stopwatch()',
+      'note'=> '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'aether_memoryusage()',
+      'note'=> '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'aether_has_ether()',
+      'note'=> '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'aether_has_essence()',
+      'note'=> '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'aether_has_entity()',
+      'note'=> '',
+    ],
   ];
 
   public function awakening() {}
