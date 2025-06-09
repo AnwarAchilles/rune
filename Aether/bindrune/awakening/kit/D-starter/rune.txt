@@ -9,6 +9,7 @@ use Rune\Aether\Manifest as Aether;
 use Rune\Chanter\Manifest as Chanter;
 use Rune\Whisper\Manifest as Whisper;
 use Rune\Weaver\Manifest as Weaver;
+use Rune\Forger\Manifest as Forger;
 #sentinel-manifest
 
 
@@ -24,6 +25,7 @@ Aether::arise();
 Chanter::arise();
 Whisper::arise();
 Weaver::arise();
+Forger::arise();
 #sentinel-arise
 
 
