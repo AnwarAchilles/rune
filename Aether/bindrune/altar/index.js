@@ -5,8 +5,6 @@ Nirvana.environment({
     background: [
       'https://wallpaperbat.com/img/8941578-anime-girl-pink-eyes-city-desktop.jpg',
       'https://embed.pixiv.net/artwork.php?illust_id=107033961',
-      'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d2c5c087-28c0-45d2-a01c-5e8a6f5c3663/dglf5s4-6b9fca3c-88ba-4cce-9e17-9f8e990aa945.png/v1/fill/w_1192,h_670,q_70,strp/ai_anime_art__wallpaper__by_aianimeart9_dglf5s4-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvZDJjNWMwODctMjhjMC00NWQyLWEwMWMtNWU4YTZmNWMzNjYzXC9kZ2xmNXM0LTZiOWZjYTNjLTg4YmEtNGNjZS05ZTE3LTlmOGU5OTBhYTk0NS5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.Z_ayw75o9XQtVqmVeRq5ptIVI6AX_ck96pIOGEu-_rk',
-      'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/d2c5c087-28c0-45d2-a01c-5e8a6f5c3663/dg3vtc5-beaf1385-b5f4-4603-abd1-d60e7ca19eef.png/v1/fill/w_1192,h_670,q_70,strp/ai_anime_art__wallpaper__by_aianimeart9_dg3vtc5-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvZDJjNWMwODctMjhjMC00NWQyLWEwMWMtNWU4YTZmNWMzNjYzXC9kZzN2dGM1LWJlYWYxMzg1LWI1ZjQtNDYwMy1hYmQxLWQ2MGU3Y2ExOWVlZi5wbmciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.pyn1qe_zr8iHhcRKORiyEQmSCfGY1togFcJIWcxtg_Q',
       'https://images.wallpaperscraft.ru/image/single/devushka_anime_vzgliad_971054_1280x720.jpg',
     ],
     headers: {
