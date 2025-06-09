@@ -41,12 +41,14 @@ Chanter::set('awakening', function() {
   ];
   $processing = function( $rune, $timing ) {
     $target = forger_file(AETHER_REPO.'/'.AETHER_FILE);
+    $act_void = forger_file(__DIR__ . '/awakening.txt');
 
     $rune->act = weaver_bind($rune->act, 'file', AETHER_FILE);
 
     $target = weaver_bind_custom($target, 'use Rune\Aether\Manifest as Aether;', '');
     $target = weaver_bind_custom($target, PHP_EOL.PHP_EOL, PHP_EOL);
     $target = weaver_bind_custom($target, '<?php', $rune->act);
+    $target = weaver_bind_custom($target, $act_void, '');
     $target = weaver_bind_custom($target, 'Aether::awakening();', $rune->main);
 
     forger_set( AETHER_REPO.'/'.AETHER_FILE, $target);
