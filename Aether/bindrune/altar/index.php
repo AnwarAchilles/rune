@@ -152,17 +152,27 @@ Nirvana::rest('POST', 'api/sentinel/altar', function() {
   $headers = getallheaders();
   $file = $headers['Rune-file'];
   
-  shell_exec("php {$file} sentinel --altar");
+  shell_exec("php {$file} sentinel --rise_altar");
   
   return [ true ];
 });
-Nirvana::rest('POST', 'api/sentinel/arise', function() {
+Nirvana::rest('POST', 'api/sentinel/invoke', function() {
   $headers = getallheaders();
   $file = $headers['Rune-file'];
 
   $selected = Nirvana::method('selected');
 
-  shell_exec("php {$file} sentinel --arise_select=$selected");
+  shell_exec("php {$file} sentinel --invoke_option=$selected");
+
+  return [ true ];
+});
+Nirvana::rest('POST', 'api/sentinel/revoke', function() {
+  $headers = getallheaders();
+  $file = $headers['Rune-file'];
+
+  $selected = Nirvana::method('selected');
+
+  shell_exec("php {$file} sentinel --revoke_option=$selected");
 
   return [ true ];
 });

@@ -5,6 +5,7 @@ use Rune\Chanter\Manifest as Chanter;
 use Rune\Weaver\Manifest as Weaver;
 use Rune\Crafter\Manifest as Crafter;
 use Rune\Forger\Manifest as Forger;
+use Rune\Specter\Manifest as Specter;
 
 // sentinel
 Chanter::set('sentinel', function() {
@@ -23,18 +24,22 @@ Chanter::set('sentinel', function() {
   }else {
     aether_whisper($header);
   }
-  
-  
-  (aether_has_entity('whisper')) ?: die(PHP_EOL.'[!]WARNING: Required Whisper:entity'.PHP_EOL);
+
+  $avalaible_rune = function() {
+    $result = [];
+    foreach (glob(AETHER_RUNE_LOCATION . '/*') as $rune) {
+      if (is_dir($rune)) {
+        $result[] = basename($rune);
+      }
+    }
+    return $result;
+  };
 
 
   /* ALTAR
    *
    *  */
-  if (chanter_option('rise_altar')) {
-    (aether_has_entity('crafter')) ?: die(PHP_EOL.'[!]WARNING: Required Crafter:entity'.PHP_EOL);
-    (aether_has_entity('forger')) ?: die(PHP_EOL.'[!]WARNING: Required Forger:entity'.PHP_EOL);
-
+  $processing_altar = function() {
     Crafter::set(AETHER_REPO.'/altar.php', function() {
       Crafter::base('REPO', __DIR__.'/');
       Crafter::base('TYPE', 'plain');
@@ -43,7 +48,7 @@ Chanter::set('sentinel', function() {
       Crafter::item('altar/nirvana.css');
       Crafter::item('altar/nirvana.js');
       Crafter::item('altar/nirvana.php');
-
+  
       Crafter::item('altar/index.head.html');
       Crafter::item('altar/index.html');
       Crafter::item('altar/index.css');
@@ -51,9 +56,14 @@ Chanter::set('sentinel', function() {
       Crafter::item('altar/index.php');
     });
     Crafter::run(AETHER_REPO.'/altar.php');
+  };
+  if (chanter_option('rise_altar')) {
+    (aether_has_entity('crafter')) ?: die(PHP_EOL.'[!]WARNING: Required Crafter:entity'.PHP_EOL);
+    (aether_has_entity('forger')) ?: die(PHP_EOL.'[!]WARNING: Required Forger:entity'.PHP_EOL);
+    $processing_altar();
   }
   if (chanter_option('altar')) {
-    Chanter::get('sentinel rise_altar')();
+    $processing_altar();
 
     whisper_clear();
     whisper_nl('');
@@ -68,6 +78,20 @@ Chanter::set('sentinel', function() {
       'mode'=> 'private',
     ]);
   }
+  if (chanter_option('dev_altar_watch')) {
+    whisper_clear();
+    Specter::observer(__DIR__.'/altar/', function() use ($processing_altar) {
+      $processing_altar();
+    });
+  }
+  if (chanter_option('dev_altar')) {
+    Specter::open("{{SELF}} sentinel --dev_altar_watch");
+    Specter::open("{{SELF}} sentinel --altar");
+  }
+  
+
+
+
 
   /* INSPECT
    *
@@ -134,31 +158,16 @@ Chanter::set('sentinel', function() {
   }
 
 
-  $avalaible_rune = function() {
-    $result = [];
-    foreach (glob(AETHER_RUNE_LOCATION . '/*') as $rune) {
-      if (is_dir($rune)) {
-        $result[] = basename($rune);
-      }
-    }
-    return $result;
-  };
-
-  (aether_has_entity('forger')) or die(whisper_nl('{{COLOR-DANGER}}{{ICON-DANGER}} Forger:entity required'));
+  
 
 
   /* INVOKE
    * todo invoke manifest & arise to rune
    *  */
-  if (chanter_option('invoke')) {
-    whisper_nl("{{COLOR-INFO}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune()));
-    $input = whisper_input('Give us the rune name: ');
-    if ($input) {
-      Chanter::get('sentinel --invoke_option=' . $input)();
-    }
-  }
-  if (chanter_option('invoke_option')) {
-    $target = ucfirst(strtolower(chanter_option('invoke_option')));
+  $processing_invoke = function($target) {
+    (aether_has_entity('forger')) ?: die(PHP_EOL.'[!]WARNING: Required Forger:entity'.PHP_EOL);
+
+    $target = ucfirst(strtolower($target));
     if ($target) {
       if (strpos($target, '.') !== false) {
         $target = explode('.', $target);
@@ -211,20 +220,26 @@ Chanter::set('sentinel', function() {
       forger_set(AETHER_REPO . '/'. AETHER_FILE, $rune);
       whisper_nl("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do invoke with '$manifest'");
     }
+  };
+  if (chanter_option('invoke')) {
+    whisper_nl("{{COLOR-INFO}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune()));
+    $input = whisper_input('Give us the rune name: ');
+    if ($input) {
+      $processing_invoke($input);
+    }
+  }
+  if (chanter_option('invoke_option')) {
+    $input = chanter_option('invoke_option');
+    if ($input) {
+      $processing_invoke($input);
+    }
   }
 
 
   /* REVOKE
    * todo revoke manifest & arise in rune
    *  */
-  if (chanter_option('revoke')) {
-    whisper_nl("{{COLOR-INFO}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune()));
-    $input = whisper_input('Give us the rune name: ');
-    if ($input) {
-      Chanter::get('sentinel --revoke_option=' . $input)();
-    }
-  }
-  if (chanter_option('revoke_option')) {
+  $processing_revoke = function($target) {
     $target = ucfirst(strtolower(chanter_option('revoke_option')));
     if ($target) {
       if (strpos($target, '.') !== false) {
@@ -286,6 +301,21 @@ Chanter::set('sentinel', function() {
       
       forger_set(AETHER_REPO . '/'. AETHER_FILE, $rune);
       whisper_nl("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do revoke with '$manifest'");
+    }
+  };
+  if (chanter_option('revoke')) {
+    (aether_has_entity('forger')) ?: die(PHP_EOL.'[!]WARNING: Required Forger:entity'.PHP_EOL);
+
+    whisper_nl("{{COLOR-INFO}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune()));
+    $input = whisper_input('Give us the rune name: ');
+    if ($input) {
+      $processing_revoke($input);
+    }
+  }
+  if (chanter_option('revoke_option')) {
+    $input = chanter_option('revoke_option');
+    if ($input) {
+      $processing_revoke($input);
     }
   }
 

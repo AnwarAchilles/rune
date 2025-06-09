@@ -640,18 +640,30 @@ Nirvana.component(
       });
     }
 
-    async sentinelArise(e) {
+    async sentinelInstaller(e) {
       protect( async ()=> {
-        let resp = await http(baseurl('api/sentinel/arise'), {
-          method: 'POST',
-          headers: Nirvana.data('headers'),
-          body: JSON.stringify({
-            selected: e.target.selected.value
-          })
-        });
+        let type = e.target.type.value;
+        if (type=='invoke') {
+          let resp = await http(baseurl('api/sentinel/invoke'), {
+            method: 'POST',
+            headers: Nirvana.data('headers'),
+            body: JSON.stringify({
+              selected: e.target.selected.value
+            })
+          });
+        }else {
+          let resp = await http(baseurl('api/sentinel/revoke'), {
+            method: 'POST',
+            headers: Nirvana.data('headers'),
+            body: JSON.stringify({
+              selected: e.target.selected.value
+            })
+          });
+        }
       });
       e.preventDefault();
     }
+
 
     async artefactInvoke( button ) {
       button.setAttribute("misc", "d-none");

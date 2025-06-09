@@ -245,7 +245,7 @@
                     <small misc="d-block" text="bold secondary">Information</small>
                     <ol type="1">
                       <li><b text="primary">Altar</b> Todo update this altar with latest.</li>
-                      <li><b text="primary">Arise</b> Todo insert a Manifest & Arise to your bindrune.</li>
+                      <li><b text="primary">Installer</b> Todo install a Manifest & Arise to your rune.</li>
                     </ol>
                   </li>
                   <li size="mb-3">
@@ -253,14 +253,24 @@
                     <button onclick="Nirvana.run('RightPanel').sentinelAltar(this)" button="primary" size="w-1">Deploy or Update</button>
                   </li>
                   <li size="mb-3">
-                    <small misc="d-block" text="bold secondary">Arise</small>
-                    <form onsubmit="Nirvana.run('RightPanel').sentinelArise(event)">
+                    <small misc="d-block" text="bold secondary">Installer</small>
+                    <form onsubmit="Nirvana.run('RightPanel').sentinelInstaller(event)">
                       <div size="mb-1">
                         <img width="12px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAA0dJREFUSEvFll+IlGUUxn9PRYHhIhqELkTC6m5S4M2ClpDhRSRhKRguonghiYK2sApKxOqyqaRE1sVaXYixiArlhWiCQiKCsiWFGhmabWiZVGRIiEmevrOcwZlv35n5Jhf2XM2833nP857/jxgl0Sjh0hCwmT0IzACeBCbGo38BfgQGJP1b1JFCwGY2BdgAzAfGVTH+B3AA2CLpcr0H1AQ2szHAVmAV4N4WkX+AbUCPJP+dlKrAZubhPAg8HTfdyKdZqI8AZ4FLwEMR9unAS9n5gjjzKwPAPEnXU8hJYDN7CjgJjI9Ln7vXkgZruWxmLcBOYE7o/ew1Ielq/t4wYDN7HDgDNIfyJkkbi8TYdczMbb4DrI073wHtkv4ut5EC3ge8FkrdknryoGbmBebhdflG0o2EznvAG3G+I9PprApsZs9E/lznkKSXU56a2Wzgi/j2gqTjCWAvxhPAs8AdrwVJ3npDUuGxme0GlgIelqnliuWGiwBH2FuB81FwmyW9OQzYzB4GfgfGAn2SvIWSUiTUpYtm5r39KjAoaXIK2CvxWHyYK8kr+b7FzJZnhfpxGPIoXqwItZktA3aFQnO1MEcI6xZXmcdehF/Hf+9rnw33cmxm66IN/PyRWlOnaI7LHvlnAHdK2pEH7gK2h0KTpJs1cly3qss8bgL+iv9dkt7NA3dklbwnFNokfT9CwNOAb8PWIkk+JypC7evuVCh0SNo7QsBLgE/Clk+wr/LA3tO/AROAfkl+ISkN5nh/5vFC4FdgkiSrAI5C+BB4HbgFtEq6kkIuCmxmPkB8k/mM+EDSmpK9/ORyRR/qfn40C/2LpReWP6AIcLAVH6WzgLtZFFskOVMZktSS6AcWx/fejM68lfe6yOQys/eB1XH3I0kryu2kgB8DvowF77rOJLqr5TvxqAcAb5nSZrrgi0JSqZfTHkeunWOdzhGBlZJ+qvWAIBB92eZ6PvR8Gz2XIhCNUJ/bwGfAYeBcUB8vGh/87cE6nPqUuJlH7ZUsxNdSj61H9h7NVlov4NXoISwizs2cIL79v8herorbgPVBb30EpsTprZNB37s1U5Ks6jo5dFY5E3giR+h/8IKU5G1TSAoR+kKWGlQaNeD/AN/CQS4/W78WAAAAAElFTkSuQmCC"/>
                         <small>You will arise except rune not exists</small>
                       </div>
+                      <div>
+                        <div flex="middle" size="p-1">
+                          <input type="radio" id="type-1" name="type" value="invoke" checked>
+                          <label for="type-1" size="ms-1">Invoke</label>
+                        </div>
+                        <div flex="middle" size="p-1">
+                          <input type="radio" id="type-2" name="type" value="revoke">
+                          <label for="type-2" size="ms-1">Revoke</label>
+                        </div>
+                      </div>
                       <div size="mb-1">
-                        <input type="text" name="selected" id="selected" placeholder="ex: Whisper, whisper">
+                        <input type="text" name="selected" id="selected" placeholder="whisper|whisper.ether..">
                       </div>
                       <button type="submit" button="primary" size="w-1">Processing</button>
                     </form>
@@ -323,6 +333,7 @@
                     <img width="16px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAA0dJREFUSEvFll+IlGUUxn9PRYHhIhqELkTC6m5S4M2ClpDhRSRhKRguonghiYK2sApKxOqyqaRE1sVaXYixiArlhWiCQiKCsiWFGhmabWiZVGRIiEmevrOcwZlv35n5Jhf2XM2833nP857/jxgl0Sjh0hCwmT0IzACeBCbGo38BfgQGJP1b1JFCwGY2BdgAzAfGVTH+B3AA2CLpcr0H1AQ2szHAVmAV4N4WkX+AbUCPJP+dlKrAZubhPAg8HTfdyKdZqI8AZ4FLwEMR9unAS9n5gjjzKwPAPEnXU8hJYDN7CjgJjI9Ln7vXkgZruWxmLcBOYE7o/ew1Ielq/t4wYDN7HDgDNIfyJkkbi8TYdczMbb4DrI073wHtkv4ut5EC3ge8FkrdknryoGbmBebhdflG0o2EznvAG3G+I9PprApsZs9E/lznkKSXU56a2Wzgi/j2gqTjCWAvxhPAs8AdrwVJ3npDUuGxme0GlgIelqnliuWGiwBH2FuB81FwmyW9OQzYzB4GfgfGAn2SvIWSUiTUpYtm5r39KjAoaXIK2CvxWHyYK8kr+b7FzJZnhfpxGPIoXqwItZktA3aFQnO1MEcI6xZXmcdehF/Hf+9rnw33cmxm66IN/PyRWlOnaI7LHvlnAHdK2pEH7gK2h0KTpJs1cly3qss8bgL+iv9dkt7NA3dklbwnFNokfT9CwNOAb8PWIkk+JypC7evuVCh0SNo7QsBLgE/Clk+wr/LA3tO/AROAfkl+ISkN5nh/5vFC4FdgkiSrAI5C+BB4HbgFtEq6kkIuCmxmPkB8k/mM+EDSmpK9/ORyRR/qfn40C/2LpReWP6AIcLAVH6WzgLtZFFskOVMZktSS6AcWx/fejM68lfe6yOQys/eB1XH3I0kryu2kgB8DvowF77rOJLqr5TvxqAcAb5nSZrrgi0JSqZfTHkeunWOdzhGBlZJ+qvWAIBB92eZ6PvR8Gz2XIhCNUJ/bwGfAYeBcUB8vGh/87cE6nPqUuJlH7ZUsxNdSj61H9h7NVlov4NXoISwizs2cIL79v8herorbgPVBb30EpsTprZNB37s1U5Ks6jo5dFY5E3giR+h/8IKU5G1TSAoR+kKWGlQaNeD/AN/CQS4/W78WAAAAAElFTkSuQmCC"/>
                   </button>
                 </div>
+                <p text="primary">UNDER DEVELOPMENT, FEATURE WILL BE ADDED SOON..</p>
                 <ul list="vertical">
                   <li size="mb-3">
                     <small misc="d-block" text="bold secondary">Response</small>
