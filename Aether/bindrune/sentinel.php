@@ -31,7 +31,7 @@ Chanter::set('sentinel', function() {
   /* ALTAR
    *
    *  */
-  if (chanter_option('altar')) {
+  if (chanter_option('rise_altar')) {
     (aether_has_entity('crafter')) ?: die(PHP_EOL.'[!]WARNING: Required Crafter:entity'.PHP_EOL);
     (aether_has_entity('forger')) ?: die(PHP_EOL.'[!]WARNING: Required Forger:entity'.PHP_EOL);
 
@@ -52,12 +52,15 @@ Chanter::set('sentinel', function() {
     });
     Crafter::run(AETHER_REPO.'/altar.php');
   }
-  if (chanter_option('altar_run')) {
+  if (chanter_option('altar')) {
+    Chanter::get('sentinel rise_altar')();
+
     whisper_clear();
     whisper_nl('');
     whisper_nl('{{COLOR-DANGER}} RUNE ALTAR IS RUNNING ON PORT 8100');
     whisper_nl('{{COLOR-SECONDARY}} stop terminal with CTL+C');
     whisper_nl('');
+
     Aether::localhost([
       'host'=> 'localhost',
       'port'=> 8100,
@@ -130,98 +133,180 @@ Chanter::set('sentinel', function() {
     }
   }
 
-  /* ARISE
-   *
-   *  */
-  if (chanter_option('arise')) {
-    $runes = [];
+
+  $avalaible_rune = function() {
+    $result = [];
     foreach (glob(AETHER_RUNE_LOCATION . '/*') as $rune) {
       if (is_dir($rune)) {
-        $runes[] = basename($rune);
+        $result[] = basename($rune);
       }
     }
+    return $result;
+  };
 
-    whisper_nl("HINTS: Runes Available for you to arise");
-    whisper_nl(implode(', ', $runes));
-    $select = whisper_input('Select rune: ');
-    if ($select) {
-      echo chanter_cast("{{SELF}} arise_select=$select");
+  (aether_has_entity('forger')) or die(whisper_nl('{{COLOR-DANGER}}{{ICON-DANGER}} Forger:entity required'));
+
+
+  /* INVOKE
+   * todo invoke manifest & arise to rune
+   *  */
+  if (chanter_option('invoke')) {
+    whisper_nl("{{COLOR-INFO}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune()));
+    $input = whisper_input('Give us the rune name: ');
+    if ($input) {
+      Chanter::get('sentinel --invoke_option=' . $input)();
     }
   }
-  if (chanter_option('arise_select')) {
-    $select = chanter_option('arise_select');
-
-    function inject_module($source, $module_name) {
-      $use_line   = "use Rune\\{$module_name}\\Manifest as {$module_name};";
-      $arise_line = "{$module_name}::arise();";
-
-      $lines = explode("\n", $source);
-      $new_lines = [];
-      $has_use = false;
-      $has_arise = false;
-
-      // Cek apakah modul sudah dipakai sebelumnya
-      foreach ($lines as $line) {
-          if (trim($line) === $use_line) {
-              $has_use = true;
-          }
-          if (trim($line) === $arise_line) {
-              $has_arise = true;
-          }
+  if (chanter_option('invoke_option')) {
+    $target = ucfirst(strtolower(chanter_option('invoke_option')));
+    if ($target) {
+      if (strpos($target, '.') !== false) {
+        $target = explode('.', $target);
+        $manifest = $target[0];
+        unset($target[0]);
+        $arise = $target;
+        $state_arise = 'multi';
+      }else {
+        $manifest = $target;
+        $state_arise = 'single';
+      }
+      $rune = forger_file(AETHER_REPO . '/'. AETHER_FILE);
+      $prefix_manifest = '#sentinel-manifest';
+      $prefix_arise = '#sentinel-arise';
+      $codex_manifest = "use Rune\\{$manifest}\\Manifest as {$manifest};";
+      // check codex manifest
+      if (strpos($rune, $codex_manifest) !== false) {
+        $rune = weaver_bind_custom($rune, $codex_manifest.PHP_EOL, '');
+      }
+      $rune = weaver_bind_custom($rune, $prefix_manifest, $codex_manifest.PHP_EOL.$prefix_manifest);
+      
+      // arising
+      if ($state_arise=='single') {
+        $codex_arise = "{$manifest}::arise();";
+        // check codex arise
+        if (strpos($rune, $codex_arise) !== false) {
+          $rune = weaver_bind_custom($rune, $codex_arise.PHP_EOL, '');
+        }
+        $rune = weaver_bind_custom($rune, $prefix_arise, $codex_arise.PHP_EOL.$prefix_arise);
+      }else {
+        if (strpos($rune, "{$manifest}::arise();") !== false) {
+          $rune = weaver_bind_custom($rune, "{$manifest}::arise();".PHP_EOL, '');
+        }
+        $codex_arise_list = [
+          'ether'=> "{$manifest}::ether();",
+          'essence'=> "{$manifest}::essence();",
+          'entity'=> "{$manifest}::entity();",
+        ];
+        $codex_arise_select = [];
+        foreach ($arise as $ID) {
+          $codex_arise_select[] = $codex_arise_list[$ID];
+        }
+        $codex_arise = '';
+        foreach ($arise as $ID) {
+          $codex_arise .= $codex_arise_list[$ID].PHP_EOL;
+        }
+        $rune = weaver_bind_custom($rune, $prefix_arise, trim($codex_arise.PHP_EOL).PHP_EOL.$prefix_arise);
       }
 
-      // Kalo udah ada semua, balikin original aja
-      if ($has_use && $has_arise) {
-          return $source;
-      }
-
-      $init_inserted = false;
-      $inst_inserted = false;
-      $in_initialize = false;
-      $in_instance = false;
-
-      foreach ($lines as $line) {
-          // Deteksi akhir RUNE:INITIALIZE
-          if (trim($line) === '// RUNE:INITIALIZE') {
-              $in_initialize = true;
-          } elseif ($in_initialize && trim($line) === '') {
-              if (!$has_use && !$init_inserted) {
-                  $new_lines[] = $use_line;
-                  $init_inserted = true;
-              }
-              $in_initialize = false;
-          }
-
-          // Deteksi akhir RUNE:INSTANCE
-          if (trim($line) === '// RUNE:INSTANCE') {
-              $in_instance = true;
-          } elseif ($in_instance && (trim($line) === '' || strpos(trim($line), '//') === 0)) {
-              if (!$has_arise && !$inst_inserted) {
-                  $new_lines[] = $arise_line;
-                  $inst_inserted = true;
-              }
-              $in_instance = false;
-          }
-
-          $new_lines[] = $line;
-      }
-
-      // Fallback: jika belum tersisip karena akhir block tak terdeteksi
-      if (!$init_inserted && !$has_use) {
-          $new_lines[] = $use_line;
-      }
-      if (!$inst_inserted && !$has_arise) {
-          $new_lines[] = $arise_line;
-      }
-
-      return implode("\n", $new_lines);
+      forger_set(AETHER_REPO . '/'. AETHER_FILE, $rune);
+      whisper_nl("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do invoke with '$manifest'");
     }
-
-    $aether_file = forger_file(AETHER_FILE);
-    $aether_file = inject_module($aether_file, ucfirst($select));
-    forger_set(AETHER_FILE, $aether_file);
-    whisper_nl("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} Rune $select installed");
   }
+
+
+  /* REVOKE
+   * todo revoke manifest & arise in rune
+   *  */
+  if (chanter_option('revoke')) {
+    whisper_nl("{{COLOR-INFO}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune()));
+    $input = whisper_input('Give us the rune name: ');
+    if ($input) {
+      Chanter::get('sentinel --revoke_option=' . $input)();
+    }
+  }
+  if (chanter_option('revoke_option')) {
+    $target = ucfirst(strtolower(chanter_option('revoke_option')));
+    if ($target) {
+      if (strpos($target, '.') !== false) {
+        $target = explode('.', $target);
+        $manifest = $target[0];
+        unset($target[0]);
+        $arise = $target;
+        $state_arise = 'multi';
+      }else {
+        $manifest = $target;
+        $state_arise = 'single';
+      }
+      $rune = forger_file(AETHER_REPO . '/'. AETHER_FILE);
+      $prefix_manifest = '#sentinel-manifest';
+      $prefix_arise = '#sentinel-arise';
+      $codex_manifest = "use Rune\\{$manifest}\\Manifest as {$manifest};";
+      $codex_arise = "{$manifest}::arise();";
+
+      // arising
+      if ($state_arise=='multi') {
+        // delete arise
+        if (strpos($rune, $codex_arise) !== false) {
+          $rune = weaver_bind_custom($rune, $codex_arise.PHP_EOL, '');
+        }
+        $codex_arise_list = [
+          'ether'=> "{$manifest}::ether();",
+          'essence'=> "{$manifest}::essence();",
+          'entity'=> "{$manifest}::entity();",
+        ];
+        $codex_arise_select = [];
+        foreach ($arise as $ID) {
+          $codex_arise_select[] = $codex_arise_list[$ID];
+        }
+        foreach ($codex_arise_select as $codex_arise) {
+          if (strpos($rune, $codex_arise) !== false) {
+            $rune = weaver_bind_custom($rune, $codex_arise.PHP_EOL, '');
+          }
+        }
+      }
+
+      // arise check
+      $check_arise_list = [
+        'ether'=> "{$manifest}::ether();",
+        'essence'=> "{$manifest}::essence();",
+        'entity'=> "{$manifest}::entity();",
+      ];
+      $check_arise_list_state = 3;
+      foreach ($check_arise_list as $ID => $codex_arise) {
+        if (!strpos($rune, $codex_arise) !== false) {
+          $check_arise_list_state -= 1;
+        }
+      }
+      if ($check_arise_list_state == 0) {
+        // delete manifest
+        if (strpos($rune, $codex_manifest) !== false) {
+          $rune = weaver_bind_custom($rune, $codex_manifest.PHP_EOL, '');
+        }
+      }
+      
+      forger_set(AETHER_REPO . '/'. AETHER_FILE, $rune);
+      whisper_nl("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do revoke with '$manifest'");
+    }
+  }
+
+
+  /* CODEX
+   * todo sentinel generate codex
+   *  */
+  if (chanter_option('codex')) {
+    whisper_nl("{{COLOR-DANGER}}{{ICON-WARNING}} Under Development, feature will be added soon..");
+    whisper_nl('');
+  }
+
+
+  /* CHRONICLE
+   * todo sentinel give you back to selected chronicle
+   *  */
+  if (chanter_option('cronicle')) {
+    whisper_nl("{{COLOR-DANGER}}{{ICON-WARNING}} Under Development, feature will be added soon..");
+    whisper_nl('');
+  }
+  
 
 
 

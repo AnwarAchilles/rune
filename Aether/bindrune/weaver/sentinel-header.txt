@@ -7,8 +7,10 @@
   ███████║███████╗██║ ╚████║   ██║   ██║██║ ╚████║███████╗███████╗
   ╚══════╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝
 
+php {{AETHER-FILE}} sentinel --rise_altar
 php {{AETHER-FILE}} sentinel --altar
-php {{AETHER-FILE}} sentinel --altar_run
 php {{AETHER-FILE}} sentinel --inspect
-php {{AETHER-FILE}} sentinel --arise
-php {{AETHER-FILE}} sentinel --rune
+php {{AETHER-FILE}} sentinel --invoke
+php {{AETHER-FILE}} sentinel --revoke
+php {{AETHER-FILE}} sentinel --codex
+php {{AETHER-FILE}} sentinel --cronicle
