@@ -10,7 +10,6 @@ Nirvana.environment({
       'https://images.wallpaperscraft.ru/image/single/devushka_anime_vzgliad_971054_1280x720.jpg',
     ],
     headers: {
-      'Content-type': 'application/json',
       'Rune-file': null,
       'Rune-repo': null,
     }
@@ -252,7 +251,6 @@ Nirvana.component(
       
       Nirvana.store('Altar').set('information', data);
       Nirvana.data('headers', {
-        'Content-type': 'application/json',
         'Rune-file': data.FILE,
         'Rune-repo': data.REPO,
       });
@@ -277,6 +275,17 @@ Nirvana.component(
 Nirvana.component(
   class LeftPanel extends Nirvana {
     async start() {
+      // nest
+      Nest.sync();
+      if (sessionStorage.getItem('NEST@AnwarAchilles')) {
+        select("[nest-card]").item(0).removeAttribute('misc');
+        select("[nest]").item(0).setAttribute('misc', 'd-none');
+      }else {
+        select("[nest-card]").item(0).setAttribute('misc', 'd-none');
+        select("[nest]").item(0).removeAttribute('misc');
+      }
+      
+      // check
       if (sessionStorage.getItem('left-panel--active')) {
         await this.active(sessionStorage.getItem('left-panel--active'));
         let active = sessionStorage.getItem('left-panel--active');
@@ -346,6 +355,10 @@ Nirvana.component(
       }
     }
 
+    async nestLogin() {
+      Nest.run('8cfdbc318bdabf14e8474de1a69d3541');
+    }
+
     async copyCommand( arg ) {
       navigator.clipboard.writeText(text);
     }
@@ -366,6 +379,14 @@ Nirvana.component(
         item[i].classList.remove('show');
       }
       this.select(`#${id}`).item(0).classList.add('show');
+
+      let toggle = id.replace('left-panel--', 'left-panel--toggle-');
+      let toggleItem = select(".left-panel--toggle");
+      for (let i=0; i<toggleItem.length; i++) {
+        toggleItem[i].classList.remove('active');
+      }
+      select(`#${toggle}`).item(0).classList.add('active');
+
       sessionStorage.setItem('left-panel--active', id);
     }
 
@@ -594,7 +615,15 @@ Nirvana.component(
       for (let i=0; i<item.length; i++) {
         item[i].classList.remove('show');
       }
-      this.select(`#${id}`).item(0).classList.add('show');
+      select(`#${id}`).item(0).classList.add('show');
+      
+      let toggle = id.replace('right-panel--', 'right-panel--toggle-');
+      let toggleItem = select(".right-panel--toggle");
+      for (let i=0; i<toggleItem.length; i++) {
+        toggleItem[i].classList.remove('active');
+      }
+      select(`#${toggle}`).item(0).classList.add('active');
+      
       sessionStorage.setItem('right-panel--active', id);
     }
 
@@ -649,13 +678,16 @@ Nirvana.component(
         if (type=='internal') {
           let resp = await http(baseurl('api/artefact/revoke/internal'), {
             method: 'POST',
-            headers: Nirvana.data('headers'),
-            body: JSON.stringify({
-              selected: event.target.selected.value
-            })
+            headers: Nirvana.data('headers')
           });
         }else {
-          
+          const formData = new FormData();
+          formData.append('file', event.target.file.files[0]);
+          let resp = await fetch(baseurl('api/artefact/revoke/external'), {
+            method: 'POST',
+            headers: Nirvana.data('headers'),
+            body: formData
+          });
         }
       });
       event.preventDefault();

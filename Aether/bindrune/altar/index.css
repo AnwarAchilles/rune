@@ -199,6 +199,10 @@ input, textarea {
 #left-panel--content {
   position: relative;
 }
+.left-panel--toggle.active {
+  background-color: var(--color-primary-3) !important;
+}
+
 
 #right-panel {
   position: relative;
@@ -228,6 +232,10 @@ input, textarea {
 #right-panel--content {
   position: relative;
 }
+.right-panel--toggle.active {
+  background-color: var(--color-primary-3) !important;
+}
+
 
 #bottom-panel {
   position: relative;
@@ -354,4 +362,14 @@ body[dark]
 
 *::-webkit-scrollbar-thumb:active {
   background-color: var(--color-primary);
+}
+
+
+[nest] {
+  transform: scale(.8);
+}
+[nest-card] {
+  width: 100% !important;
+  margin: 0;
+  transform: scale(.8);
 }

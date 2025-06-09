@@ -96,7 +96,7 @@ Nirvana::rest('POST', 'api/rune_list', function() {
   $headers = getallheaders();
   $file = $headers['Rune-file'];
   
-  shell_exec("php {$file} sentinel --rune_list__raw");
+  shell_exec("php {$file} grimoire --all");
   $data = file_get_contents(Nirvana::data('ECHOES_RUNES'));
   
   return [ 'source'=> $data ];
@@ -185,4 +185,21 @@ Nirvana::rest('POST', 'api/artefact/revoke/internal', function() {
   shell_exec("php {$file} artefact --revoke_option={$file}.rune");
 
   return [ true ];
+});
+Nirvana::rest('POST', 'api/artefact/revoke/external', function() {
+  $headers = getallheaders();
+  $file = $headers['Rune-file'];
+
+  $fileRune = $_FILES['file']['tmp_name'];
+  $fileRuneName = __DIR__ . '/' . $file . '.rune';
+
+  if (file_exists($fileRuneName)) {
+    unlink($fileRuneName);
+  }
+
+  move_uploaded_file($fileRune, $fileRuneName);
+  
+  shell_exec("php {$file} artefact --revoke_option={$file}.rune");
+  
+  return [true];
 });
