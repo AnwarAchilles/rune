@@ -23,9 +23,11 @@ Chanter::set('base', function() {
     $checkFamiliar = '{{COLOR-SECONDARY}}Not have Keeper try "Rune\Keeper\Manifest::arise()"';
   }
 
-  $header = Weaver::load(__DIR__ . '/weaver/rune-header.txt');
+  $header = Weaver::load(__DIR__ . '/weaver/base-header.txt');
   $header = Weaver::bindAll($header, [
+    'FILE'=> AETHER_FILE,
     'REPO'=> AETHER_REPO,
+    'VERSION'=> AETHER_VERSION,
     'REGISTERED-CLI'=> implode(PHP_EOL, $CHANTER_REGISTERED),
     'FAMILIAR'=> $checkFamiliar,
   ]);

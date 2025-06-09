@@ -5,10 +5,11 @@
   ██████╔╝██║   ██║██╔██╗ ██║█████╗  
   ██╔══██╗██║   ██║██║╚██╗██║██╔══╝  
   ██║  ██║╚██████╔╝██║ ╚████║███████╗
-  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ v{{VERSION}}
   {{COLOR-SECONDARY}}An innovative module that synthesizes HTML, CSS, JS, and PHP into a single, optimized file for seamless deployment.{{COLOR-DEFAULT}}
 
 {{COLOR-PRIMARY}}{{ICON-SECONDARY}} APP State{{COLOR-DEFAULT}}
+File: {{FILE}}
 Repo: {{REPO}}
 Familiar: {{FAMILIAR}}
 
