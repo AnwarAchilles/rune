@@ -1,0 +1,11 @@
+<?php
+/*
+ * Act. 1 - First step of chanter
+ * THE RESONANCE
+ *
+ * Take it easy, with this runes we can get what we want!
+ * let's check what we have with: 
+ *    $php {{FILE}}
+ *    $php {{FILE}} grimoire
+ * 
+ * */

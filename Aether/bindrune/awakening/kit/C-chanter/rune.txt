@@ -1,0 +1,79 @@
+
+/* RUNE MANIFEST
+ * 
+ * load your manifest here, don't delete this comment
+ * if you want @sentinel to help you install rune
+ * 
+ * */
+use Rune\Aether\Manifest as Aether;
+use Rune\Chanter\Manifest as Chanter;
+use Rune\Whisper\Manifest as Whisper;
+use Rune\Weaver\Manifest as Weaver;
+#sentinel-manifest
+
+
+
+/* RUNE ARISE
+ * 
+ * in arise you will load ether, essence, entity.
+ * in some cases if you want optimalize your system arise partial
+ * with ether(), essence(), entity()
+ * 
+ *  */
+Aether::arise();
+Chanter::arise();
+Whisper::arise();
+Weaver::arise();
+#sentinel-arise
+
+
+
+/* RUNE SPACE
+ * 
+ * inner of origin() & awaken() that's your working space
+ * you can build your own Rune by insert variable of require_once
+ * vendor autoload to origin()
+ * 
+ *  */
+Aether::origin();
+
+
+// Let's Code!
+
+
+// spell of fireball
+Chanter::set('fireball', function() {
+  // output to cli
+  Whisper::set('You shot a one {{COLOR-DANGER}}fireball..');
+});
+
+// spell of explosion
+Chanter::set('explosion', function() {
+  // output to cli
+  Whisper::set('You shot a one {{COLOR-DANGER}}explosion..');
+});
+
+// you will shot a spell with option value
+Chanter::set('shot --spell', function() {
+  // get option value
+  $option = Chanter::option('spell');
+  // get an chanter with value
+  Chanter::get($option)();
+});
+
+// you will cast a spell then shot a spell with option value
+Chanter::set('cast --spell', function() {
+  // get option value
+  $option = Chanter::option('spell');
+  // shot a spell by cast the rune, you can cast anything like ping
+  $cast = Chanter::cast("{{SELF}} $option");
+  // output to cli
+  Whisper::set($cast);
+  // output to cli
+  Whisper::set("You cast a spell of {{COLOR-DANGER}}$option..");
+});
+
+
+#sentinel-space
+Aether::awaken();
+// thanks for use this project.

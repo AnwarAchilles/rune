@@ -1,0 +1,14 @@
+  
+  {{COLOR-DANGER}}R U N E{{COLOR-DEFAULT}}
+   █████╗ ██████╗ ████████╗███████╗███████╗ █████╗  ██████╗████████╗
+  ██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔════╝██╔══██╗██╔════╝╚══██╔══╝
+  ███████║██████╔╝   ██║   █████╗  █████╗  ███████║██║        ██║   
+  ██╔══██║██╔══██╗   ██║   ██╔══╝  ██╔══╝  ██╔══██║██║        ██║   
+  ██║  ██║██║  ██║   ██║   ███████╗██║     ██║  ██║╚██████╗   ██║   
+  ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝     ╚═╝  ╚═╝ ╚═════╝   ╚═╝   
+  {{COLOR-SECONDARY}}This is your system structure, forged in runes and sealed within the Grimoire.{{COLOR-DEFAULT}}
+
+php {{AETHER-FILE}} artefact --invoke
+php {{AETHER-FILE}} artefact --revoke
+php {{AETHER-FILE}} artefact --result
+php {{AETHER-FILE}} artefact --remove

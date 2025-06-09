@@ -1,0 +1,11 @@
+<?php
+/*
+ * Act. 1 - Awaken from the void
+ * THE AWAKENING
+ *
+ * Take it easy, with this runes we can get what we want!
+ * let's check what we have with: 
+ *    $php {{FILE}}
+ *    $php {{FILE}} grimoire
+ * 
+ * */

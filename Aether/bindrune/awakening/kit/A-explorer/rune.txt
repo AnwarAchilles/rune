@@ -1,0 +1,56 @@
+
+/* RUNE MANIFEST
+ * 
+ * load your manifest here, don't delete this comment
+ * if you want @sentinel to help you install rune
+ * 
+ * */
+use Rune\Aether\Manifest as Aether;
+use Rune\Chanter\Manifest as Chanter;
+use Rune\Whisper\Manifest as Whisper;
+use Rune\Weaver\Manifest as Weaver;
+use Rune\Keeper\Manifest as Keeper;
+use Rune\Crafter\Manifest as Crafter;
+use Rune\Forger\Manifest as Forger;
+use Rune\Specter\Manifest as Specter;
+use Rune\Cipher\Manifest as Cipher;
+#sentinel-manifest
+
+
+
+/* RUNE ARISE
+ * 
+ * in arise you will load ether, essence, entity.
+ * in some cases if you want optimalize your system arise partial
+ * with ether(), essence(), entity()
+ * 
+ *  */
+Aether::arise();
+Chanter::arise();
+Whisper::arise();
+Weaver::arise();
+Keeper::arise();
+Crafter::arise();
+Forger::arise();
+Specter::arise();
+Cipher::arise();
+#sentinel-arise
+
+
+
+/* RUNE SPACE
+ * 
+ * inner of origin() & awaken() that's your working space
+ * you can build your own Rune by insert variable of require_once
+ * vendor autoload to origin()
+ * 
+ *  */
+Aether::origin();
+
+
+// Let's Code!
+
+
+#sentinel-space
+Aether::awaken();
+// thanks for use this project.

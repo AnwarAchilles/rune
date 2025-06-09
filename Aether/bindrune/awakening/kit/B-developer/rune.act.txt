@@ -1,0 +1,13 @@
+<?php
+/*
+ * Act. 1 - Crafting with rune
+ * THE CONSTRUCT
+ *
+ * Take it easy, with this runes we can get what we want!
+ * let's check what we have with: 
+ *    $php {{FILE}}
+ *    $php {{FILE}} grimoire
+ *    $php {{FILE}} sentinel --inspect
+ *    $php {{FILE}} sentinel --altar
+ * 
+ * */
