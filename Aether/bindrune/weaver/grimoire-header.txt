@@ -8,6 +8,10 @@
   ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝ ╚═════╝ ╚═╝╚═╝  ╚═╝╚══════╝
   {{COLOR-SECONDARY}}This is your system structure, forged in runes and sealed within the Grimoire.{{COLOR-DEFAULT}}
 
+php {{AETHER-FILE}} grimoire --rune
+php {{AETHER-FILE}} grimoire --phantasm
+php {{AETHER-FILE}} grimoire --arcane
+
 php {{AETHER-FILE}} grimoire --all
 php {{AETHER-FILE}} grimoire --one
 php {{AETHER-FILE}} grimoire --arcane

@@ -16,6 +16,7 @@ function forger_file( String $sourcepath, Int $permission = 0644 ) {
   }else {
     touch($sourcepath);
     chmod($sourcepath, $permission);
+    return true;
   }
 }
 
@@ -24,6 +25,7 @@ function forger_folder( String $sourcepath, Int $permission = 0755 ) {
     return true;
   }else {
     mkdir($sourcepath, $permission, true);
+    return true;
   }
 }
 

@@ -9,7 +9,7 @@ namespace Rune\Aether;
 
 class Phantasm {
 
-  public $version = 0.1;
+  public $version = 0.2;
   
   public $main = 'Aether';
 

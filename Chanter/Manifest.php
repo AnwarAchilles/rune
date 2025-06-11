@@ -13,7 +13,6 @@ class Manifest extends \Rune\Manifest {
 
   public static function _arise() {
     self::phantasm();
-    
   }
 
 
@@ -29,23 +28,17 @@ class Manifest extends \Rune\Manifest {
     }else {
       self::get("base")();
     }
-    
-    (!aether_has_entity('whisper')) ?: 
-      whisper_nl('{{COLOR-SECONDARY}}{{ICON-INFO}}{{LABEL-INFO}}Rune process end in ' . aether_stopwatch());
-      whisper_nl('{{COLOR-SECONDARY}}{{ICON-INFO}}{{LABEL-INFO}}Rune memory usage is ' . aether_memoryusage());
   }
 
   
   public static function get( String $arg ) {
     global $CHANTER_LIST;
 
-    aether_log("Chanter.manifest.get: " . $arg);
     chanter_arg($arg);
     $arg = chanter_option_clean($arg);
     if (isset($CHANTER_LIST[$arg])) {
       return $CHANTER_LIST[$arg];
     }else {
-      aether_log("Chanter.manifest.get: Unknown chanter with last argument not found");
       return function() use ($arg) {
         global $AETHER_FAMILIAR;
         global $CHANTER_REGISTERED;
@@ -82,7 +75,6 @@ class Manifest extends \Rune\Manifest {
   public static function run( String $arg ) {
     global $AETHER_FAMILIAR;
     
-    aether_log("Chanter.manifest.run: " . $arg);
     $arg = chanter_option_clean($arg);
     self::get($arg)();
   }

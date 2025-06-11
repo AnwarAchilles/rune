@@ -41,6 +41,128 @@ Chanter::set('grimoire', function() {
   whisper_clear();
   whisper_nl($header);
   whisper_nl("");
+
+
+  /* Rune
+   * todo get all rune
+   *  */
+  $processing_get_all_rune = function() use ($tab, $default_list) {
+    $manifests = [];
+    // internal rune
+    foreach (glob(AETHER_RUNE_LOCATION . '/*') as $manifest) {
+      if (is_dir($manifest)) {
+        $pathinfo = pathinfo($manifest);
+  
+        $manifests[] = [
+          'Rune\\' . $pathinfo['basename'] . '\\Manifest',
+          AETHER_RUNE_LOCATION, 
+          'internal'
+        ];
+      }
+    }
+    // external rune
+    if (file_exists(AETHER_REPO . '/.bindrune')) {
+      foreach (glob(AETHER_REPO . '/.bindrune/*') as $manifest) {
+        if (is_dir($manifest)) {
+          $pathinfo = pathinfo($manifest);
+          $manifests[] = [
+            'Rune\\' . $pathinfo['basename'] . '\\Manifest',
+            realpath(AETHER_REPO . '/.bindrune'),
+            'external'
+          ];
+        }
+      }
+    }
+    return $manifests;
+  };
+  $processing_get_rune = function( $rune ) use ($tab, $default_list) {
+    $manifest = 'Rune\\' . $rune . '\\Manifest';
+    $phantasm = 'Rune\\' . $rune . '\\Phantasm';
+    $phantasm = new $phantasm();
+    $phantasm->list = array_merge($default_list, $phantasm->list);
+    $x = (object) [
+      'main'=> (isset($phantasm->main)) ? $phantasm->main : '-',
+      'version'=> (isset($phantasm->version)) ? $phantasm->version : '-',
+      'user'=> (isset($phantasm->user)) ? $phantasm->user : '-',
+      'note'=> (isset($phantasm->note)) ? $phantasm->note : '-',
+      'need'=> (isset($phantasm->need)) ? $phantasm->need : '-',
+      'mark'=> (isset($phantasm->mark)) ? $phantasm->mark : false,
+    ];
+    
+    whisper_il("$tab");
+    whisper_il("{{COLOR-PRIMARY}}{{ICON-PRIMARY}} $x->main");
+    whisper_il("$tab-$tab{{COLOR-INFO}}v$x->version");
+    whisper_nl("");
+    if ($x->mark) {
+      whisper_nl("$tab$tab{{COLOR-WARNING}}{{ICON-WARNING}}{{LABEL-WARNING}}This rune is marked as $x->mark.");
+    }
+    whisper_nl("$tab$tab{{COLOR-SECONDARY}}[M] $manifest");
+    whisper_nl("$tab$tab{{COLOR-SECONDARY}}[U] $x->user");
+    whisper_nl("$tab$tab{{COLOR-SECONDARY}}[N] $x->note");
+
+    whisper_nl("$tab$tab{{COLOR-INFO}}Need of Rune:");
+    if (count($x->need) == 0) {
+      whisper_nl("$tab$tab$tab{{COLOR-SECONDARY}} (THIS RUNE IS STANDALONE)");
+    }
+    foreach ($x->need as $need) {
+      whisper_nl("$tab$tab$tab{{COLOR-DEFAULT}} $need[0] {{COLOR-DANGER}}$need[1] {{COLOR-SECONDARY}}v$need[2]^");
+    }
+      
+    whisper_nl("$tab$tab{{COLOR-INFO}}List of Phantasm:");
+    foreach ($phantasm->list as $list) {
+      $list = (object) $list;
+      whisper_il("$tab$tab");
+      whisper_il("$tab{{COLOR-DANGER}}$list->type");
+      whisper_il("$tab{{COLOR-DEFAULT}}$list->call");
+      whisper_il("$tab{{COLOR-SECONDARY}}$list->note");
+      whisper_nl("$tab");
+    }
+
+    whisper_nl("");
+    return $x;
+  };
+  if (chanter_option('rune')) {
+    $input = whisper_input('Give us the rune name: ');
+    if ($input) {
+      whisper_clear();
+      $processing_get_rune( $input );
+    }
+  }
+  if (chanter_option('rune_option')) {
+    $input = chanter_option('rune_option');
+    if ($input) {
+      whisper_clear();
+      $processing_get_rune( $input );
+    }
+  }
+
+
+  /* PHANTASM
+   * todo result all phantasm
+   *  */
+  if (chanter_option('phantasm')) {
+    whisper_clear();
+    $list = $processing_get_all_rune();
+    $keeper_runes = [];
+    foreach ($list as $rune) {
+      $rune = str_replace('Rune\\', '', $rune[0]);
+      $rune = str_replace('\\Manifest', '', $rune);
+      $keeper_runes[] = $processing_get_rune( $rune );
+    }
+    if (aether_has_entity('keeper')) {
+      keeper_set('phantasm.json', json_encode($keeper_runes));
+    }
+  }
+
+
+  /* ARCANE
+   * todo get current logs/arcane
+   *  */
+  if (chanter_option('arcane')) {
+
+  }
+
+
   
   /* BASE
    *
@@ -258,14 +380,7 @@ Chanter::set('grimoire', function() {
   }
 
 
-  /* ARCANE
-   *
-   *  */
-  if (chanter_option('arcane')) {
-    whisper_nl(
-      Weaver::load(__DIR__ . '/weaver/grimoire-arcane-concept.txt')
-    );
-  }
+  
 
 
 });

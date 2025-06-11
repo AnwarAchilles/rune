@@ -14,36 +14,40 @@ function keeper() {
 }
 
 function keeper_set( String $source, $datas ) {
-  forger_folder(AETHER_REPO . '/.echoes/');
-  forger_file(AETHER_REPO . '/.echoes/' . $source);
-  forger_set(AETHER_REPO . '/.echoes/' . $source, $datas);
+  forger_folder(AETHER_ECHOES_RUNE);
+  forger_file(AETHER_ECHOES_RUNE . $source);
+  forger_set(AETHER_ECHOES_RUNE . $source, $datas);
 }
 
 function keeper_get( String $source ) {
-  return forger_file(AETHER_REPO . '/.echoes/' . $source);
+  return forger_file(AETHER_ECHOES_RUNE . $source);
 }
 
 function keeper_has( String $source ) {
-  return file_exists(AETHER_REPO . '/.echoes/' . $source);
-}
-
-function keeper_log( String $text ) {
-  $text = '[' . date('Y-m-d H:i:s') . '] ' . $text;
-  if (keeper_has('log.txt')) {
-    $last = keeper_get('log.txt');
-    $data = $last . PHP_EOL . $text;
-    keeper_set('log.txt', $data);
-  }else {
-    keeper_set('log.txt', $text);
-  }
-}
-
-function keeper_log_clear() {
-  keeper_set('log.txt', '');
+  return file_exists(AETHER_ECHOES_RUNE . $source);
 }
 
 
 
+function keeper_raw_set( String $source, $datas ) {
+  forger_folder(AETHER_ECHOES);
+  forger_file(AETHER_ECHOES . $source);
+  return forger_set(AETHER_ECHOES . $source, $datas);
+}
+
+function keeper_raw_get( String $source ) {
+  return forger_file(AETHER_ECHOES . $source);
+}
+
+function keeper_raw_has( String $source ) {
+  return file_exists(AETHER_ECHOES . $source);
+}
+
+function keeper_data_set( String $source, $datas ) {
+  $data = json_encode($datas, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+  $data = str_replace('    ', '  ', $data);
+  keeper_raw_set($source, $data);
+}
 
 
 
