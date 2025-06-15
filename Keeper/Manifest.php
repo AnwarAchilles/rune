@@ -18,7 +18,9 @@ class Manifest extends \Rune\Manifest {
 
   }
   
-  public static function run() {}
+  public static function awaken() {
+    
+  }
 
 
   public static function artefact( Array $rune_crafter )

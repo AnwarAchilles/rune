@@ -20,13 +20,10 @@ class Manifest extends \Rune\Manifest {
   // }
 
   public static function _arise() {
-    self::phantasm();
-    
+    // self::phantasm();
   }
 
   public static function origin( $vendor=null ) {
-    aether_arcane("Aether.manifest.origin", true);
-    
     global $AETHER_PHANTASM;
     
     // vendor
@@ -39,64 +36,55 @@ class Manifest extends \Rune\Manifest {
     }
     
     // phantasm
-    aether_arcane("Aether.manifest.origin: create phantasm");
-    foreach ($AETHER_PHANTASM as $phantasm) {
-      if (aether_has_entity('whisper')) {
-        whisper_nl("{{COLOR-SECONDARY}}{{ICON-WARNING}}$phantasm");
-      }else if (aether_has_entity('forger')) {
-        aether_arcane($phantasm);
-      }else {
-        print($phantasm);
-      }
-    }
+    // foreach ($AETHER_PHANTASM as $phantasm) {
+    //   if (aether_has_entity('whisper')) {
+    //     whisper_nl("{{COLOR-SECONDARY}}{{ICON-WARNING}}$phantasm");
+    //   }else if (aether_has_entity('forger')) {
+    //     aether_arcane($phantasm);
+    //   }else {
+    //     print($phantasm);
+    //   }
+    // }
     
-    // familiar
-    aether_arcane("Aether.manifest.origin: setup familiar");
     if (aether_has_entity('keeper')) {
       if (keeper_has('familiar.json')) {
         global $AETHER_FAMILIAR;
         $AETHER_FAMILIAR = true;
-      }else {
-        aether_arcane("Aether.manifest.origin: familiar status not ready");
       }
     }
     
     // do binding rune
-    foreach (glob(__DIR__.'/bindrune/*.php') as $enchant) {
-      require_once $enchant;
-    }
-    aether_arcane("Aether.manifest.origin: binding runes");
+    // foreach (glob(__DIR__.'/bindrune/*.php') as $enchant) {
+    //   require_once $enchant;
+    // }
 
     // end
-    aether_arcane("Aether.manifest.origin", false);
+    aether_arcane("Aether.manifest.origin");
   }
 
   public static function awaken()
   {
-    aether_arcane("Aether.manifest.awaken", true);
-
     global $AETHER_ARISED;
     global $AETHER_FAMILIAR;
     global $AETHER_PHANTASM;
     global $CHANTER_REGISTERED;
     global $CHANTER_NOTE;
-    Chanter::awaken();
-    
-    if (aether_has_entity('keeper')) {
-      // keeper_set('information.json', json_encode([
-      //   'FILE'=> AETHER_FILE,
-      //   'REPO'=> AETHER_REPO,
-      //   'VERSION'=> AETHER_VERSION,
-      //   'FAMILIAR'=> $AETHER_FAMILIAR,
-      //   'CHANTER_REGISTERED'=> $CHANTER_REGISTERED,
-      //   'CHANTER_NOTE'=> $CHANTER_NOTE,
-      //   'ARISED'=> $AETHER_ARISED
-      // ]));
-    }
 
+    // Chanter::awaken();
     
-    aether_arcane("Aether.manifest.awaken", false);
+    // if (aether_has_entity('keeper')) {
+    //   keeper_set('information.json', json_encode([
+    //     'FILE'=> AETHER_FILE,
+    //     'REPO'=> AETHER_REPO,
+    //     'VERSION'=> AETHER_VERSION,
+    //     'FAMILIAR'=> $AETHER_FAMILIAR,
+    //     'CHANTER_REGISTERED'=> $CHANTER_REGISTERED,
+    //     'CHANTER_NOTE'=> $CHANTER_NOTE,
+    //     'ARISED'=> $AETHER_ARISED
+    //   ]));
+    // }
 
+    // extra
     $memory = aether_memoryusage();
     aether_whisper_nl(
       '{{COLOR-SECONDARY}}{{ICON-INFO}}{{LABEL-INFO}}Rune memory usage is ' .
@@ -109,6 +97,8 @@ class Manifest extends \Rune\Manifest {
       number_format($stopwatch, 4) . ' seconds'
     );
 
+    // end
+    aether_arcane("Aether.manifest.awaken");
     // development mode
     aether_arcane_pretty_print();
   }

@@ -5,76 +5,87 @@ namespace Rune;
 class Manifest {
 
   protected static $origin = __DIR__;
+
   protected static $mana = 0;
 
-  public static $manifest = [];
-  public static $phantasm = [];
+  // public static $manifest = [];
+  // public static $phantasm = [];
 
-  public static $hasEther = false;
-  public static $hasEntity = false;
-  public static $hasEssence = false;
-  public static $hasPhantasm = false;
+  // public static $hasEther = false;
+  // public static $hasEntity = false;
+  // public static $hasEssence = false;
+  // public static $hasPhantasm = false;
   
 
   // intialize
   public static function arise() {
-    global $AETHER_ARISED;
-    global $AETHER_PHANTASM;
+    // global $AETHER_ARISED;
+    // global $AETHER_PHANTASM;
 
     
     self::ether();
     self::essence();
     self::entity();
 
-    $AETHER_ARISED[static::class] = [
-      'ether'=> true,
-      'entity'=> true,
-      'essence'=> true
-    ];
+    // $AETHER_ARISED[static::class] = [
+    //   'ether'=> true,
+    //   'entity'=> true,
+    //   'essence'=> true
+    // ];
     
     if (method_exists(static::class, '_arise')) {
+      $name = str_replace('Rune\\', '', static::class);
+      $name = str_replace('\\Manifest', '', $name);
+
       static::_arise();
+
+      aether_arcane($name.'.manifest.arise');
     }
 
-    unset($AETHER_PHANTASM[static::class]);
+    // unset($AETHER_PHANTASM[static::class]);
     
-    aether_arcane('Manifest.arise: ' . static::class, false);
   }
 
   // load entity
   public static function entity() {
-    global $AETHER_ARISED;
+    global $AETHER_RUNE_ENTITY;
+    // global $AETHER_ARISED;
 
-    if (!self::$hasEntity) {
-      self::$hasEntity = true;
-    }
+    // if (!self::$hasEntity) {
+    //   self::$hasEntity = true;
+    // }
     require_once static::$origin . "/Entity.php";
 
-    $AETHER_ARISED[static::class]['entity'] = true;
+    // $AETHER_ARISED[static::class]['entity'] = true;
+    $AETHER_RUNE_ENTITY[] = static::class;
   }
 
   // load essence
   public static function essence() {
-    global $AETHER_ARISED;
+    global $AETHER_RUNE_ESSENCE;
+    // global $AETHER_ARISED;
 
-    if (!self::$hasEssence) {
-      self::$hasEssence = true;
-    }
+    // if (!self::$hasEssence) {
+    //   self::$hasEssence = true;
+    // }
     require_once static::$origin . "/Essence.php";
 
-    $AETHER_ARISED[static::class]['essence'] = true;
+    // $AETHER_ARISED[static::class]['essence'] = true;
+    $AETHER_RUNE_ESSENCE[] = static::class;
   }
 
   // load ether
   public static function ether() {
-    global $AETHER_ARISED;
-
-    if (!self::$hasEther) {
-      self::$hasEther = true;
-    }
+    global $AETHER_RUNE_ETHER;
+    // global $AETHER_ARISED;
+    
+    // if (!self::$hasEther) {
+    //   self::$hasEther = true;
+    // }
     require_once static::$origin . "/Ether.php";
-
-    $AETHER_ARISED[static::class]['ether'] = true;
+    
+    // $AETHER_ARISED[static::class]['ether'] = true;
+    $AETHER_RUNE_ETHER[] = static::class;
   }
 
   // load phantasm
