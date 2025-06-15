@@ -1,13 +1,4 @@
 <?php
 
 
-define('WHISPER', '');
-
-
-
-
-define('WHISPER_INLINE', 'WHISPER_INLINE');
-
-define('WHISPER_STAGING', 'WHISPER_STAGING');
-
-define('WHISPER_SILENCE', 'WHISPER_SILENCE');
+define('WHISPER', true);

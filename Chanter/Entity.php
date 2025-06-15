@@ -97,9 +97,12 @@ function chanter_arg( String $newArg = '' ) {
 function chanter_arg_extract( String $newArg = '' ) {
   global $CHANTER_ARG_CAST;
   global $CHANTER_ARG_SPELL;
+  global $CHANTER_SPELL;
 
   $CHANTER_ARG_CAST = [];
-  $CHANTER_ARG_SPELL = array_merge([], $CHANTER_ARG_SPELL);
+  $CHANTER_ARG_SPELL = $CHANTER_SPELL;
+  // $CHANTER_ARG_SPELL = array_merge($CHANTER_ARG_SPELL, []);
+  // $CHANTER_ARG_SPELL = array_merge($CHANTER_ARG_SPELL, []);
 
   if (!empty($newArg)) {
     $args = explode(' ', $newArg);
@@ -112,25 +115,20 @@ function chanter_arg_extract( String $newArg = '' ) {
     if (strpos($arg, '--')!==false) {
       if (preg_match('/^--([a-zA-Z0-9_-]+)(?:=(.*))?$/', $arg, $match)) {
         $key = str_replace('--', '', $match[1]);
-        $value = isset($match[2]) ? $match[2] : true;
+        $value = (isset($match[2])) ? $match[2] : false;
+        $value = (!empty($value)) ? $value : true;
         $CHANTER_ARG_SPELL[$key] = $value;
       }
     }else {
       $CHANTER_ARG_CAST[] = $arg;
     }
   }
-
+  
   $CHANTER_ARG_CAST = trim(implode(' ', $CHANTER_ARG_CAST));
 
   aether_arcane("Chanter.entity.chanter_arg_extract");
 }
 
-function chanter_arg_get_cast() {
-  global $CHANTER_ARG_CAST;
-  
-  aether_arcane("Chanter.entity.chanter_arg_cast");
-  return $CHANTER_ARG_CAST;
-}
 
 
 /* CAST
@@ -152,13 +150,15 @@ function chanter_cast_set( String $arg, Callable $callable ) {
   global $CHANTER_ARG_CAST;
   global $CHANTER_CAST;
   global $CHANTER_CAST_LIST;
+  global $CHANTER_ECHO;
 
   chanter_arg_extract( $arg );
-
+  
   if (!in_array($CHANTER_ARG_CAST, $CHANTER_CAST_LIST)) {
     $CHANTER_CAST[$CHANTER_ARG_CAST] = $callable;
+    $CHANTER_ECHO[$CHANTER_ARG_CAST] = [$CHANTER_ARG_CAST, $arg, ''];
   }
-
+  
   aether_arcane("Chanter.entity.chanter_set");
 }
 
@@ -211,9 +211,9 @@ function chanter_spell( String $name, $values = NULL ) {
 }
 
 function chanter_spell_set( String $name, String $value ) {
-  global $CHANTER_ARG_SPELL;
+  global $CHANTER_SPELL;
 
-  $CHANTER_ARG_SPELL[$name] = $value;
+  $CHANTER_SPELL[$name] = $value;
   
   aether_arcane("Chanter.entity.chanter_spell_set");
   return true;
@@ -222,12 +222,10 @@ function chanter_spell_set( String $name, String $value ) {
 function chanter_spell_get( String $name ) {
   global $CHANTER_ARG_SPELL;
 
-  $return = false;
-
   if (isset($CHANTER_ARG_SPELL[$name])) {
     $return = $CHANTER_ARG_SPELL[$name];
   }else {
-    $return = true;
+    $return = false;
   };
 
   aether_arcane("Chanter.entity.chanter_spell_get");
@@ -242,8 +240,19 @@ function chanter_spell_chain() {
     $spell .= '--'.$key.'='.$value.' ';
   }
   
+  $spell = trim($spell);
   aether_arcane("Chanter.entity.chanter_spell_chain");
   return $spell;
+}
+
+function chanter_spell_has( String $name ) {
+  global $CHANTER_ARG_SPELL;
+
+  if (isset($CHANTER_ARG_SPELL[$name]) && $CHANTER_ARG_SPELL[$name] !== '1') {
+    $return = true;
+  }else {
+    $return = false;
+  };
 }
 
 
@@ -265,5 +274,25 @@ function chanter_echo( String $echo ) {
   }
 
   aether_arcane("Chanter.entity.chanter_echo");
+  return $return;
+}
+
+function chanter_echo_set( String $arg, String $notes ) {
+  global $CHANTER_ECHO;
+
+  if (!isset($CHANTER_ECHO[$arg])) {
+    $CHANTER_ECHO[$arg][2] = $notes;
+  }
+  
+  aether_arcane("Chanter.entity.chanter_echo_set");
+  return true;
+}
+
+function chanter_echo_get( String $arg ) {
+  global $CHANTER_ECHO;
+
+  $return = (isset($CHANTER_ECHO[$arg])) ? $CHANTER_ECHO[$arg] : false;
+  
+  aether_arcane("Chanter.entity.chanter_echo_get");
   return $return;
 }

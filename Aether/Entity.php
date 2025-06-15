@@ -71,7 +71,9 @@ function aether_log_clear() {
 }
 
 function aether_dd($data) { 
-  print_r($data); 
+  print(PHP_EOL.'AETHER DUBGGING :: START'.PHP_EOL);
+  var_dump($data); 
+  print(PHP_EOL.'AETHER DUBGGING :: END in '.number_format(aether_stopwatch(), 4).'ms'.PHP_EOL);
   die;
 }
 
@@ -83,20 +85,20 @@ function aether_dd($data) {
 
 /* PHANTASM OF WHISPER */
 function aether_whisper( $text ) {
-  if (aether_has_entity('whisper')) {
-    whisper_nl($text);
-  }else {
-    print(preg_replace('/\{\{.*?\}\}/', '', $text).PHP_EOL);
-  }
+  // if (aether_has_entity('whisper')) {
+  //   whisper_emit($text);
+  // }else {
+  // }
+  print(preg_replace('/\{\{.*?\}\}/', '', $text).PHP_EOL);
 }
-function aether_whisper_nl( $text ) {
+function aether_whisper_emit( $text ) {
   if (aether_has_entity('whisper')) {
-    whisper_nl($text);
+    whisper_emit($text);
   }else {
     print(preg_replace('/\{\{.*?\}\}/', '', $text).PHP_EOL);
   }
 
-  aether_arcane("Aether.entity.aether_whisper_nl");
+  aether_arcane("Aether.entity.aether_whisper_emit");
 }
 
 
@@ -120,45 +122,61 @@ function aether_arised() {
  * need: Forger, Keeper
  *  */
 function aether_arcane(String $text, String $value = NULL) {
-  global $AETHER_ARCANE_ITEMS;
+  global $AETHER_ARCANE;
   global $AETHER_STOPWATCH;
 
-  $now = microtime(true);
+  $process = function() use (&$AETHER_ARCANE, &$AETHER_STOPWATCH, &$text, &$value) {
+    $now = microtime(true);
+    
+    $global_stopwatch = $now - $AETHER_STOPWATCH;
+  
+    $AETHER_ARCANE[] = [
+      time(),
+      $global_stopwatch,
+      $text,
+      $value
+    ];
+  };
 
-  $global_stopwatch = $now - $AETHER_STOPWATCH;
-
-  $AETHER_ARCANE_ITEMS[] = [
-    time(),
-    $global_stopwatch,
-    $text,
-    $value
-  ];
+  if (isset($AETHER_ARCANE[2])) {
+    if ($text !== end($AETHER_ARCANE)[2]) {
+      $lastkey = array_key_last($AETHER_ARCANE);
+      $process();
+    }
+  }else {
+    $process();
+  }
 }
 
 function aether_arcane_pretty_print() {
-  global $AETHER_ARCANE_ITEMS;
+  global $AETHER_ARCANE;
 
-  whisper_nl("");
-  whisper_nl("{{COLOR-DANGER}} AETHER ARCANE");
-
+  print(PHP_EOL."ARCANE".PHP_EOL);
   $datas = '';
-  foreach ($AETHER_ARCANE_ITEMS as $item) {
+  foreach ($AETHER_ARCANE as $item) {
     $datetime = date('Y-m-d H:i:s', $item[0]);
     $stopwatch = number_format($item[1], 4);
     $response = $item[2];
-    whisper_il("{{COLOR-SECONDARY}} [$datetime] ");
-    whisper_il("{{COLOR-DEFAULT}} [$stopwatch] ");
-
-    if (strpos($response,'arise') !== false) {
-      whisper_il("{{COLOR-PRIMARY}} $response ");
-    }else if (strpos($response,'manifest') !== false) {
-      whisper_il("{{COLOR-DANGER}} $response ");
-    }else if (strpos($response,'entity') !== false) {
-      whisper_il("{{COLOR-INFO}} $response ");
-    }else {
-      whisper_il("{{COLOR-DEFAULT}} $response ");
-    }
+    $value = (isset($item[3])) ? $item[3] : '';
     
-    whisper_nl("");
+    if (aether_has_entity('whisper')) {
+      if (strpos($item[2], 'manifest') !== false) {
+        $state = '{{color-danger}}';
+      }else if (strpos($item[2], 'entity') !== false) {
+        $state = '{{color-info}}';
+      }else {
+        $state = '{{color-default}}';
+      }
+      // whisper_emit("{{color-secondary}}[$datetime] [$stopwatch] {$state}{$response} {{nl}}");
+      $datas .= "{{color-secondary}}[$datetime] [$stopwatch] {$state}{$response}: $value {{nl}}";
+    }else {
+      // print("[$datetime] [$stopwatch] $response" . PHP_EOL);
+      $datas .= "[$datetime] [$stopwatch] {$response}: $value " . PHP_EOL;
+    }
+  }
+  if (aether_has_entity('whisper')) {
+    whisper_emit($datas);
+  }else {
+    print($datas);
   }
 }

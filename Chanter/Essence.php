@@ -25,6 +25,8 @@ $GLOBALS['CHANTER_ARG_CAST'] = [];
 
 $GLOBALS['CHANTER_ARG_SPELL'] = [];
 
+$GLOBALS['CHANTER_ARG_LIST'] = [];
+
 
 /* CAST
  * todo cast cli */
@@ -32,6 +34,10 @@ $GLOBALS['CHANTER_CAST'] = [];
 
 $GLOBALS['CHANTER_CAST_LIST'] = [];
 
+/* SPELL
+ * todo spell mangement
+ *  */
+$GLOBALS['CHANTER_SPELL'] = [];
 
 /* ECHO
  * todo set echo of the cast */

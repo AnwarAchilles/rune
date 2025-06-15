@@ -4,7 +4,7 @@ use Rune\Chanter\Manifest as Chanter;
 use Rune\Weaver\Manifest as Weaver;
 
 // familiar
-Chanter::set('familiar', function() {
+Chanter::cast('familiar', function() {
   (aether_has_entity('whisper')) ?: die(PHP_EOL.'[!]WARNING: Required Whisper:entity'.PHP_EOL);
   (aether_has_entity('keeper')) ?: die(PHP_EOL.'[!]WARNING: Required Keeper:entity'.PHP_EOL);
 

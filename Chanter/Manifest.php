@@ -11,42 +11,34 @@ class Manifest extends \Rune\Manifest {
 
   protected static $origin = __DIR__;
 
-  public static function _arise() {
-    self::phantasm();
+  // middleware arise
+  public static function _arise() {}
 
-  }
-
-  public static function _aether_awaken() {
+  // middleware aether awaken
+  public static function _aether_awaken_before() {
     self::awaken();
   }
 
+  // self awaken
   public static function awaken() {
-    // global $AETHER_FAMILIAR;
-
-    // $args = chanter_args();
-    // $arg = chanter_arg();
-    // $arg = str_replace(AETHER_FILE.' ', '', $arg);
-    // $arg = str_replace(AETHER_FILE, '', $arg);
-    // if (count($args) > 1) {
-    //   self::get($arg)();
-    // }else {
-    //   self::get("base")();
-    // }
-
     global $CHANTER_ARG;
     global $CHANTER_ARG_CAST;
     global $CHANTER_ARG_SPELL;
-
+    
     chanter_arg_extract();
     $spell = chanter_spell_chain();
     $cast = $CHANTER_ARG_CAST . ' ' . $spell;
-
-    chanter_cast_get($cast)();
+    
+    if ($CHANTER_ARG == AETHER_FILE) {
+      chanter_cast_get('base')();
+    }else {
+      chanter_cast_get($cast)();
+    }
 
     aether_arcane("Chanter.manifest.awaken");
   }
 
-  /* SHORTCUT */
+  // cast
   public static function cast( String $args, Callable $callable = NULL ) {
     if (empty($callable)) {
       $return = chanter_cast_get($args);
@@ -59,6 +51,7 @@ class Manifest extends \Rune\Manifest {
     return $return;
   }
   
+  // spell
   public static function spell( String $name, $values = NULL ) {
     if (empty($values)) {
       $return = chanter_spell_get($name);
@@ -71,6 +64,7 @@ class Manifest extends \Rune\Manifest {
     return $return;
   }
 
+  // echo
   public static function echo( String $text ) {
     chanter_echo($text);
     

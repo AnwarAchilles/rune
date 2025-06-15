@@ -5,12 +5,8 @@ use Rune\Aether\Manifest as Aether;
 use Rune\Chanter\Manifest as Chanter;
 use Rune\Weaver\Manifest as Weaver;
 use Rune\Whisper\Manifest as Whisper;
-use Rune\Keeper\Manifest as Keeper;
-use Rune\Minister\Manifest as Minister;
 use Rune\Forger\Manifest as Forger;
-use Rune\Crafter\Manifest as Crafter;
-use Rune\Cipher\Manifest as Cipher;
-use Rune\Specter\Manifest as Specter;
+use Rune\Keeper\Manifest as Keeper;
 
 // RUNE:INSTANCE
 Aether::arise();
@@ -18,21 +14,18 @@ Chanter::arise();
 Weaver::arise();
 Whisper::arise();
 Forger::arise();
-Crafter::arise();
 Keeper::arise();
-Minister::arise();
-Cipher::arise();
-Specter::arise();
 
 
 // RUNE:AWAKENING
 Aether::origin();
 
-Chanter::set('awakening', function() {
-  whisper_clear();
-  whisper_nl('');
-  whisper_nl('{{COLOR-DANGER}} RUNE AWAKENING');
-  whisper_nl('{{COLOR-SECONDARY}} awaken the rune from the void...');
+Chanter::cast('awakening', function() {
+  Whisper::clear();
+  Whisper::emit('{{COLOR-DANGER}} RUNE AWAKENING {{nl}}');
+  Whisper::emit('{{COLOR-SECONDARY}} awaken the rune from the void... {{nl}}');
+
+  
 
   $rune = (object) [
     'act'=> '',
@@ -40,36 +33,36 @@ Chanter::set('awakening', function() {
     'asset'=> [],
   ];
   $processing = function( $rune, $timing ) {
-    $target = forger_file(AETHER_REPO.'/'.AETHER_FILE);
-    $act_void = forger_file(__DIR__ . '/awakening.txt');
+    $target = Forger::item(AETHER_REPO.'/'.AETHER_FILE);
+    $act_void = Forger::item(__DIR__ . '/awakening.txt');
 
     $rune->act = weaver_bind($rune->act, 'file', AETHER_FILE);
 
-    $target = weaver_bind_custom($target, 'use Rune\Aether\Manifest as Aether;', '');
-    $target = weaver_bind_custom($target, PHP_EOL.PHP_EOL, PHP_EOL);
-    $target = weaver_bind_custom($target, '<?php', $rune->act);
-    $target = weaver_bind_custom($target, $act_void, '');
-    $target = weaver_bind_custom($target, 'Aether::awakening();', $rune->main);
+    $target = str_replace('use Rune\Aether\Manifest as Aether;', '', $target);
+    $target = str_replace(PHP_EOL.PHP_EOL, PHP_EOL, $target);
+    $target = str_replace('<?php', $rune->act, $target);
+    $target = str_replace($act_void, '', $target);
+    $target = str_replace('Aether::awakening();', $rune->main, $target);
 
-    forger_set( AETHER_REPO.'/'.AETHER_FILE, $target);
+    Forger::item( AETHER_REPO.'/'.AETHER_FILE, $target);
     foreach ($rune->asset as $asset) {
-      forger_folder_clone($asset['location'], $asset['destination']);
+      Forger::clone($asset['location'], $asset['destination']);
     }
 
-    whisper_loader(function($loader) {
-      whisper_il("{{COLOR-DANGER}}[$loader] A W A K E N I N G ");
+    Whisper::drain(function($loader) {
+      Whisper::emit("{{COLOR-DANGER}}[$loader] A W A K E N I N G ");
     },[
       'speed' => 100,
       'delay' => $timing,
     ]);
-    whisper_clear();
-    whisper_clear_force();
-    whisper_il("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} A W A K E N I N G ");
+    Whisper::clear();
+    Whisper::clear_force();
+    Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} A W A K E N I N G ");
   };
 
   // check minimum requirement
   if (!version_compare(PHP_VERSION, AETHER_PHP_VERSION, '>=')) {
-    whisper_nl('{{COLOR-ERROR}}{{ICON-ERROR}} Need PHP version '.AETHER_PHP_VERSION.' or higher required.');
+    Whisper::emit('{{COLOR-ERROR}}{{ICON-ERROR}} Need PHP version '.AETHER_PHP_VERSION.' or higher required.');
     exit;
   }
   
@@ -77,47 +70,46 @@ Chanter::set('awakening', function() {
   sleep(1);
 
   // without kit
-  whisper_clear();
-  whisper_nl('');
-  whisper_nl('{{COLOR-INFO}}Want tou choose another kit?');
-  if (whisper_input('Enter your answer [y/n]: ') !== 'y') {
-    $rune->act = forger_get( __DIR__ . '/kit/D-starter/rune.act.txt');
-    $rune->main = forger_get( __DIR__ . '/kit/D-starter/rune.txt');
+  Whisper::clear();
+  Whisper::emit('{{COLOR-INFO}}Want tou choose another kit?');
+  if (Whisper::reap('Enter your answer [y/n]: ') !== 'y') {
+    $rune->act = Forger::item( __DIR__ . '/kit/D-starter/rune.act.txt');
+    $rune->main = Forger::item( __DIR__ . '/kit/D-starter/rune.txt');
     $processing( $rune, 2000 );
     exit;
   }
   
   // choose kit
-  whisper_clear();
-  whisper_nl('{{COLOR-INFO}}Choose kit you want to use.');
-  whisper_nl('');
+  Whisper::clear();
+  Whisper::emit('{{COLOR-INFO}}Choose kit you want to use.');
+  Whisper::emit('');
   $kit_list = [];
-  whisper_nl('{{COLOR-SECONDARY}}[ID] NAME');
+  Whisper::emit('{{COLOR-SECONDARY}}[ID] NAME');
   foreach (glob(__DIR__.'/kit/*') as $row) {
     if (is_dir($row)) {
       $data = explode('-', basename($row));
       $ID = strtoupper($data[0]);
       $name = $data[1];
       $default = ($ID=='D') ? ' <- current' : '';
-      whisper_nl("[$ID] $name {{COLOR-SUCCESS}}$default{{COLOR-DEFAULT}}");
+      Whisper::emit("[$ID] $name {{COLOR-SUCCESS}}$default{{COLOR-DEFAULT}}");
       $kit_list[$ID] = $row;
     }
   }
-  whisper_nl('');
+  Whisper::emit('');
   
   // processing kit
-  $kit_input = whisper_input('Enter kit ID: ');
+  $kit_input = Whisper::reap('Enter kit ID: ');
   if ($kit_input) {
     $kit_input = (empty($kit_input)) ? 'D' : $kit_input;
     
     if (!isset($kit_list[strtoupper($kit_input)])) {
-      whisper_nl('{{COLOR-ERROR}}{{ICON-ERROR}} Template not found');
+      Whisper::emit('{{COLOR-ERROR}}{{ICON-ERROR}} Template not found');
       exit;
     }
     
     $kit_select = $kit_list[strtoupper($kit_input)];
-    $rune->act = forger_get($kit_select . '/rune.act.txt');
-    $rune->main = forger_get($kit_select . '/rune.txt');
+    $rune->act = Forger::item($kit_select . '/rune.act.txt');
+    $rune->main = Forger::item($kit_select . '/rune.txt');
     foreach (glob($kit_select . '/*') as $row) {
       if (is_dir($row)) {
         $rune->asset[] = [
@@ -131,20 +123,20 @@ Chanter::set('awakening', function() {
   }
   
   
-  whisper_clear();
+  Whisper::clear();
 
 
 
   
 });
 
-// Chanter::set('start', function() {
+// Chanter::cast('start', function() {
 //   Specter::open("{{SELF}} deploy", [
 //     'visible'=> false,
 //   ]);
 
-//   whisper_loader(function($loader) {
-//     whisper_il("{{COLOR-DANGER}}[$loader] A W A K E N I N G ");
+//   Whisper::drain(function($loader) {
+//     Whisper::emit("{{COLOR-DANGER}}[$loader] A W A K E N I N G ");
 //   }, [
 //     'speed' => 100,
 //     'infinite' => function() {
@@ -153,7 +145,7 @@ Chanter::set('awakening', function() {
 //   ]);
 // });
 
-// Chanter::set('deploy', function() {
+// Chanter::cast('deploy', function() {
 //   for ($index = 1; $index <= 3; $index++) {
 //     sleep(1);
 //     if ($index == 3) {
@@ -163,7 +155,7 @@ Chanter::set('awakening', function() {
 //   }
 // });
 
-// Chanter::set('tester', function() {
+// Chanter::cast('tester', function() {
 //   file_put_contents(__DIR__.'/trash.txt', AETHER_FILE);
 //   exit;
 // });
@@ -171,4 +163,4 @@ Chanter::set('awakening', function() {
 // if (isset($CHANTER_ARGS[1])) {
 // }else {}
 
-Chanter::get('awakening')();
+Chanter::cast('awakening')();

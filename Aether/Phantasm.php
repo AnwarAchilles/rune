@@ -7,9 +7,9 @@
 
 namespace Rune\Aether;
 
-class Phantasm {
+class Phantasm extends \Rune\Phantasm {
 
-  public $version = 0.2;
+  public $version = 1.0;
   
   public $main = 'Aether';
 
@@ -18,7 +18,7 @@ class Phantasm {
   public $note = 'to perform the initial infrastructure setup required to build other infrastructures.';
 
   public $need = [
-    ['Chanter', 'ether:essence:entity', 0.1],
+    ['Chanter', 'ether:essence:entity', 1.0],
     ['Whisper', 'ether:essence:entity', 0.1],
     ['Weaver', 'ether:essence:entity', 0.1],
     ['Forger', 'entity', 0.1],

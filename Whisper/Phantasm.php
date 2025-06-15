@@ -2,9 +2,9 @@
 
 namespace Rune\Whisper;
 
-class Phantasm {
+class Phantasm extends \Rune\Phantasm {
 
-  public $version = 0.1;
+  public $version = 1.0;
   
   public $main = 'Whisper';
 
@@ -12,12 +12,45 @@ class Phantasm {
 
   public $note = 'to provide output to the command line interface (CLI) along with creator text color, icon, and label.';
 
-  public $need = [
-    ['Weaver', 'entity', 0.1],
-  ];
+  public $need = [];
   
   public $list = [
     // manifest
+    [
+      'type'=> 'manifest',
+      'call'=> '_arise()',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'manifest',
+      'call'=> '_aether_awaken()',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'manifest',
+      'call'=> 'awaken()',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'manifest',
+      'call'=> 'emit( String $message, Bool $asString = false )',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'manifest',
+      'call'=> 'reap( String $text )',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'manifest',
+      'call'=> 'drain( Callable $callable, Array $option = [] )',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'manifest',
+      'call'=> 'clear( Bool $force = false )',
+      'note'=> '',
+    ],
     // ether
     [
       'type'=> 'ether',
@@ -30,25 +63,30 @@ class Phantasm {
       'call'=> '$WHISPER',
       'note'=> '',
     ],
+    [
+      'type'=> 'essence',
+      'call'=> '$WHISPER_VARS',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'essence',
+      'call'=> '$WHISPER_COLORS',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'essence',
+      'call'=> '$WHISPER_ICONS',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'essence',
+      'call'=> '$WHISPER_LABELS',
+      'note'=> '',
+    ],
     // entity
     [
       'type'=> 'entity',
-      'call'=> 'whisper( String $message, $inLine=false )',
-      'note'=> '',
-    ],
-    [
-      'type'=> 'entity',
-      'call'=> 'whisper_nl( String $message )',
-      'note'=> '',
-    ],
-    [
-      'type'=> 'entity',
-      'call'=> 'whisper_il( String $message )',
-      'note'=> '',
-    ],
-    [
-      'type'=> 'entity',
-      'call'=> 'whisper_delay( Int $ms )',
+      'call'=> 'whisper()',
       'note'=> '',
     ],
     [
@@ -58,12 +96,42 @@ class Phantasm {
     ],
     [
       'type'=> 'entity',
-      'call'=> 'whisper_input( String $prompt )',
+      'call'=> 'whisper_clear_force()',
       'note'=> '',
     ],
     [
       'type'=> 'entity',
-      'call'=> 'whisper_var_search( String $value )',
+      'call'=> 'whisper_delay( Int $ms )',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'entity',
+      'call'=> 'whisper_emit( String $message, Bool $asString = false )',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'entity',
+      'call'=> 'whisper_emit_get( String $message )',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'entity',
+      'call'=> 'whisper_emit_set( String $message )',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'entity',
+      'call'=> 'whisper_emit_imbue( String $text )',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'entity',
+      'call'=> 'whisper_reap( String $prompt )',
+      'note'=> '',
+    ],
+    [
+      'type'=> 'entity',
+      'call'=> 'whisper_drain( callable $callback, array $option )',
       'note'=> '',
     ],
   ];

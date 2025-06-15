@@ -1,19 +1,52 @@
 <?php
 
 
-function weaver() {}
-
-function weaver_load( $source ) {
-  return file_get_contents($source);
+function weaver() {
+  return true;
 }
 
+// function weaver_load( $source ) {
+//   return file_get_contents($source);
+// }
+
+
+/* BIND
+ * todo binding string
+ *  */
 function weaver_bind( $template, $search, $data ) {
-  $search = strtoupper($search);
-  $parse = str_replace("{{ ".$search." }}", $data, $template);
-  $parse = str_replace("{{".$search."}}", $data, $template);
-  return $parse;
+  $template = (!empty($template)) ? $template : '';
+  $search = (!empty($search)) ? $search : '';
+  $data = (!empty($data)) ? $data : '';
+
+  $template = str_replace( strtolower("{{ ".$search." }}"), $data, $template);
+  $template = str_replace( strtolower("{{".$search."}}"), $data, $template);
+  $template = str_replace( strtoupper("{{ ".$search." }}"), $data, $template);
+  $template = str_replace( strtoupper("{{".$search."}}"), $data, $template);
+
+  aether_arcane('Weaver.entity.weaver_bind');
+  return $template;
 }
 
+function weaver_bind_extract( $value ) {
+  // get the {{var}}
+  $matches = [];
+  preg_match_all('/{{(.*?)}}/', $value, $matches);
+  $vars = array_values($matches[1]);
+
+  aether_arcane('Weaver.entity.weaver_bind_extract');
+  return $vars;
+}
+
+function weaver_bind_multiple( $template, $datas ) {
+  foreach ($datas as $search => $value) {
+    $template = weaver_bind($template, $search, $value);
+  }
+
+  aether_arcane('Weaver.entity.weaver_bind_multiple');
+  return $template;
+}
+
+// deprecated change to str_replace()
 function weaver_bind_custom( $template, $search, $data ) {
   $search = $search;
   $text = str_replace($search, $data, $template);
@@ -23,8 +56,20 @@ function weaver_bind_custom( $template, $search, $data ) {
 
 
 
+/* ITEM
+ * todo get, set & stacking item
+ *  */
+function weaver_item( $source ) {
+  $item = file_get_contents($source);
+
+  return $item;
+}
 
 
+
+/* WEBS
+ * 
+ * */
 function weaver_min( $input, $type='html' ) {
   $type = strtolower($type);
   if($type == 'html') return weaver_min_html( $input );

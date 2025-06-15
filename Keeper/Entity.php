@@ -9,109 +9,283 @@
  */
 
 
-function keeper() {
-  // do nothing just for check
-}
+// function keeper() {
+//   // do nothing just for check
+// }
 
-function keeper_set( String $source, $datas ) {
-  forger_folder(AETHER_ECHOES_RUNE);
-  forger_file(AETHER_ECHOES_RUNE . $source);
-  forger_set(AETHER_ECHOES_RUNE . $source, $datas);
-}
+// function keeper_set( String $source, $datas ) {
+//   forger_folder(AETHER_ECHOES_RUNE);
+//   forger_file(AETHER_ECHOES_RUNE . $source);
+//   forger_set(AETHER_ECHOES_RUNE . $source, $datas);
+// }
 
-function keeper_get( String $source ) {
-  return forger_file(AETHER_ECHOES_RUNE . $source);
-}
+// function keeper_get( String $source ) {
+//   return forger_file(AETHER_ECHOES_RUNE . $source);
+// }
 
-function keeper_has( String $source ) {
-  return file_exists(AETHER_ECHOES_RUNE . $source);
-}
-
-
-
-function keeper_raw_set( String $source, $datas ) {
-  forger_folder(AETHER_ECHOES);
-  forger_file(AETHER_ECHOES . $source);
-  return forger_set(AETHER_ECHOES . $source, $datas);
-}
-
-function keeper_raw_get( String $source ) {
-  return forger_file(AETHER_ECHOES . $source);
-}
-
-function keeper_raw_has( String $source ) {
-  return file_exists(AETHER_ECHOES . $source);
-}
-
-function keeper_data_set( String $source, $datas ) {
-  $data = json_encode($datas, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-  $data = str_replace('    ', '  ', $data);
-  keeper_raw_set($source, $data);
-}
+// function keeper_has( String $source ) {
+//   return file_exists(AETHER_ECHOES_RUNE . $source);
+// }
 
 
+
+// function keeper_raw_set( String $source, $datas ) {
+//   forger_folder(AETHER_ECHOES);
+//   forger_file(AETHER_ECHOES . $source);
+//   return forger_set(AETHER_ECHOES . $source, $datas);
+// }
+
+// function keeper_raw_get( String $source ) {
+//   return forger_file(AETHER_ECHOES . $source);
+// }
+
+// function keeper_raw_has( String $source ) {
+//   return file_exists(AETHER_ECHOES . $source);
+// }
+
+// function keeper_data_set( String $source, $datas ) {
+//   $data = json_encode($datas, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+//   $data = str_replace('    ', '  ', $data);
+//   keeper_raw_set($source, $data);
+// }
 
 
 
 
-function keeper_rune_write( Array $rune_crafter )
-  {
-    $items = [];
-    foreach ($rune_crafter['items'] as $row) {
-      $row['source'] = cipher_base64($row['source']);
-      $row['dirname'] = str_replace(AETHER_REPO, '', $row['dirname']);
-      $row['target'] = str_replace(AETHER_REPO, '', $row['target']);
-      $items[] = $row;
-    }
-    $rune_crafter['items'] = $items;
-    $rune_crafter['maps']['repo'] = '/' . $rune_crafter['maps']['repo'];
+
+
+// function keeper_rune_write( Array $rune_crafter )
+//   {
+//     $items = [];
+//     foreach ($rune_crafter['items'] as $row) {
+//       $row['source'] = cipher_base64($row['source']);
+//       $row['dirname'] = str_replace(AETHER_REPO, '', $row['dirname']);
+//       $row['target'] = str_replace(AETHER_REPO, '', $row['target']);
+//       $items[] = $row;
+//     }
+//     $rune_crafter['items'] = $items;
+//     $rune_crafter['maps']['repo'] = '/' . $rune_crafter['maps']['repo'];
     
-    $name = $rune_crafter['maps']['name'];
-    $target = AETHER_ECHOES_RUNES . $name . '.rune';
-    forger_folder(AETHER_ECHOES_RUNES);
-    forger_file($target);
-    unset($rune_crafter['bases']['REPO']);
+//     $name = $rune_crafter['maps']['name'];
+//     $target = AETHER_ECHOES_RUNES . $name . '.rune';
+//     forger_folder(AETHER_ECHOES_RUNES);
+//     forger_file($target);
+//     unset($rune_crafter['bases']['REPO']);
 
-    $source = cipher_encode(cipher_base64(json_encode($rune_crafter)));
-    forger_set($target, $source);
-    whisper_nl("{{COLOR-INFO}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Keeper Rune '$name.rune' to '.echoes/runes/'");
-  }
+//     $source = cipher_encode(cipher_base64(json_encode($rune_crafter)));
+//     forger_set($target, $source);
+//     whisper_nl("{{COLOR-INFO}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Keeper Rune '$name.rune' to '.echoes/runes/'");
+//   }
 
 
-function keeper_create_zip( String $location, String $destination ) {
-  if (empty($location) || !is_dir($location)) {
-    throw new \Exception("Source folder tidak ditemukan atau kosong: $location");
-  }
+// function keeper_create_zip( String $location, String $destination ) {
+//   if (empty($location) || !is_dir($location)) {
+//     throw new \Exception("Source folder tidak ditemukan atau kosong: $location");
+//   }
 
-  forger_folder($location);
-  $target = $location . '/artefact.zip';
-  forger_file($target);
+//   forger_folder($location);
+//   $target = $location . '/artefact.zip';
+//   forger_file($target);
 
-  if (empty($target)) {
-    throw new \Exception("Path file ZIP tidak valid. Cek fungsi forger_file().");
-  }
+//   if (empty($target)) {
+//     throw new \Exception("Path file ZIP tidak valid. Cek fungsi forger_file().");
+//   }
 
-  $zip = new \ZipArchive();
+//   $zip = new \ZipArchive();
 
-  if ($zip->open($target, \ZipArchive::CREATE | \ZipArchive::OVERWRITE)) {
-    $source = realpath($location);
-    $files = new \RecursiveIteratorIterator(
-      new \RecursiveDirectoryIterator($source, \FilesystemIterator::SKIP_DOTS),
-      \RecursiveIteratorIterator::LEAVES_ONLY
-    );
+//   if ($zip->open($target, \ZipArchive::CREATE | \ZipArchive::OVERWRITE)) {
+//     $source = realpath($location);
+//     $files = new \RecursiveIteratorIterator(
+//       new \RecursiveDirectoryIterator($source, \FilesystemIterator::SKIP_DOTS),
+//       \RecursiveIteratorIterator::LEAVES_ONLY
+//     );
 
-    foreach ($files as $file) {
-      if (!$file->isDir()) {
-        $filePath = $file->getRealPath();
-        $relativePath = substr($filePath, strlen($source) + 1);
-        $zip->addFile($filePath, $relativePath);
+//     foreach ($files as $file) {
+//       if (!$file->isDir()) {
+//         $filePath = $file->getRealPath();
+//         $relativePath = substr($filePath, strlen($source) + 1);
+//         $zip->addFile($filePath, $relativePath);
+//       }
+//     }
+
+//     $zip->close();
+//   } else {
+//     throw new \Exception("Gagal membuat arsip ZIP di lokasi: $target");
+//   }
+
+//   return $target;
+// }
+
+
+
+
+function keeper() {
+  return true;
+}
+
+
+
+
+/* ARCANE
+ * todo manipulate arcane 
+ * */
+function keeper_arcane_process() {
+  global $AETHER_ARCANE;
+  global $KEEPER_ARCANE;
+
+  $datas = '';
+  for ($i=0; $i < count($AETHER_ARCANE); $i++) {
+    $item_prev = isset($AETHER_ARCANE[$i-1]) ? $AETHER_ARCANE[$i-1] : NULL;
+    $item = $AETHER_ARCANE[$i];
+
+    $datetime = date('Y-m-d H:i:s', $item[0]);
+    $stopwatch = number_format($item[1], 4);
+    $response = $item[2];
+    $value = (isset($item[3])) ? $item[3] : '';
+
+    // stepwatch
+    if (!empty($item_prev)) {
+      $stepwatch = $item[1] - $item_prev[1];
+    }else {
+      $stepwatch = $item[1];
+    }
+    
+    // evaluate
+    $state = 'UNKNOWN';
+    foreach (array_reverse($KEEPER_ARCANE) as $row) {
+      if ($stepwatch < $row[0]) {
+        $state = $row[1];
       }
     }
+    
+    $stepwatch = number_format($stepwatch, 5);
 
-    $zip->close();
-  } else {
-    throw new \Exception("Gagal membuat arsip ZIP di lokasi: $target");
+    $datas .= "[$datetime] [$stopwatch] [$stepwatch] {$response}: $value //{$state}" . PHP_EOL;
   }
 
-  return $target;
+  $store = forger_item(KEEPER_ECHOES_ARCANE, $datas);
+  keeper_arcane_process_store($store);
+  return true;
+}
+
+function keeper_arcane_process_store( $datas ) {
+  forger_item(KEEPER_ECHOES_ARCANES . '/' . date('Y-m-d--H-i-s') . '.txt', $datas);
+}
+
+function keeper_arcane_get() {
+}
+
+
+
+/* ITEM
+ * todo keeper manipulate item (JSON)
+ *  */
+function keeper_item( String $name, $value = '' ) {
+  if (empty($value)) {
+    $return = keeper_item_get($name);
+  }else {
+    $return = keeper_item_set($name, $value);
+  }
+
+  aether_arcane('Keeper.entity.keeper_item');
+  return $return;
+}
+
+function keeper_item_set( String $name, $value ) {
+  $datas = json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+  $datas = str_replace("    ", "  ", $datas);
+  forger_item(KEEPER_ECHOES . '/' . $name . '.json', $datas);
+  
+  aether_arcane('Keeper.entity.keeper_item_set');
+  return true;
+}
+
+function keeper_item_get( String $name ) {
+  $datas = forger_item(KEEPER_ECHOES . '/' . $name . '.json');
+  $return = json_decode($datas);
+
+  aether_arcane('Keeper.entity.keeper_item_get');
+  return $return;
+}
+
+
+
+/* ECHO
+ * todo keeper echoes all of the system
+ *  */
+function keeper_echo( String $repo, String $name, $value = '' ) {
+  if (empty($value)) {
+    $return = keeper_echo_get($repo, $name);
+  }else {
+    $return = keeper_echo_set($repo, $name, $value);
+  }
+
+  aether_arcane('Keeper.entity.keeper_echo');
+  return $return;
+}
+
+function keeper_echo_set( String $repo, String $name, $value ) {
+  forger_fix([ 'target'=> $repo, 'type'=> 'repo' ]);
+  forger_item($repo . '/' . $name, $value);
+
+  aether_arcane('Keeper.entity.keeper_echo_set');
+  return true;
+}
+
+function keeper_echo_get( String $repo, String $name ) {
+  $datas = forger_item($repo . '/' . $name);
+  return $datas;
+}
+
+
+
+/* GLITCH
+ * todo hidden error end report to keeper
+ *  */
+function keeper_glitch_boot() {  
+  forger_item(KEEPER_ECHOES_GLITCH, '');
+  
+  $handler = function($type, $message, $file = '', $line = '') {
+    $data = (object) [
+      'time'    => date('Y-m-d H:i:s'),
+      'type'    => strtoupper($type),
+      'message' => $message,
+      'file'    => $file ?: '-',
+      'line'    => $line ?: 0
+    ];
+
+    forger_item(KEEPER_ECHOES_GLITCH, "[$data->time] [$data->type] [$data->line] [$data->file] $data->message".PHP_EOL, FILE_APPEND);
+    
+    whisper_emit("{{COLOR-DANGER}}{{ICON-DANGER}} [$data->time] {{COLOR-WARNING}}//$data->type{{nl}}");
+    whisper_emit("{{COLOR-INFO}}($data->line) $data->file{{nl}}");
+    whisper_emit("{{COLOR-DEFAULT}}$data->message{{nl}}{{nl}}");
+  };
+
+  // Tangkap error
+  set_error_handler(function($errno, $errstr, $errfile, $errline) use ($handler) {
+    $handler('error', $errstr, $errfile, $errline);
+    return true;
+  });
+
+  // Tangkap exception
+  set_exception_handler(function($e) use ($handler) {
+    $handler('exception', $e->getMessage(), $e->getFile(), $e->getLine());
+  });
+
+  // Tangkap fatal error (shutdown)
+  register_shutdown_function(function() use ($handler) {
+    $error = error_get_last();
+    if ($error && in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR])) {
+      $handler('fatal', $error['message'], $error['file'], $error['line']);
+    }
+  });
+
+  ini_set('display_errors', '0');
+  error_reporting(E_ALL);
+}
+
+function keeper_glitch_detect() {
+  global $KEEPER_GLITCH;
+
+  aether_dd($KEEPER_GLITCH);
 }

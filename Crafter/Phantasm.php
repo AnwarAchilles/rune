@@ -7,7 +7,7 @@
 
 namespace Rune\Crafter;
 
-class Phantasm {
+class Phantasm extends \Rune\Phantasm {
 
   public $version = 0.1;
   

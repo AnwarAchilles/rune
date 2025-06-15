@@ -7,13 +7,13 @@
 
 namespace Rune\Minister;
 
-class Phantasm {
+class Phantasm extends \Rune\Phantasm {
 
   public $version = 0.1;
   
   public $main = 'Minister';
 
-  public $mark = 'TEMPLATE/EXAMPLE';
+  public $mark = 'DEVELOPMENT';
 
   public $need = [];
 
