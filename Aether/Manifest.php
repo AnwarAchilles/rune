@@ -64,11 +64,19 @@ class Manifest extends \Rune\Manifest {
 
   public static function awaken()
   {
-    global $AETHER_ARISED;
-    global $AETHER_FAMILIAR;
-    global $AETHER_PHANTASM;
-    global $CHANTER_REGISTERED;
-    global $CHANTER_NOTE;
+    // global $AETHER_ARISED;
+    // global $AETHER_FAMILIAR;
+    // global $AETHER_PHANTASM;
+    // global $CHANTER_REGISTERED;
+    // global $CHANTER_NOTE;
+
+    // auto awaken
+    $arised = aether_arised();
+    foreach ($arised as $manifest) {
+      if (method_exists($manifest, '_aether_awaken')) {
+        $manifest::_aether_awaken();
+      }
+    }
 
     // Chanter::awaken();
     

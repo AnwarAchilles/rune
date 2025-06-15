@@ -100,6 +100,21 @@ function aether_whisper_nl( $text ) {
 }
 
 
+function aether_arised() {
+  global $AETHER_RUNE_ETHER;
+  global $AETHER_RUNE_ESSENCE;
+  global $AETHER_RUNE_ENTITY;
+
+  $return = array_merge(
+    $AETHER_RUNE_ETHER,
+    $AETHER_RUNE_ESSENCE,
+    $AETHER_RUNE_ENTITY
+  );
+  $return = array_unique($return);
+
+  return $return;
+}
+
 
 /* ARCANE
  * need: Forger, Keeper

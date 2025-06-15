@@ -251,5 +251,19 @@ function chanter_spell_chain() {
 /* ECHO
  * todo set echo in chanter */
 function chanter_echo( String $echo ) {
+  global $CHANTER_ECHO;
+  global $CHANTER_ARG;
+  global $CHANTER_ARG_CAST;
+  global $CHANTER_ARG_SPELL;
+
+  if (is_string(!empty($CHANTER_ARG_CAST))) {
+    $CHANTER_ECHO[$CHANTER_ARG_CAST] = $echo;
   
+    $return = true;
+  }else {
+    $return = false;
+  }
+
+  aether_arcane("Chanter.entity.chanter_echo");
+  return $return;
 }

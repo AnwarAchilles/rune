@@ -16,6 +16,9 @@ class Manifest extends \Rune\Manifest {
 
   }
 
+  public static function _aether_awaken() {
+    self::awaken();
+  }
 
   public static function awaken() {
     // global $AETHER_FAMILIAR;
@@ -69,6 +72,8 @@ class Manifest extends \Rune\Manifest {
   }
 
   public static function echo( String $text ) {
+    chanter_echo($text);
+    
     aether_arcane("Chanter.manifest.echo");
     return $text;
   }

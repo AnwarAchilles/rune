@@ -31,3 +31,8 @@ $GLOBALS['CHANTER_ARG_SPELL'] = [];
 $GLOBALS['CHANTER_CAST'] = [];
 
 $GLOBALS['CHANTER_CAST_LIST'] = [];
+
+
+/* ECHO
+ * todo set echo of the cast */
+$GLOBALS['CHANTER_ECHO'] = [];
