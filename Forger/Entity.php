@@ -94,11 +94,15 @@ function forger_fix( Array $source_path ) {
     $state = (isset($source['ready'])) ? $source['ready'] : file_exists($source['target']);
     if ($state === false) {
       if ($source['type'] === 'repo') {
-        mkdir($source['target'], 0755, true);
+        if (!file_exists($source['target'])) {
+          mkdir($source['target'], 0755, true);
+        }
       }
       if ($source['type'] === 'item') {
-        touch($source['target']);
-        chmod($source['target'], 0644);
+        if (file_exists($source['target'])) {
+          touch($source['target']);
+          chmod($source['target'], 0644);
+        }
       }
     }
   }
@@ -162,7 +166,7 @@ function forger_repo( String $source_path, Callable $callback = null ) {
   forger_fix( $trace );
   
   $return = true;
-
+  
   if (!empty($callback)) {
     $return = forger_scan( $source_path, $callback );
   }

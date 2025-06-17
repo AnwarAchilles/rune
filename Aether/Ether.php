@@ -13,7 +13,7 @@ define('AETHER_REPO', getcwd());
 
 define('AETHER_VERSION', '1.0.0');
 
-define('AETHER_COPYRIGHT', 'RUNE {{COPYRIGHT-VERSION}} | Created By @anwarachilles');
+define('AETHER_COPYRIGHT', 'RUNE '.AETHER_VERSION.' | Created By @anwarachilles');
 
 define('AETHER_RUNE_LOCATION', realpath(__DIR__.'/../'));
 

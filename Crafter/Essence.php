@@ -7,15 +7,61 @@
 
 $GLOBALS['CRAFTER'] = true;
 
-$GLOBALS['CRAFTER_BASE'] = [];
+// $GLOBALS['CRAFTER_BASE'] = [];
 
-$GLOBALS['CRAFTER_APPS'] = [];
+// $GLOBALS['CRAFTER_APPS'] = [];
 
-$GLOBALS['CRAFTER_MAPS'] = [];
+// $GLOBALS['CRAFTER_MAPS'] = [];
 
-$GLOBALS['CRAFTER_ITEMS'] = [];
+// $GLOBALS['CRAFTER_ITEMS'] = [];
 
-$GLOBALS['CRAFTER_CLUSTERS'] = [
+// $GLOBALS['CRAFTER_CLUSTERS'] = [
+//   'head.html'=> [],
+//   'html'=> [],
+//   'css'=> [],
+//   'js'=> [],
+//   'php'=> [],
+// ];
+
+// $GLOBALS['CRAFTER_DIST'] = '@{INITIALIZE}';
+
+
+/* ITEM */
+$GLOBALS['CRAFTER_ITEM'] = [];
+
+
+/* SEED */
+$GLOBALS['CRAFTER_SEED'] = [
+  'TYPE'=> 'class',
+  'LANGUAGE'=> ['html', 'css', 'js', 'php'],
+  'MINIFIED'=> [],
+  'CHARSET'=> 'UTF-8',
+  'ENCRYPTION'=> 'base64',
+  'LINT'=> false,
+  'REPO'=> AETHER_REPO . '/',
+];
+
+
+/* SHARD */
+$GLOBALS['CRAFTER_SHARD'] = [];
+
+$GLOBALS['CRAFTER_SHARD_LIST'] = [];
+
+$GLOBALS['CRAFTER_SHARD_INJECTION'] = [];
+
+
+/* SPARK */
+$GLOBALS['CRAFTER_SPARK'] = [
+  'item' => '',
+  'seed' => [],
+  'shard' => [],
+];
+
+$GLOBALS['CRAFTER_SPARK_STATE'] = [
+  'ready' => false,
+];
+
+$GLOBALS['CRAFTER_SPARK_CLUSTER'] = [
   'head.html'=> [],
   'html'=> [],
   'css'=> [],
@@ -23,4 +69,4 @@ $GLOBALS['CRAFTER_CLUSTERS'] = [
   'php'=> [],
 ];
 
-$GLOBALS['CRAFTER_DIST'] = '@{INITIALIZE}';
+$GLOBALS['CRAFTER_SPARK_DISTRIBUTE'] = '';

@@ -282,7 +282,7 @@ function keeper_shard_invoke( Object $forger_info ) {
   $file = cipher_base64($patch.PHP_EOL.$source);
   $file = cipher_encode($file);
 
-  forger_item(KEEPER_ECHOES_SHARDS . '/' . $forger_info->name . '.rune', $file);
+  forger_item(KEEPER_ECHOES_SHARDS . '/' . $forger_info->base . '.rune', $file);
 
   aether_arcane('Keeper.entity.keeper_shard_invoke');
   return true;
@@ -311,7 +311,13 @@ function keeper_shard_revoke( String $raw_source ) {
   aether_arcane('Keeper.entity.keeper_shard_revoke');
   return true;
 }
+function keeper_shard_clean() {
+  forger_clean(KEEPER_ECHOES_SHARDS, true);
+  forger_repo(KEEPER_ECHOES_SHARDS);
 
+  aether_arcane('Keeper.entity.keeper_shard_clean');
+  return true;
+}
 
 
 /* GLITCH

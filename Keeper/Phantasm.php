@@ -9,7 +9,7 @@ namespace Rune\Keeper;
 
 class Phantasm extends \Rune\Phantasm {
 
-  public $version = 1.1;
+  public $version = 1.2;
   
   public $main = 'Keeper';
 

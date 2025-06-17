@@ -71,9 +71,26 @@ function aether_log_clear() {
 }
 
 function aether_dd($data) { 
-  print(PHP_EOL.'AETHER DUBGGING :: START'.PHP_EOL);
-  var_dump($data); 
-  print(PHP_EOL.'AETHER DUBGGING :: END in '.number_format(aether_stopwatch(), 4).'ms'.PHP_EOL);
+  // print(PHP_EOL.'AETHER DUBGGING :: START'.PHP_EOL);
+  ob_start();
+  var_dump($data);
+  $x = ob_get_clean();
+
+  $timestamp = number_format(aether_stopwatch(), 4) . 'ms';
+  $x = '{{color-primary}}AETHER DEBUGGING ('.$timestamp.') {{color-danger}}::{{color-end}} {{color-secondary}}'.$x;
+  $x = str_replace(' ["', ' {{color-danger}}::{{color-end}}{{color-info}}', $x);
+  $x = str_replace('"]=>', '{{color-end}}=>', $x);
+  $x = str_replace("=>\n", " =>", $x);
+  for ($i = 0; $i < 10; $i++) {
+    $x = str_replace('=>  ', '=> ', $x);
+  }
+  $x = str_replace(" => ", " {{color-danger}}-{{color-end}} {{color-secondary}}", $x);
+  $x = str_replace(') "', '){{color-end}} "', $x);
+  $x = str_replace(') {', '){{color-end}} {', $x);
+  $x = str_replace('  ', '{{color-secondary}}:{{color-end}} ', $x);
+  
+  whisper_clear();
+  whisper_emit($x);
   die;
 }
 

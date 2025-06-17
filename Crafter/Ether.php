@@ -7,15 +7,15 @@
 
 define('CRAFTER', true);
 
-define('CRAFTER_BASE', [
-  'TYPE'=> 'class',
-  'LANGUAGE'=> ['html', 'css', 'js', 'php'],
-  'MINIFIED'=> [],
-  'CHARSET'=> 'UTF-8',
-  'ENCRYPTION'=> 'base64',
-  'LINT'=> false,
-  'REPO'=> AETHER_REPO . '/',
-]);
+// define('CRAFTER_BASE', [
+//   'TYPE'=> 'class',
+//   'LANGUAGE'=> ['html', 'css', 'js', 'php'],
+//   'MINIFIED'=> [],
+//   'CHARSET'=> 'UTF-8',
+//   'ENCRYPTION'=> 'base64',
+//   'LINT'=> false,
+//   'REPO'=> AETHER_REPO . '/',
+// ]);
 
 define('CRAFTER_WEAVER', [
   [
@@ -82,4 +82,36 @@ define('CRAFTER_CLEANING', [
   'php'=> [
     '<?php', '<?=', '?>',
   ],
+]);
+
+
+
+/* RESETER
+ * todo reset essence to default */
+define('CRAFTER_RESET_SEED', [
+  'TYPE'=> 'class',
+  'LANGUAGE'=> ['html', 'css', 'js', 'php'],
+  'MINIFIED'=> [],
+  'CHARSET'=> 'UTF-8',
+  'ENCRYPTION'=> 'base64',
+  'LINT'=> false,
+  'REPO'=> AETHER_REPO . '/',
+]);
+
+define('CRAFTER_RESET_SPARK', [
+  'item' => '',
+  'seed' => [],
+  'shard' => [],
+]);
+
+define('CRAFTER_RESET_SPARK_STATE', [
+  'ready' => false,
+]);
+
+define('CRAFTER_RESET_SPARK_CLUSTER', [
+  'head.html'=> [],
+  'html'=> [],
+  'css'=> [],
+  'js'=> [],
+  'php'=> [],
 ]);
