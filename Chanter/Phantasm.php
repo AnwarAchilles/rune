@@ -4,6 +4,8 @@ namespace Rune\Chanter;
 
 class Phantasm extends \Rune\Phantasm {
 
+  public $origin = __DIR__;
+
   public $version = 1.1;
   
   public $main = 'Chanter';

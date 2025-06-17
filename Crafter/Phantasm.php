@@ -9,6 +9,8 @@ namespace Rune\Crafter;
 
 class Phantasm extends \Rune\Phantasm {
 
+  public $origin = __DIR__;
+
   public $version = 1.0;
   
   public $main = 'Crafter';

@@ -9,6 +9,8 @@ namespace Rune\Minister;
 
 class Phantasm extends \Rune\Phantasm {
 
+  public $origin = __DIR__;
+
   public $version = 0.1;
   
   public $main = 'Minister';

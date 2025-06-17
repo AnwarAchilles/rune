@@ -9,6 +9,8 @@ namespace Rune\Forger;
 
 class Phantasm extends \Rune\Phantasm {
 
+  public $origin = __DIR__;
+
   public $version = 1.2;
   
   public $main = 'Forger';
