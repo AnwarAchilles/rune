@@ -4,7 +4,7 @@ namespace Rune\Chanter;
 
 class Phantasm extends \Rune\Phantasm {
 
-  public $version = 1.0;
+  public $version = 1.1;
   
   public $main = 'Chanter';
 
@@ -13,7 +13,7 @@ class Phantasm extends \Rune\Phantasm {
   public $note = 'to encapsulate and manage command-line interactions for invoking application logic via CLI.';
 
   public $need = [
-    ['Aether', 'ether:essence:entity', 1.0],
+    ['Aether', 'ether:essence:entity', 1.4],
     ['Whisper', 'entity', 0.1],
   ];
 

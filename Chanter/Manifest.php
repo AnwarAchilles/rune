@@ -30,7 +30,7 @@ class Manifest extends \Rune\Manifest {
     $cast = $CHANTER_ARG_CAST . ' ' . $spell;
     
     if ($CHANTER_ARG == AETHER_FILE) {
-      chanter_cast_get('base')();
+      chanter_cast_get('rune')();
     }else {
       chanter_cast_get($cast)();
     }

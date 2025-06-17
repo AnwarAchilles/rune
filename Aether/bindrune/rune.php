@@ -5,7 +5,7 @@ use Rune\Whisper\Manifest as Whisper;
 use Rune\Weaver\Manifest as Weaver;
 
 // base/default
-Chanter::cast('base', function() {
+Chanter::cast('rune', function() {
   global $CHANTER_ARGS;
   global $CHANTER_ECHO;
   
@@ -24,7 +24,7 @@ Chanter::cast('base', function() {
   //   $checkFamiliar = '{{COLOR-SECONDARY}}Not have Keeper try "Rune\Keeper\Manifest::arise()"';
   // }
 
-  $header = Weaver::item(__DIR__ . '/weaver/base-header.txt');
+  $header = Weaver::item(__DIR__ . '/weaver/rune-header.txt');
   $header = Weaver::bind($header, [
     'FILE'=> AETHER_FILE,
     'REPO'=> AETHER_REPO,

@@ -10,6 +10,31 @@ function crafter() {
 }
 
 
+/* HELPER
+ * list all helper
+ *  */
+function crafter_reset() {
+  global $CRAFTER_ITEM;
+  global $CRAFTER_SEED;
+  global $CRAFTER_SHARD;
+  global $CRAFTER_SHARD_LIST;
+  global $CRAFTER_SHARD_INJECTION;
+  global $CRAFTER_SPARK;
+  global $CRAFTER_SPARK_STATE;
+  global $CRAFTER_SPARK_CLUSTER;
+  global $CRAFTER_SPARK_DISTRIBUTE;
+
+  $CRAFTER_ITEM = [];
+  $CRAFTER_SEED = CRAFTER_RESET_SEED;
+  $CRAFTER_SHARD = [];
+  $CRAFTER_SHARD_LIST = [];
+  $CRAFTER_SHARD_INJECTION = [];
+  $CRAFTER_SPARK = CRAFTER_RESET_SPARK;
+  $CRAFTER_SPARK_STATE = CRAFTER_RESET_SPARK_STATE;
+  $CRAFTER_SPARK_CLUSTER = CRAFTER_RESET_SPARK_CLUSTER;
+  $CRAFTER_SPARK_DISTRIBUTE = '';
+}
+
 
 /* SEED
  * todo set seed of the item
@@ -126,34 +151,22 @@ function crafter_spark( String $name, Callable $injection = NULL ) {
   keeper_shard_clean();
   keeper_shard_set($CRAFTER_SHARD_LIST);
 
-  // reset
-  crafter_reset();
-
   // return
   aether_arcane("Crafter.entity.crafter_spark");
   return true;
 }
 
-function crafter_reset() {
-  global $CRAFTER_ITEM;
-  global $CRAFTER_SEED;
-  global $CRAFTER_SHARD;
-  global $CRAFTER_SHARD_LIST;
-  global $CRAFTER_SHARD_INJECTION;
+function crafter_spark_message() {
   global $CRAFTER_SPARK;
-  global $CRAFTER_SPARK_STATE;
-  global $CRAFTER_SPARK_CLUSTER;
-  global $CRAFTER_SPARK_DISTRIBUTE;
-
-  $CRAFTER_ITEM = [];
-  $CRAFTER_SEED = CRAFTER_RESET_SEED;
-  $CRAFTER_SHARD = [];
-  $CRAFTER_SHARD_LIST = [];
-  $CRAFTER_SHARD_INJECTION = [];
-  $CRAFTER_SPARK = CRAFTER_RESET_SPARK;
-  $CRAFTER_SPARK_STATE = CRAFTER_RESET_SPARK_STATE;
-  $CRAFTER_SPARK_CLUSTER = CRAFTER_RESET_SPARK_CLUSTER;
-  $CRAFTER_SPARK_DISTRIBUTE = '';
+  
+  $name = $CRAFTER_SPARK['item'];
+  $file_path = $CRAFTER_SPARK['seed']['DIST'];
+  $file_size = aether_formatFileSize(filesize($CRAFTER_SPARK['seed']['DIST']));
+  $total_shard = count($CRAFTER_SPARK['shard']);
+  
+  // aether_dd($CRAFTER_SPARK);
+  whisper_emit("{{color-success}}{{icon-success}}{{label-success}}Crafting '$name' has been Sparked!!{{nl}}");
+  whisper_emit("{{color-info}}{{icon-info}}{{label-info}}Path=$file_path, Size=$file_size, Shard=$total_shard {{nl}}");
 }
 
 function crafter_spark_clustering() {

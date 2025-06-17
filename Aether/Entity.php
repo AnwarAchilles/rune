@@ -14,7 +14,7 @@ function aether_formatFileSize($size, $precision = 2) {
 
   $scaledSize = $size / pow(1024, $base);
   aether_arcane('Aether.entity.aether_formatFileSize');
-  return sprintf("%.{$precision}f %s", $scaledSize, $units[$base]);
+  return sprintf("%.{$precision}f%s", $scaledSize, $units[$base]);
 }
 
 function aether_stopwatch() {
@@ -31,6 +31,25 @@ function aether_memoryusage() {
   return $output;
 }
 
+
+function aether_exit( $force = false ) {
+  $memory = aether_memoryusage();
+  $stopwatch = aether_stopwatch();
+  
+  $end = number_format($stopwatch, 4);
+  $usage = aether_formatFileSize($memory[0]);
+  $peak = aether_formatFileSize($memory[1]);
+
+  if (aether_has_entity('whisper')) {
+    whisper_emit("{{COLOR-SECONDARY}}{{ICON-INFO}}RUNE: Execute={$end}s, Memory=$usage - ^$peak");
+  }else {
+    print("RUNE: Running=$end seconds, Usage=$usage, Peak=$peak");
+  }
+
+  if ($force) {
+    exit; die;
+  }
+}
 
 
 

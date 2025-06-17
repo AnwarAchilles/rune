@@ -49,7 +49,7 @@ class Manifest extends \Rune\Manifest {
     // foreach (glob(__DIR__.'/bindrune/*.php') as $enchant) {
     //   require_once $enchant;
     // }
-    require_once __DIR__ . '/bindrune/base.php';
+    require_once __DIR__ . '/bindrune/rune.php';
     require_once __DIR__ . '/bindrune/grimoire.php';
     require_once __DIR__ . '/bindrune/sentinel.php';
     require_once __DIR__ . '/bindrune/artefact.php';
@@ -82,21 +82,6 @@ class Manifest extends \Rune\Manifest {
         $manifest::_aether_awaken_after();
       }
     }
-
-    // Chanter::awaken();
-    
-    // extra
-    $memory = aether_memoryusage();
-    aether_whisper(
-      '{{COLOR-SECONDARY}}{{ICON-INFO}}{{LABEL-INFO}}Rune memory usage is ' .
-      aether_formatFileSize($memory[0]) . ', with peak is ' . aether_formatFileSize($memory[1])
-    );
-    
-    $stopwatch = aether_stopwatch();
-    aether_whisper(
-      '{{COLOR-SECONDARY}}{{ICON-INFO}}{{LABEL-INFO}}Rune process end in ' . 
-      number_format($stopwatch, 4) . ' seconds'
-    );
     
     // if (aether_has_entity('keeper')) {
     //   keeper_item('aether', [
@@ -114,6 +99,7 @@ class Manifest extends \Rune\Manifest {
     aether_arcane("Aether.manifest.awaken");
     // development mode
     // aether_arcane_pretty_print();
+    aether_exit();
   }
 
   public static function awakening()

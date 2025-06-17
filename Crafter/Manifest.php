@@ -54,6 +54,8 @@ class Manifest extends \Rune\Manifest {
   public static function spark( Mixed $name_or_callable = NULL, Callable $injection = NULL ) {
     if (empty($name_or_callable)) {
       $name = self::$inName;
+    }else {
+      $name = $name_or_callable;
     }
 
     if (is_callable($name_or_callable)) {
@@ -61,6 +63,9 @@ class Manifest extends \Rune\Manifest {
     }
 
     $return = crafter_spark($name, $injection);
+
+    crafter_spark_message();
+    crafter_reset();
     
     aether_arcane("Crafter.manifest.spark");
     return $return;
