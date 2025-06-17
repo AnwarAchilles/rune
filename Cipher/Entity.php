@@ -10,6 +10,7 @@
 
 function chipher() {}
 
+
 function cipher_id( String $prefix = '', $entropy = false ) {
   return uniqid($prefix, $entropy);
 }

@@ -17,8 +17,6 @@ php {{AETHER-FILE}} sentinel --codex
 php {{AETHER-FILE}} sentinel --cronicle
 
 {{COLOR-PRIMARY}}# For Rune Builder{{COLOR-END}}
-php {{AETHER-FILE}} sentinel --phantasm-build
-php {{AETHER-FILE}} sentinel --phantasm-inspect
-php {{AETHER-FILE}} sentinel --phantasm-update
-php {{AETHER-FILE}} sentinel --phantasm-renote
+php {{AETHER-FILE}} sentinel --create-rune
+php {{AETHER-FILE}} sentinel --phantasm-fix-list
 

@@ -9,7 +9,9 @@ namespace Rune\Cipher;
 
 class Phantasm extends \Rune\Phantasm {
 
-  public $version = 0.1;
+  public $origin = __DIR__;
+
+  public $version = 0.2;
   
   public $main = 'Cipher';
 
@@ -19,31 +21,62 @@ class Phantasm extends \Rune\Phantasm {
 
   public $list = [
     [
+      'type' => 'essence',
+      'call' => 'CIPHER',
+      'note' => '',
+    ],
+    [
+      'type' => 'ether',
+      'call' => 'CIPHER_ALL_VARIANTS',
+      'note' => '',
+    ],
+    [
       'type' => 'ether',
       'call' => 'CIPHER_VARIANT',
-      'note'=> '',
+      'note' => 'this is a constant',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'cipher_id',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'cipher_hash',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'cipher_base64',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'cipher_encode',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'cipher_decode',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => '_arise()',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => '_arises($x="")',
+      'note' => '',
     ],
     [
       'type' => 'entity',
       'call' => 'cipher_id( String $prefix = "", $entropy = false )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'entity',
-      'call' => 'cipher_hash( String $text )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'entity',
-      'call' => 'cipher_encode( String $text, String $variant = "default" )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'entity',
-      'call' => 'decode( String $text, String $variant = "default")',
-      'note'=> '',
+      'note' => '',
     ],
   ];
+
 
   public function awakening() {}
   

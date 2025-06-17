@@ -4,7 +4,7 @@ namespace Rune;
 
 class Phantasm {
 
-  protected static $origin = __DIR__;
+  public $origin = __DIR__;
 
   public $version = 0.1;
   

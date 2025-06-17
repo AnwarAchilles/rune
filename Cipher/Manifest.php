@@ -13,9 +13,8 @@ class Manifest extends \Rune\Manifest {
 
   // create next static method
 
-  public static function _arise() {
-    self::phantasm();
+  public static function _arise() {}
 
-  }
+  public static function _arises($x="") {}
 
 }

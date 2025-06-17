@@ -3,7 +3,8 @@
 /*
  * ENTITY
  * Represents functions related to this domain.
- *
- * Example:
- * function starter() {}
  */
+
+function {{name-lower}}() {
+  return true;
+}

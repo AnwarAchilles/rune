@@ -35,6 +35,7 @@ Chanter::cast('grimoire', function() {
   ];
 
   $header = Weaver::item(__DIR__ . '/weaver/grimoire-header.txt');
+  $footer = Weaver::item(__DIR__ . '/weaver/grimoire-footer.txt');
   $header = Weaver::bind($header, [
     'AETHER-FILE'=> AETHER_FILE
   ]);
@@ -84,30 +85,22 @@ Chanter::cast('grimoire', function() {
     $phantasm = 'Rune\\' . $rune . '\\Phantasm';
     $phantasm = new $phantasm();
     $phantasm->list = array_merge($default_list, $phantasm->list);
-    $x = (object) [
-      'main'=> (isset($phantasm->main)) ? $phantasm->main : '-',
-      'version'=> (isset($phantasm->version)) ? $phantasm->version : '-',
-      'user'=> (isset($phantasm->user)) ? $phantasm->user : '-',
-      'note'=> (isset($phantasm->note)) ? $phantasm->note : '-',
-      'need'=> (isset($phantasm->need)) ? $phantasm->need : '-',
-      'mark'=> (isset($phantasm->mark)) ? $phantasm->mark : false,
-    ];
 
-    Whisper::emit("{{tab}}{{COLOR-PRIMARY}}{{ICON-PRIMARY}} $x->main {{nl}}");
-    Whisper::emit("{{tab}}-{{tab}}{{COLOR-INFO}}v$x->version {{nl}}");
-    if ($x->mark) {
-      Whisper::emit("{{tab}}{{tab}}{{COLOR-WARNING}}{{ICON-WARNING}}{{LABEL-WARNING}}This rune is marked as $x->mark.{{nl}}");
+    Whisper::emit("{{tab}}{{COLOR-PRIMARY}}{{ICON-PRIMARY}} $phantasm->main {{nl}}");
+    Whisper::emit("{{tab}}-{{tab}}{{COLOR-INFO}}v$phantasm->version {{nl}}");
+    if ($phantasm->mark !== 'VOID') {
+      Whisper::emit("{{tab}}{{tab}}{{COLOR-WARNING}}{{ICON-WARNING}}{{LABEL-WARNING}}This rune is marked as $phantasm->mark.{{nl}}");
     }
     Whisper::emit("{{tab}}{{tab}}{{COLOR-SECONDARY}}[M] $manifest {{nl}}");
-    Whisper::emit("{{tab}}{{tab}}{{COLOR-SECONDARY}}[U] $x->user {{nl}}");
-    Whisper::emit("{{tab}}{{tab}}{{COLOR-SECONDARY}}[N] $x->note {{nl}}");
+    Whisper::emit("{{tab}}{{tab}}{{COLOR-SECONDARY}}[U] $phantasm->user {{nl}}");
+    Whisper::emit("{{tab}}{{tab}}{{COLOR-SECONDARY}}[N] $phantasm->note {{nl}}");
 
     // check if rune is tandalone or need
     Whisper::emit("{{tab}}{{tab}}{{COLOR-INFO}}Need of Rune: {{nl}}");
-    if (count($x->need) == 0) {
+    if (count($phantasm->need) == 0) {
       Whisper::emit("{{tab}}{{tab}}{{COLOR-SECONDARY}} (THIS RUNE IS STANDALONE) {{nl}}");
     }
-    foreach ($x->need as $need) {
+    foreach ($phantasm->need as $need) {
       Whisper::emit("{{tab}}{{tab}}");
       Whisper::emit("{{tab}}{{COLOR-DEFAULT}}$need[0]");
       Whisper::emit("{{tab}}{{COLOR-DANGER}}$need[1]");
@@ -126,7 +119,7 @@ Chanter::cast('grimoire', function() {
       Whisper::emit("{{nl}}");
     }
 
-    return $x;
+    return $phantasm;
   };
   if (Chanter::spell('rune')) {
     if (Chanter::spell('rune') !== '1') {
@@ -138,14 +131,8 @@ Chanter::cast('grimoire', function() {
       Whisper::clear();
       $processing_get_rune( $input );
     }
+    Whisper::emit($footer);
   }
-  // if (Chanter::spell('rune_option')) {
-  //   $input = Chanter::spell('rune_option');
-  //   if ($input) {
-  //     Whisper::clear();
-  //     $processing_get_rune( $input );
-  //   }
-  // }
 
 
   /* Runes
@@ -166,6 +153,8 @@ Chanter::cast('grimoire', function() {
     if (aether_has_entity('keeper')) {
       Keeper::item('runes', $keeper_runes);
     }
+
+    Whisper::emit($footer);
   }
 
 
@@ -399,6 +388,4 @@ Chanter::cast('grimoire', function() {
 
 
   
-
-
 });

@@ -5,24 +5,28 @@
  * Represents the documentation class for this domain.
  */
 
-namespace Rune\Starter;
+namespace Rune\{{name-capital}};
 
 class Phantasm extends \Rune\Phantasm {
 
   public $version = 0.1;
   
-  public $main = 'Starter';
+  public $main = '{{name-capital}}';
 
-  public $mark = 'TEMPLATE/EXAMPLE';
+  public $mark = 'BETA';
 
   public $need = [];
 
   public $list = [
+    // manifest
     [
-      'type' => 'manifest | entity | essence | ether',
-      'call' => 'starter( $x )',
+      'type' => 'manifest',
+      'call' => '_arise()',
       'note'=> '',
-    ]
+    ],
+    // ether
+    // essence
+    // entity
   ];
 
   public function awakening() {}
