@@ -6,7 +6,7 @@ use Rune\Chanter\Manifest as Chanter;
 use Rune\Weaver\Manifest as Weaver;
 use Rune\Whisper\Manifest as Whisper;
 use Rune\Forger\Manifest as Forger;
-use Rune\Keeper\Manifest as Keeper;
+use Rune\Cipher\Manifest as Cipher;
 
 // RUNE:INSTANCE
 Aether::arise();
@@ -14,7 +14,7 @@ Chanter::arise();
 Weaver::arise();
 Whisper::arise();
 Forger::arise();
-Keeper::arise();
+Cipher::arise();
 
 
 // RUNE:AWAKENING
@@ -27,16 +27,12 @@ Chanter::cast('awakening', function() {
 
   
 
-  $rune = (object) [
-    'act'=> '',
-    'main'=> '',
-    'asset'=> [],
-  ];
+  $rune = '';
   $processing = function( $rune, $timing ) {
     $target = Forger::item(AETHER_REPO.'/'.AETHER_FILE);
-    $act_void = Forger::item(__DIR__ . '/awakening.txt');
-
-    $rune->act = weaver_bind($rune->act, 'file', AETHER_FILE);
+    $runefile = Forger::item(AETHER_REPO.'/'.AETHER_FILE.'.rune', $rune);
+    
+    aether_dd($target);
 
     $target = str_replace('use Rune\Aether\Manifest as Aether;', '', $target);
     $target = str_replace(PHP_EOL.PHP_EOL, PHP_EOL, $target);
@@ -59,25 +55,56 @@ Chanter::cast('awakening', function() {
     Whisper::clear_force();
     Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} A W A K E N I N G ");
   };
+  $processing_revoke = function( $from, $to ) {
+    $prefix_newPage = PHP_EOL.'- - - - -'.PHP_EOL;
+    $prefix_item = PHP_EOL;
+
+    $target = $to;
+    $file = Forger::item($from);
+    $part = explode($prefix_newPage, $file);
+    
+    if (isset($part[1])) {
+      $base = cipher_base64(cipher_decode($part[1]), true);
+      Forger::item($target, $base);
+    }
+    
+    $code = (!empty($part[2])) ? explode(PHP_EOL, $part[2]) : [];
+    foreach ($code as $row) {
+      $row = json_decode(cipher_base64(cipher_decode($row), true));
+
+      foreach ($row->items as $item) {
+        $source = cipher_base64($item->source, true);
+        Forger::fix(Forger::trace((AETHER_REPO . $item->dirname)));
+        Forger::item(AETHER_REPO . $item->target, $source);
+      }
+    }
+
+    Whisper::clear()::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully revoked. {{nl}}");
+  };
 
   // check minimum requirement
   if (!version_compare(PHP_VERSION, AETHER_PHP_VERSION, '>=')) {
     Whisper::emit('{{COLOR-ERROR}}{{ICON-ERROR}} Need PHP version '.AETHER_PHP_VERSION.' or higher required.');
     exit;
   }
+
   
   // start stages
   sleep(1);
-
+  
   // without kit
   Whisper::clear();
-  Whisper::emit('{{COLOR-INFO}}Want tou choose another kit?');
+  Whisper::emit('you will choose rank D as default, {{nl}}Did you want to choose another rank?{{nl}}');
   if (Whisper::reap('Enter your answer [y/n]: ') !== 'y') {
-    $rune->act = Forger::item( __DIR__ . '/kit/D-starter/rune.act.txt');
-    $rune->main = Forger::item( __DIR__ . '/kit/D-starter/rune.txt');
-    $processing( $rune, 2000 );
+    $rune = Forger::item( __DIR__ . '/kit/D/rune.php.rune');
+    // $processing( $rune, 2000 );
+    $processing_revoke(
+      __DIR__ . '/kit/D/rune.php.rune',
+      AETHER_REPO.'/'.AETHER_FILE
+    );
     exit;
   }
+  
   
   // choose kit
   Whisper::clear();

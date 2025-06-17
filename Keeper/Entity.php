@@ -238,6 +238,81 @@ function keeper_echo_get( String $repo, String $name ) {
 }
 
 
+/* SHARDS
+ * todo managements file as shards
+ *  */
+function keeper_shard( Array $file_maps, Bool $is_revoke = false ) {
+  if ($is_revoke) {
+    keeper_shard_get($file_maps);
+  }else {
+    keeper_shard_set($file_maps);
+  }
+}
+function keeper_shard_set( Array $file_maps ) {
+  $map = [];
+  foreach ($file_maps as $row) {
+    $map = array_merge($map, forger_trace_recursive($row));
+  }
+
+  $map2 = [];
+  foreach ($map as $row) {
+    if ($row['type'] == 'item') {
+      if ($row['ready'] == true) {
+        $file = forger_info($row['target']);
+        $map2[$file->base] = $file;
+      }
+    }
+  }
+
+  foreach ($map2 as $row) {
+    keeper_shard_invoke($row);
+  }
+
+  aether_arcane('Keeper.entity.keeper_shard_set');
+  return true;
+}
+function keeper_shard_invoke( Object $forger_info ) {
+  $patch = '';
+  $source = '';
+
+  $patch = json_encode($forger_info);
+  $source = forger_item($forger_info->target);
+  $source = cipher_base64($source);
+  
+  $file = cipher_base64($patch.PHP_EOL.$source);
+  $file = cipher_encode($file);
+
+  forger_item(KEEPER_ECHOES_SHARDS . '/' . $forger_info->name . '.rune', $file);
+
+  aether_arcane('Keeper.entity.keeper_shard_invoke');
+  return true;
+}
+function keeper_shard_get( Array $file_maps ) {
+  foreach ($file_maps as $name) {
+    $file = forger_item(KEEPER_ECHOES_SHARDS . '/' . $name . '.rune');
+    keeper_shard_revoke($file);
+  }
+
+  aether_arcane('Keeper.entity.keeper_shard_get');
+  return true;
+}
+function keeper_shard_revoke( String $raw_source ) {
+  $file = cipher_decode($raw_source);
+  $file = cipher_base64($file, true);
+  $file = explode(PHP_EOL, $file);
+  
+  $patch = json_decode($file[0]);
+  $source = cipher_base64($file[1], true);
+
+  forger_fix(forger_trace($patch->target));
+  
+  forger_item($patch->target, $source);
+
+  aether_arcane('Keeper.entity.keeper_shard_revoke');
+  return true;
+}
+
+
 
 /* GLITCH
  * todo hidden error end report to keeper

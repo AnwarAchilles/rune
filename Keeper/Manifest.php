@@ -22,6 +22,10 @@ class Manifest extends \Rune\Manifest {
         'type'=> 'repo'
       ],
       [
+        'target'=> KEEPER_ECHOES_SHARDS,
+        'type'=> 'repo'
+      ],
+      [
         'target'=> KEEPER_ECHOES_ARCANE,
         'type'=> 'item'
       ],
@@ -71,6 +75,17 @@ class Manifest extends \Rune\Manifest {
 
     aether_arcane('Keeper.manifest.item');
     return $return;
+  }
+
+  public static function shard( Array $file_maps, Bool $is_revoke = false ) {
+    if ($is_revoke) {
+      keeper_shard_get($file_maps);
+    }else {
+      keeper_shard_set($file_maps);
+    }
+
+    aether_arcane('Keeper.manifest.shard');
+    return true;
   }
 
 

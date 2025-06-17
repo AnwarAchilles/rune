@@ -3,9 +3,16 @@
 use Rune\Chanter\Manifest as Chanter;
 use Rune\Weaver\Manifest as Weaver;
 use Rune\Whisper\Manifest as Whisper;
+use Rune\Forger\Manifest as Forger;
+use Rune\Cipher\Manifest as Cipher;
+use Rune\Keeper\Manifest as Keeper;
 
 // artefact
 Chanter::cast('artefact', function() {
+  Forger::entity();
+  Cipher::ether();
+  Cipher::entity();
+  Keeper::ether();
 
   $header = Weaver::item(__DIR__ . '/weaver/artefact-header.txt');
   $header = Weaver::bind($header, [
@@ -23,23 +30,35 @@ Chanter::cast('artefact', function() {
   /* INVOKE
    *  */
   $processing_invoke = function() {
+    $prefix_newPage = PHP_EOL.'- - - - -'.PHP_EOL;
+    $prefix_item = PHP_EOL;
+
     $runefile = AETHER_FILE . '.rune';
     $template = '';
     $template .= 'RUNE ARTEFACT - ' . AETHER_VERSION . PHP_EOL;
     $template .= 'created at ' . date('Y-m-d H:i:s') . PHP_EOL;
-    $template .= PHP_EOL.PHP_EOL;
+    
+    $template .= $prefix_newPage;
+    $rune_source = Forger::item(AETHER_FILE);
+    $template .= cipher_encode(cipher_base64($rune_source));
+    // aether_dd($template);
+    
+    if (file_exists(AETHER_ECHOES)) {
+      Forger::fix([ 
+        ['type'=>'repo', 'target'=>KEEPER_ECHOES_SHARDS]
+      ]);
+      $items = Forger::scan(KEEPER_ECHOES_SHARDS, function($item) {
+        return Forger::item($item->target);
+      });
+      if (!empty($items)) {
+        $template .= $prefix_newPage;
+        $template .= implode(PHP_EOL, $items);
+      }
+    }
 
-    $template .= cipher_encode(cipher_base64(forger_get(AETHER_FILE))) . PHP_EOL.PHP_EOL;
+    $template = str_replace(PHP_EOL.PHP_EOL, PHP_EOL, $template);
     
-    forger_file($runefile);
-    
-    forger_folder_all(AETHER_ECHOES_ARTEFACT);
-    $items = forger_scan(AETHER_ECHOES_ARTEFACT, function($item) use ($runefile) {
-      return forger_get($item->target);
-    });
-    $template .= implode(PHP_EOL, $items);
-    
-    forger_set($runefile, $template);
+    Forger::item($runefile, $template);
 
     Whisper::clear()::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully invoked.{{nl}}");
   };
@@ -51,25 +70,28 @@ Chanter::cast('artefact', function() {
   /* REVOKE
    *  */
   $processing_revoke = function( $link ) {
-    $target = str_replace('.rune', '', $link);
-    $file = forger_get($link);
-    $part = explode(PHP_EOL.PHP_EOL, $file);
+    $prefix_newPage = PHP_EOL.'- - - - -'.PHP_EOL;
+    $prefix_item = PHP_EOL;
 
+    $target = str_replace('.rune', '', $link);
+    $file = Forger::item($link);
+    $part = explode($prefix_newPage, $file);
     
-    $base = cipher_base64(cipher_decode($part[1]), true);
-    forger_file($target);
-    forger_set($target, $base);
+    if (isset($part[1])) {
+      $base = cipher_base64(cipher_decode($part[1]), true);
+      Forger::item($target, $base);
+    }
     
     $code = (!empty($part[2])) ? explode(PHP_EOL, $part[2]) : [];
     foreach ($code as $row) {
-      $row = json_decode(cipher_base64(cipher_decode($row), true));
+      keeper_shard_revoke($row);
+      // $row = json_decode(cipher_base64(cipher_decode($row), true));
 
-      foreach ($row->items as $item) {
-        $source = cipher_base64($item->source, true);
-        forger_folder_all(AETHER_REPO . $item->dirname);
-        forger_file(AETHER_REPO . $item->target);
-        forger_set(AETHER_REPO . $item->target, $source);
-      }
+      // foreach ($row->items as $item) {
+      //   $source = cipher_base64($item->source, true);
+      //   Forger::fix(Forger::trace((AETHER_REPO . $item->dirname)));
+      //   Forger::item(AETHER_REPO . $item->target, $source);
+      // }
     }
 
     Whisper::clear()::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully revoked. {{nl}}");
@@ -90,12 +112,12 @@ Chanter::cast('artefact', function() {
   //   $link = Chanter::spell('revoke_option');
   //   if ($link) {
   //     $target = str_replace('.rune', '', $link);
-  //     $file = forger_file($link);
+  //     $file = Forger::item($link);
   //     $part = explode(PHP_EOL.PHP_EOL, $file);
 
   //     $base = cipher_base64(cipher_decode($part[1]), true);
-  //     forger_file($target);
-  //     forger_set($target, $base);
+  //     Forger::item($target);
+  //     Forger::item($target, $base);
 
   //     $code = explode(PHP_EOL, $part[2]);
   //     foreach ($code as $row) {
@@ -103,9 +125,9 @@ Chanter::cast('artefact', function() {
 
   //       foreach ($row->items as $item) {
   //         $source = cipher_base64($item->source, true);
-  //         forger_folder_all(AETHER_REPO . $item->dirname);
-  //         forger_file(AETHER_REPO . $item->target);
-  //         forger_set(AETHER_REPO . $item->target, $source);
+  //         Forger::fix(Forger::trace((AETHER_REPO . $item->dirname);
+  //         Forger::item(AETHER_REPO . $item->target);
+  //         Forger::item(AETHER_REPO . $item->target, $source);
   //       }
   //     }      
   //   }

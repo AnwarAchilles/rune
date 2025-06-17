@@ -194,7 +194,7 @@ function whisper_emit_imbue( String $text ) {
  * todo get user whisper
  *  */
 function whisper_reap( String $prompt ) {
-  whisper_emit("{{COLOR-INFO}}{{ICON-INFO}} $prompt{{nl}}");
+  whisper_emit("{{COLOR-INFO}}{{ICON-INFO}} $prompt");
   $response = trim(fgets(STDIN));
 
   aether_arcane('Whisper.entity.whisper_reap'); 

@@ -126,7 +126,8 @@ Chanter::cast('sentinel', function() {
         $manifest = $target;
         $state_arise = 'single';
       }
-      $rune = forger_file(AETHER_REPO . '/'. AETHER_FILE);
+      $rune = Forger::item(AETHER_REPO . '/'. AETHER_FILE);
+      
       $prefix_manifest = '#sentinel-manifest';
       $prefix_arise = '#sentinel-arise';
       $codex_manifest = "use Rune\\{$manifest}\\Manifest as {$manifest};";
@@ -164,7 +165,7 @@ Chanter::cast('sentinel', function() {
         $rune = str_replace($prefix_arise, trim($codex_arise.PHP_EOL).PHP_EOL.$prefix_arise, $rune);
       }
 
-      forger_set(AETHER_REPO . '/'. AETHER_FILE, $rune);
+      Forger::item(AETHER_REPO . '/'. AETHER_FILE, $rune);
       Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do invoke with '$manifest' {{nl}}");
     }
   };
@@ -204,7 +205,7 @@ Chanter::cast('sentinel', function() {
         $manifest = $target;
         $state_arise = 'single';
       }
-      $rune = forger_file(AETHER_REPO . '/'. AETHER_FILE);
+      $rune = Forger::item(AETHER_REPO . '/'. AETHER_FILE);
       $prefix_manifest = '#sentinel-manifest';
       $prefix_arise = '#sentinel-arise';
       $codex_manifest = "use Rune\\{$manifest}\\Manifest as {$manifest};";
@@ -253,7 +254,7 @@ Chanter::cast('sentinel', function() {
         }
       }
       
-      forger_set(AETHER_REPO . '/'. AETHER_FILE, $rune);
+      Forger::item(AETHER_REPO . '/'. AETHER_FILE, $rune);
       Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do revoke with '$manifest' {{nl}}");
     }
   };

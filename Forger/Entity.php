@@ -37,14 +37,49 @@ function forger_trace( String $source_path ) {
   aether_arcane('Forger.entity.forger_trace');
   return $targets;
 }
+function forger_trace_recursive(string $path): array {
+  $result = [];
+
+  if (!file_exists($path)) return $result;
+
+  // Folder dulu
+  if (is_dir($path)) {
+    $result[] = [
+      'target' => $path,
+      'ready'  => true,
+      'type'   => 'repo',
+    ];
+
+    $items = scandir($path);
+    foreach ($items as $item) {
+      if ($item === '.' || $item === '..') continue;
+
+      $full_path = $path . DIRECTORY_SEPARATOR . $item;
+      $result = array_merge($result, forger_trace_recursive($full_path));
+    }
+  } else {
+    // File
+    $result[] = [
+      'target' => $path,
+      'ready'  => true,
+      'type'   => 'item',
+    ];
+  }
+
+  return $result;
+}
+
+
 
 
 /* SCAN
  * */
-function forger_scan( String $source_path, $callback ) {
+function forger_scan( String $source_path, Callable $callback ) {
   $return = [];
-  foreach (glob( $source_path . '/*', GLOB_NOSORT ) as $item) {
-    $return[] = $callback($item);
+  foreach (glob( $source_path . '/*' ) as $item) {
+    $reitem = pathinfo($item);
+    $reitem['target'] = $source_path . DIRECTORY_SEPARATOR . $reitem['basename'];
+    $return[] = $callback( (object) $reitem );
   }
 
   aether_arcane('Forger.entity.forger_scan');
@@ -70,6 +105,54 @@ function forger_fix( Array $source_path ) {
 
   aether_arcane('Forger.entity.forger_fix');
 }
+
+
+
+/* SORT
+ * */
+function forger_sort(array $trace, string $priority = 'item'): array {
+  usort($trace, function($a, $b) use ($priority) {
+    if ($a['type'] === $b['type']) {
+      // Kalau sama-sama 'item' atau 'repo', urut berdasarkan panjang path (panjang duluan)
+      return strlen($b['target']) - strlen($a['target']);
+    }
+
+    // Urutkan sesuai prioritas type
+    return ($a['type'] === $priority) ? -1 : 1;
+  });
+
+  return array_values($trace); // Reindex biar rapi
+}
+
+
+/* CLEAN
+ * */
+function forger_clean( String $source_path, $force_repo = false ) {
+  if ($force_repo) {
+    // trace
+    $trace = forger_trace_recursive( $source_path );
+    $trace = forger_sort($trace);
+    
+    // remove
+    foreach ($trace as $target) {
+      if (is_dir($target['target'])) {
+        rmdir($target['target']);
+      }else {
+        unlink($target['target']);
+      }
+    }
+  }else {
+    if (is_dir($source_path)) {
+      rmdir($source_path);
+    }else {
+      unlink($source_path);
+    }
+  }
+  
+  aether_arcane('Forger.entity.forger_clean');
+  return true;
+}
+
 
 
 /* REPO
@@ -102,6 +185,29 @@ function forger_item( String $source_path, $content = false, $flags = 0 ) {
 
   aether_arcane('Forger.entity.forger_item');
   return file_get_contents( $source_path );
+}
+
+
+/* INFO
+ * */
+function forger_info( String $source_path ) {
+  if (file_exists($source_path)) {
+    $file = pathinfo($source_path);
+
+    $return['target'] = $source_path;
+    $return['type'] = (is_dir($source_path)) ? 'repo' : 'item';
+    $return['base'] = $file['basename'];
+    $return['name'] = $file['filename'];
+    if (isset($file['extension'])) {
+      $return['ext'] = (isset($file['extension'])) ? $file['extension'] : '';
+    }
+    $return['path'] = $file['dirname'];
+  }else {
+    $return = false;
+  }
+
+  aether_arcane('Forger.entity.forger_info');
+  return (object) $return;
 }
 
 

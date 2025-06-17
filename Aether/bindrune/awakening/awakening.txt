@@ -1,3 +1,4 @@
+<?php
 /*
  * Act. 0 - Awakening the Rune
  * THE VOID
@@ -6,3 +7,8 @@
  * The Void stirs... and the world begins to tremble.
  * 
  * */
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Rune\Aether\Manifest as Aether;
+
+Aether::awakening();

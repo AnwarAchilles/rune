@@ -18,3 +18,5 @@ define('KEEPER_ECHOES_ARCANE', KEEPER_ECHOES.'/arcane.txt');
 define('KEEPER_ECHOES_GLITCH', KEEPER_ECHOES.'/glitch.txt');
 
 define('KEEPER_ECHOES_ARCANES', KEEPER_ECHOES.'/arcanes/');
+
+define('KEEPER_ECHOES_SHARDS', KEEPER_ECHOES.'/shards/');
