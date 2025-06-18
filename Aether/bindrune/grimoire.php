@@ -203,12 +203,10 @@ Chanter::cast('grimoire', function() {
           $title_prefix = "{{color-danger}}ϻ| ";
           $title = str_replace('manifest', '{{color-danger}}manifest', $title);
           $list_manifest[] = explode(':', $title)[0];
-          $total_manifest++;
         }else if (strpos($title,'entity')!==false) {
           $title_prefix = "{{color-info}}ͱ| ";
           $title = str_replace('entity', '{{color-info}}entity', $title);
           $list_entity[] = explode(':', $title)[0];
-          $total_entity++;
         }
 
         $datetime_end = "{{color-primary}}λ{{color-secondary}}$datetime";

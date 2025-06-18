@@ -99,7 +99,7 @@ function forger_fix( Array $source_path ) {
         }
       }
       if ($source['type'] === 'item') {
-        if (file_exists($source['target'])) {
+        if (!file_exists($source['target'])) {
           touch($source['target']);
           chmod($source['target'], 0644);
         }

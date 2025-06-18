@@ -340,6 +340,12 @@ function keeper_glitch_boot() {
     whisper_emit("{{COLOR-DANGER}}{{ICON-DANGER}} [$data->time] {{COLOR-WARNING}}//$data->type{{nl}}");
     whisper_emit("{{COLOR-INFO}}($data->line) $data->file{{nl}}");
     whisper_emit("{{COLOR-DEFAULT}}$data->message{{nl}}{{nl}}");
+    
+    if (aether_has_entity('specter')) {
+      specter_exit('php '.chanter_arg());
+    }
+
+    aether_exit(true);
   };
 
   // Tangkap error
@@ -369,4 +375,13 @@ function keeper_glitch_detect() {
   global $KEEPER_GLITCH;
 
   aether_dd($KEEPER_GLITCH);
+}
+
+
+
+function keeper_is_glitch() {
+  if (filesize(KEEPER_ECHOES_GLITCH)) {
+    return true;
+  }
+  return false;
 }
