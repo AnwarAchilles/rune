@@ -17,6 +17,7 @@ class Manifest extends \Rune\Manifest {
     global $AETHER_PHANTASM;
 
     gc_collect_cycles();
+    aether_arcane_reset();
     
     // vendor
     if (!empty($vendor)) {
@@ -99,7 +100,7 @@ class Manifest extends \Rune\Manifest {
     aether_arcane("Aether.manifest.awaken");
     // development mode
     // aether_arcane_pretty_print();
-    aether_exit();
+    aether_exit(true);
   }
 
   public static function awakening()

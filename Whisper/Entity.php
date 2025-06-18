@@ -139,12 +139,12 @@ function whisper_emit_get( String $message ) {
 }
 
 function whisper_emit_set( String $message ) {
-  global $WHISPER_STAKE_STATE;
+  global $WHISPER_LATCH_STATE;
 
   $return = whisper_emit_imbue($message . '{{color-end}}');
   
-  if ($WHISPER_STAKE_STATE) {
-    whisper_stake_set($return);
+  if ($WHISPER_LATCH_STATE) {
+    whisper_latch_set($return);
   }else {
     print($return);
   }
@@ -202,28 +202,34 @@ function whisper_reap( String $prompt ) {
 }
 
 
-/* STAKE
+/* LATCH
  *  */
-function whisper_stake() {}
+function whisper_latch() {}
 
-function whisper_stake_start() {
-  global $WHISPER_STAKE_STATE;
-  $WHISPER_STAKE_STATE = true;
+function whisper_latch_start() {
+  global $WHISPER_LATCH_STATE;
+  $WHISPER_LATCH_STATE = true;
+  return true;
 }
 
-function whisper_stake_set( String $message ) {
-  global $WHISPER_STAKE;
-  $WHISPER_STAKE[] = $message;
+function whisper_latch_set( String $message ) {
+  global $WHISPER_LATCH;
+  $WHISPER_LATCH[] = $message;
 }
 
-function whisper_stake_get() {
-  global $WHISPER_STAKE;
-  return implode('', $WHISPER_STAKE);
+function whisper_latch_get() {
+  global $WHISPER_LATCH;
+  return implode('', $WHISPER_LATCH);
 }
 
-function whisper_stake_end() {
-  global $WHISPER_STAKE_STATE;
-  $WHISPER_STAKE_STATE = false;
+function whisper_latch_end() {
+  global $WHISPER_LATCH;
+  global $WHISPER_LATCH_STATE;
+
+  $WHISPER_LATCH = [];
+  $WHISPER_LATCH_STATE = false;
+
+  return whisper_latch_get();
 }
 
 

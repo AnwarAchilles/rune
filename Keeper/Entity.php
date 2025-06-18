@@ -151,16 +151,16 @@ function keeper_arcane_process() {
     }
     
     // evaluate
-    $state = 'UNKNOWN';
-    foreach (array_reverse($KEEPER_ARCANE) as $row) {
-      if ($stepwatch < $row[0]) {
+    $state = $KEEPER_ARCANE[0][1];
+    foreach ($KEEPER_ARCANE as $row) {
+      if ($stepwatch >= $row[0]) {
         $state = $row[1];
       }
     }
     
     $stepwatch = number_format($stepwatch, 5);
 
-    $datas .= "[$datetime] [$stopwatch] [$stepwatch] {$response}: $value //{$state}" . PHP_EOL;
+    $datas .= "[$datetime] - [$stopwatch] - [$stepwatch] - {$response}: - $value - //{$state}" . PHP_EOL;
   }
 
   $store = forger_item(KEEPER_ECHOES_ARCANE, $datas);

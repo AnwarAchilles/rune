@@ -40,13 +40,20 @@ function aether_exit( $force = false ) {
   $usage = aether_formatFileSize($memory[0]);
   $peak = aether_formatFileSize($memory[1]);
 
+  
   if (aether_has_entity('whisper')) {
-    whisper_emit("{{COLOR-SECONDARY}}{{ICON-INFO}}RUNE: Execute={$end}s, Memory=$usage - ^$peak");
+    $icon_execute = "{{color-danger}}ϟ{{color-secondary}}";
+    $icon_memory = "{{color-primary}}Ξ{{color-secondary}}";
+
+    $total_rune = count(aether_arised());
+    // aether_dd($arised);
+    whisper_emit("\n{{COLOR-SECONDARY}}{{ICON-INFO}}EXIT: {$icon_execute}Execute={$end}s, {$icon_memory}Memory=$usage - ^$peak");
   }else {
-    print("RUNE: Running=$end seconds, Usage=$usage, Peak=$peak");
+    print("\nRUNE: Execute={$end}s, Memory=$usage - ^$peak");
   }
 
   if ($force) {
+    aether_arcane_reset();
     exit; die;
   }
 }
@@ -160,28 +167,49 @@ function aether_arised() {
 function aether_arcane(String $text, String $value = NULL) {
   global $AETHER_ARCANE;
   global $AETHER_STOPWATCH;
+  global $AETHER_ARCANE_STATE;
 
-  $process = function() use (&$AETHER_ARCANE, &$AETHER_STOPWATCH, &$text, &$value) {
-    $now = microtime(true);
+  if ($AETHER_ARCANE_STATE) {
+    $process = function() use (&$AETHER_ARCANE, &$AETHER_STOPWATCH, &$text, &$value) {
+      $now = microtime(true);
+      
+      $global_stopwatch = $now - $AETHER_STOPWATCH;
     
-    $global_stopwatch = $now - $AETHER_STOPWATCH;
+      $AETHER_ARCANE[] = [
+        time(),
+        $global_stopwatch,
+        $text,
+        $value
+      ];
+    };
   
-    $AETHER_ARCANE[] = [
-      time(),
-      $global_stopwatch,
-      $text,
-      $value
-    ];
-  };
-
-  if (isset($AETHER_ARCANE[2])) {
-    if ($text !== end($AETHER_ARCANE)[2]) {
-      $lastkey = array_key_last($AETHER_ARCANE);
+    if (isset($AETHER_ARCANE[2])) {
+      if ($text !== end($AETHER_ARCANE)[2]) {
+        $lastkey = array_key_last($AETHER_ARCANE);
+        $process();
+      }
+    }else {
       $process();
     }
-  }else {
-    $process();
   }
+}
+function aether_arcane_reset() {
+  global $AETHER_ARCANE;
+
+  $AETHER_ARCANE = [];
+  return true;
+}
+function aether_arcane_enable() {
+  global $AETHER_ARCANE_STATE;
+
+  $AETHER_ARCANE_STATE = true;
+  return true;
+}
+function aether_arcane_disable() {
+  global $AETHER_ARCANE_STATE;
+
+  $AETHER_ARCANE_STATE = false;
+  return true;
 }
 
 function aether_arcane_pretty_print() {

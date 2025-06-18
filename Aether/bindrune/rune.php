@@ -12,26 +12,28 @@ Chanter::cast('rune', function() {
   foreach ($CHANTER_ECHO as $key => $echo) {
     $list_chanter[] = 'php ' . AETHER_FILE . ' ' . $echo[1];
   }
+
+  $base_cast = [];
+  for ($i=0; $i<4; $i++) {
+    $base_cast[] = $list_chanter[$i];
+    unset($list_chanter[$i]);
+  }
+  $base_cast = implode(PHP_EOL, $base_cast);
+  $registered_cast = implode(PHP_EOL, $list_chanter);
   
-  // if (aether_has_entity('keeper')) {
-  //   $checkFamiliar = keeper_has('familiar.json');
-  //   if ($checkFamiliar) {
-  //     $checkFamiliar = '{{COLOR-SUCCESS}}{{ICON-SUCCESS}}ACTIVE';
-  //   }else {
-  //     $checkFamiliar = '{{COLOR-SECONDARY}}Not have spirit to interact, enchant the "familiar --spirit"';
-  //   }
-  // }else {
-  //   $checkFamiliar = '{{COLOR-SECONDARY}}Not have Keeper try "Rune\Keeper\Manifest::arise()"';
-  // }
+  $base_cast = str_replace('php '.AETHER_FILE, '{{color-secondary}}php '.AETHER_FILE.'{{color-end}}', $base_cast);
+  $registered_cast = str_replace('php '.AETHER_FILE, '{{color-secondary}}php '.AETHER_FILE.'{{color-end}}', $registered_cast);
 
   $header = Weaver::item(__DIR__ . '/weaver/rune-header.txt');
   $header = Weaver::bind($header, [
     'FILE'=> AETHER_FILE,
     'REPO'=> AETHER_REPO,
     'VERSION'=> AETHER_VERSION,
-    'CAST'=> implode(PHP_EOL, $list_chanter),
+    'BASE-CAST'=> $base_cast,
+    'REGISTERED-CAST'=> $registered_cast,
     // 'FAMILIAR'=> $checkFamiliar,
     'FAMILIAR'=> 'NONE',
+    'TOTAL-RUNE'=> count(aether_arised()),
   ]);
   
   if (aether_has_entity('whisper')) {

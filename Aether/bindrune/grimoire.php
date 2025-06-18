@@ -3,6 +3,7 @@
 use Rune\Chanter\Manifest as Chanter;
 use Rune\Weaver\Manifest as Weaver;
 use Rune\Whisper\Manifest as Whisper;
+use Rune\Forger\Manifest as Forger;
 use Rune\Keeper\Manifest as Keeper;
 
 // grimoire
@@ -161,9 +162,95 @@ Chanter::cast('grimoire', function() {
   /* ARCANE
    * todo get current logs/arcane
    *  */
+  $processing__arcane = function() {
+    $file = Forger::item(KEEPER_ECHOES_ARCANE);
+    $file = explode(PHP_EOL, $file);
+
+    global $KEEPER_ARCANE;
+    $sv = $KEEPER_ARCANE;
+    $sv[0][2] = "{{color-success}}";
+    $sv[1][2] = "{{color-success}}";
+    $sv[2][2] = "{{color-info}}";
+    $sv[3][2] = "{{color-primary}}";
+    $sv[4][2] = "{{color-warning}}";
+    $sv[5][2] = "{{color-danger}}";
+    $sv[6][2] = "{{color-danger}}";
+    $resv = [];
+    foreach ($sv as $row) {
+      $resv[$row[1]] = $row[2];
+    }
+    $sv = $resv;
+
+    $no = 0;
+    $list_state = [];
+    $list_step = [];
+    $list_manifest = [];
+    $list_entity = [];
+    foreach ($file as $row) {
+      if (!empty($row)) {
+        $arcane = explode(' - ', $row);
+
+        $datetime = str_replace(']', '', str_replace('[', '', $arcane[0]));
+        $stopwatch = str_replace(']', '', str_replace('[', '', $arcane[1]));
+        $stepwatch = str_replace(']', '', str_replace('[', '', $arcane[2]));
+        $title = $arcane[3];
+        $state = str_replace('//', '', $arcane[5]);
+        
+        $list_state[] = $state;
+        $list_step[] = $stepwatch;
+
+        if (strpos($title,'manifest')!==false) {
+          $title_prefix = "{{color-danger}}ϻ| ";
+          $title = str_replace('manifest', '{{color-danger}}manifest', $title);
+          $list_manifest[] = explode(':', $title)[0];
+          $total_manifest++;
+        }else if (strpos($title,'entity')!==false) {
+          $title_prefix = "{{color-info}}ͱ| ";
+          $title = str_replace('entity', '{{color-info}}entity', $title);
+          $list_entity[] = explode(':', $title)[0];
+          $total_entity++;
+        }
+
+        $datetime_end = "{{color-primary}}λ{{color-secondary}}$datetime";
+        $stopwatch_end = "{{color-warning}}ϟ{{color-secondary}}{$stopwatch}s";
+        $stepwatch_end = "{{color-danger}}ϟ{{color-secondary}}{$stepwatch}s";
+        $title_end = "$title_prefix{{color-default}}$title";
+        $state_end = "{$sv[$state]}.::{$state}::.";
+        
+        Whisper::emit("{{color-secondary}}________________________________________________________________________ _____ ___ __ __ _ _{{nl}}");
+        Whisper::emit("{{color-default}} $no | $datetime_end $stopwatch_end $stepwatch_end   $state_end   $title_end $arcane[4] {{nl}}");
+      }
+      $no++;
+    }
+
+    $total_state = array_count_values($list_state);
+    $total_manifest = count(array_count_values($list_manifest));
+    $total_entity = count(array_count_values($list_entity));
+    $average_step = number_format(array_sum($list_step) / count($list_step), 5);
+    $peak_step = max($list_step);
+    
+    Whisper::emit("\n{{color-secondary}}CURRENT ARCANE STATS:");
+    Whisper::emit("\n{{color-secondary}}{{icon-info}}labels states up to: ");
+    foreach ($KEEPER_ARCANE as $data) {
+      Whisper::emit("{{color-secondary}}$data[0]s=$data[1], ");
+    }
+    
+    Whisper::emit("\n{{tab}}Execute: \tProcess = {{color-danger}}{$no}{{color-end}}, End in = {{color-danger}}{$stopwatch}{{color-end}}s");
+    Whisper::emit("\n{{tab}}Module: \tManifest = {{color-danger}}{$total_manifest}{{color-end}}, Entity = {{color-danger}}{$total_entity}{{color-end}}");
+    Whisper::emit("\n{{tab}}Stepwatch: \tAverage = {{color-danger}}{$average_step}{{color-end}}s, Up to = {{color-danger}}{$peak_step}{{color-end}}s");
+    Whisper::emit("\n{{tab}}State: \t");
+    foreach ($total_state as $ts_key=>$ts_val) {
+      Whisper::emit("$ts_key = {{color-danger}}$ts_val{{color-end}}, ");
+    }
+    
+    Whisper::emit("\n\n");
+  };
   if (Chanter::spell('arcane')) {
     Whisper::clear();
-    aether_arcane_pretty_print();
+
+    aether_arcane_disable();
+    
+    $processing__arcane();
   }
 
 

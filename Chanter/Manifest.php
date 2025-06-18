@@ -28,11 +28,19 @@ class Manifest extends \Rune\Manifest {
     chanter_arg_extract();
     $spell = chanter_spell_chain();
     $cast = $CHANTER_ARG_CAST . ' ' . $spell;
-    
+
     if ($CHANTER_ARG == AETHER_FILE) {
-      chanter_cast_get('rune')();
+      $run = chanter_cast_get('rune');
     }else {
-      chanter_cast_get($cast)();
+      $run = chanter_cast_get($cast);
+    }
+
+    if (chanter_spell_get('zero-trust')) {
+      aether_arcane_disable();
+      chanter_whisper_latch( $run );
+      aether_exit(true);
+    }else {
+      $run();
     }
 
     aether_arcane("Chanter.manifest.awaken");

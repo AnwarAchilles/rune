@@ -31,6 +31,32 @@ class Manifest extends \Rune\Manifest {
     return $result;
   }
 
+  public static function latch( Mixed $state_or_process, Bool $asString = false ) {
+    if (is_callable($state_or_process)) {
+      whisper_latch_start();
+      $state_or_process();
+      $return = whisper_latch_get();
+      whisper_latch_end();
+    }
+    if (is_bool($state_or_process)) {
+      if ($state_or_process==true) {
+        whisper_latch_start();
+        $return = true;
+      }
+      if ($state_or_process==false) {
+        $return = whisper_latch_get();
+        whisper_latch_end();
+      }
+    }
+    
+    if (!$asString) {
+      self::emit($return);
+    }
+    
+    aether_arcane('Whisper.manifest.latch');
+    return $return;
+  }
+
   public static function drain( Callable $callable, Array $option = [] ) {
     whisper_drain($callable, $option);
     

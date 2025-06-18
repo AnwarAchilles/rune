@@ -296,3 +296,14 @@ function chanter_echo_get( String $arg ) {
   aether_arcane("Chanter.entity.chanter_echo_get");
   return $return;
 }
+
+
+
+/* WHISPER LATCH */
+function chanter_whisper_latch( $run ) {
+  whisper_latch_start();
+  $x = $run();
+  $return = whisper_latch_get();
+  whisper_latch_end();
+  whisper_emit($return);
+}
