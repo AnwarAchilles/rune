@@ -1,22 +1,22 @@
   
-  {{COLOR-DANGER}}@anwarachilles{{COLOR-DEFAULT}}
-  ██████╗ ██╗   ██╗███╗   ██╗███████╗
-  ██╔══██╗██║   ██║████╗  ██║██╔════╝
+  {{COLOR-DANGER}}DEVNEET-ID - Project Rune | @anwarachilles{{COLOR-DEFAULT}}
+  ██████╗ ██╗   ██╗███╗   ██╗███████╗ 
+  ██╔══██╗██║   ██║████╗  ██║██╔════╝ 
   ██████╔╝██║   ██║██╔██╗ ██║█████╗  
-  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝  
-  ██║  ██║╚██████╔╝██║ ╚████║███████╗
-  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ v{{VERSION}}
+  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝   
+  ██║  ██║╚██████╔╝██║ ╚████║███████╗ PHP-Lang
+  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ v{{VERSION}} - {{color-danger}}The Awakening{{color-end}}
   {{COLOR-SECONDARY}}Rune is a versatile, modular, and maintainable PHP framework.
   It is designed to make your application development smooth and scalable.{{COLOR-DEFAULT}}
 
-{{COLOR-PRIMARY}}{{ICON-SECONDARY}} APP State{{COLOR-DEFAULT}}
-File: {{FILE}}
-Repo: {{REPO}}
-Rune: {{TOTAL-RUNE}}
+{{COLOR-PRIMARY}}{{ICON-SECONDARY}} Your Stats{{COLOR-DEFAULT}}
+Main   {{color-danger}}-{{color-end}} {{color-secondary}}{{FILE}} - {{SIZE}}{{color-end}}
+Repo   {{color-danger}}-{{color-end}} {{color-secondary}}{{REPO}}{{color-end}}
+Rune   {{color-danger}}-{{color-end}} {{color-secondary}}Manifest={{TOTAL-RUNE}}, Ether={{RUNE-ETHER}}, Essence={{RUNE-ESSENCE}}, Entity={{RUNE-ENTITY}} {{color-end}}
+Echoes {{color-danger}}-{{color-end}} {{ECHOES}}
 
 {{COLOR-PRIMARY}}{{ICON-SECONDARY}} Default Cast{{COLOR-DEFAULT}}
 {{BASE-CAST}}
 
-{{COLOR-PRIMARY}}{{ICON-SECONDARY}} CAST Avaliable{{COLOR-DEFAULT}}
+{{COLOR-PRIMARY}}{{ICON-SECONDARY}} Registered Cast{{COLOR-DEFAULT}}
 {{REGISTERED-CAST}}
-

@@ -44,12 +44,19 @@ function aether_exit( $force = false ) {
   if (aether_has_entity('whisper')) {
     $icon_execute = "{{color-danger}}ϟ{{color-secondary}}";
     $icon_memory = "{{color-primary}}Ξ{{color-secondary}}";
+    
+    if (aether_has_entity('chanter')) {
+      if (chanter_spell('zero-trust')) {
+        $icon_execute = "{{color-warning}}ϟ{{color-secondary}}";
+        $icon_memory = "{{color-danger}}Ξ{{color-secondary}}";
+      }
+    }
 
     $total_rune = count(aether_arised());
     // aether_dd($arised);
-    whisper_emit("\n{{COLOR-SECONDARY}}{{ICON-INFO}}EXIT: {$icon_execute}Execute={$end}s, {$icon_memory}Memory=$usage - ^$peak");
+    whisper_emit("\n\n{{COLOR-SECONDARY}}{{ICON-INFO}}EXIT: {$icon_execute}Execute={$end}s, {$icon_memory}Memory=$usage - ^$peak");
   }else {
-    print("\nRUNE: Execute={$end}s, Memory=$usage - ^$peak");
+    print("\n\nRUNE: Execute={$end}s, Memory=$usage - ^$peak");
   }
 
   if ($force) {

@@ -1,22 +1,35 @@
   
-  {{COLOR-DANGER}}R U N E{{COLOR-DEFAULT}}
+  {{COLOR-DANGER}}DEVNEET-ID - Project Rune | @anwarachilles{{COLOR-DEFAULT}}
   ███████╗███████╗███╗   ██╗████████╗██╗███╗   ██╗███████╗██╗     
   ██╔════╝██╔════╝████╗  ██║╚══██╔══╝██║████╗  ██║██╔════╝██║     
   ███████╗█████╗  ██╔██╗ ██║   ██║   ██║██╔██╗ ██║█████╗  ██║     
   ╚════██║██╔══╝  ██║╚██╗██║   ██║   ██║██║╚██╗██║██╔══╝  ██║     
   ███████║███████╗██║ ╚████║   ██║   ██║██║ ╚████║███████╗███████╗
   ╚══════╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝
+  {{COLOR-SECONDARY}}Sentinel, your guide for building, monitoring, and mastering the system.{{COLOR-DEFAULT}}
 
-{{COLOR-PRIMARY}}# For Rune Binder{{COLOR-END}} 
-php {{AETHER-FILE}} sentinel --rise_altar
-php {{AETHER-FILE}} sentinel --altar
-php {{AETHER-FILE}} sentinel --inspect
-php {{AETHER-FILE}} sentinel --invoke
-php {{AETHER-FILE}} sentinel --revoke
-php {{AETHER-FILE}} sentinel --codex
-php {{AETHER-FILE}} sentinel --cronicle
+Your Sentinel helps build your app, monitor performance, and keep things running.
+Confused or need help with runes? Sentinel's got your back.
 
-{{COLOR-PRIMARY}}# For Rune Builder{{COLOR-END}}
-php {{AETHER-FILE}} sentinel --create-rune
-php {{AETHER-FILE}} sentinel --phantasm-fix-list
+{{color-primary}}{{icon-secondary}} For Rune Binder{{COLOR-END}} 
+{{color-secondary}}php {{AETHER-FILE}}{{color-end}} sentinel --rise_altar {{color-danger}}{{icon-danger}}
+  {{color-secondary}}::Rise the rune altar to get GUI web based.
 
+{{color-secondary}}php {{AETHER-FILE}}{{color-end}} sentinel --altar {{color-danger}}{{icon-danger}}
+  {{color-secondary}}::Run the altar
+
+{{color-secondary}}php {{AETHER-FILE}}{{color-end}} sentinel --inspect {{color-danger}}{{icon-danger}}
+  {{color-secondary}}::Inspection the rune for miss linked rune.
+
+{{color-secondary}}php {{AETHER-FILE}}{{color-end}} sentinel --invoke {{color-success}}{{icon-success}}
+  {{color-secondary}}::Invoke the rune to your workspace (EX:Chanter.ether.essence)
+
+{{color-secondary}}php {{AETHER-FILE}}{{color-end}} sentinel --revoke {{color-success}}{{icon-success}}
+  {{color-secondary}}::Revoke the rune in your workspace (EX:Chanter.ether.essence)
+
+{{color-secondary}}php {{AETHER-FILE}}{{color-end}} sentinel --codex {{color-danger}}{{icon-danger}}
+{{color-secondary}}php {{AETHER-FILE}}{{color-end}} sentinel --cronicle {{color-danger}}{{icon-danger}}
+
+{{color-primary}}{{icon-secondary}} For Rune Builder{{COLOR-END}}
+{{color-secondary}}php {{AETHER-FILE}}{{color-end}} sentinel --create-rune {{color-success}}{{icon-success}}
+{{color-secondary}}php {{AETHER-FILE}}{{color-end}} sentinel --phantasm-fix-list {{color-success}}{{icon-success}}

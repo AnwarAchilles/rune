@@ -152,7 +152,7 @@ Chanter::cast('grimoire', function() {
     }
     
     if (aether_has_entity('keeper')) {
-      Keeper::item('runes', $keeper_runes);
+      Keeper::item('grimoire', $keeper_runes);
     }
 
     Whisper::emit($footer);
@@ -249,6 +249,11 @@ Chanter::cast('grimoire', function() {
     aether_arcane_disable();
     
     $processing__arcane();
+  }
+
+  if (Chanter::spell('arcane-clean')) {
+    forger_clean(KEEPER_ECHOES_ARCANES, true);
+    Whisper::emit("{{color-success}}{{icon-success}}{{label-success}}Cleaned arcane echoes");
   }
 
 

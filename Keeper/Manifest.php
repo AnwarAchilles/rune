@@ -40,15 +40,15 @@ class Manifest extends \Rune\Manifest {
   
   public static function awaken() {
     
-    $memory = aether_memoryusage();
-    keeper_item('aether', [
-      'FILE'=> AETHER_FILE,
-      'REPO'=> AETHER_REPO,
-      'VERSION'=> AETHER_VERSION,
-      'SIZE'=> filesize(AETHER_FILE),
-      'MEMORY'=> [$memory[0], $memory[1]],
-      'RUNE'=> aether_arised(),
-    ]);
+    // $memory = aether_memoryusage();
+    // keeper_item('aether', [
+    //   'FILE'=> AETHER_FILE,
+    //   'REPO'=> AETHER_REPO,
+    //   'VERSION'=> AETHER_VERSION,
+    //   'SIZE'=> filesize(AETHER_FILE),
+    //   'MEMORY'=> [$memory[0], $memory[1]],
+    //   'RUNE'=> aether_arised(),
+    // ]);
     
     aether_arcane('Keeper.manifest.awaken');
     keeper_arcane_process();
