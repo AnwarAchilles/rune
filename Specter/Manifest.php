@@ -45,7 +45,7 @@ class Manifest extends \Rune\Manifest {
     whisper_emit("\n SPECTER {{color-danger}}::{{color-end}} OBSERVER");
     whisper_emit("\n {{color-secondary}}Your watch this directory '$repo'");
     whisper_emit("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
-    self::seer( function($animation) use (&$last, &$index, $repo) {
+    self::seer( function($animation) use (&$last, &$index, $repo, $callback) {
       $current = forger_observer($repo);
       
       if ($last !== $current) {

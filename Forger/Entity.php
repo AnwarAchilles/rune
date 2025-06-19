@@ -110,6 +110,42 @@ function forger_fix( Array $source_path ) {
   aether_arcane('Forger.entity.forger_fix');
 }
 
+/* MOVE
+ * */
+function forger_move(Array $source_path) {
+  foreach ($source_path as $source) {
+    $type   = $source['type'] ?? null;
+    $from   = $source['from'] ?? null;
+    $target = $source['target'] ?? null;
+    
+    $traces = forger_trace($target);
+    foreach ($traces as $trace) {
+      if ($trace['type'] === 'repo') {
+        forger_repo($trace['target']);
+      }
+    }
+
+    if ($type=='item') {
+      if ($from && $target) {
+        // Pastikan folder tujuan ada dulu
+        $targetDir = dirname($target);
+        if (!file_exists($targetDir)) {
+          mkdir($targetDir, 0755, true);
+        }
+  
+        // Pindahkan item ke target
+        if (file_exists($from)) {
+          copy($from, $target);
+        }
+      }
+    }
+    if ($type=='repo') {
+      forger_clone($from, $target);
+    }
+  }
+
+  aether_arcane('Forger.entity.forger_move');
+}
 
 
 /* SORT
