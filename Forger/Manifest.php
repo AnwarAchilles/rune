@@ -73,4 +73,11 @@ class Manifest extends \Rune\Manifest {
     return $return;
   }
 
+  public static function observer( string $path ) {
+    $return = forger_observer( $path );
+
+    aether_arcane('Forger.Manifest.observer');
+    return $return;
+  }
+
 }

@@ -33,6 +33,72 @@ class Manifest extends \Rune\Manifest {
   public static function awaken() {}
 
 
+  public static function observer( $repo, $callback ) {
+    if (!file_exists($repo)) {
+      whisper_emit("{{COLOR-DANGER}}{{ICON-WARNING}}{{label-warning}} Specter Repo not exits!! {{nl}}");
+      aether_exit(true);  
+    }
+
+    $index = 0;
+    $last = forger_observer( $repo );
+
+    whisper_emit("\n SPECTER {{color-danger}}::{{color-end}} OBSERVER");
+    whisper_emit("\n {{color-secondary}}Your watch this directory '$repo'");
+    whisper_emit("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
+    self::seer( function($animation) use (&$last, &$index, $repo) {
+      $current = forger_observer($repo);
+      
+      if ($last !== $current) {
+        global $AETHER_STOPWATCH;
+        $AETHER_STOPWATCH = microtime(true);
+        $callback();
+        $index++;
+        $last = $current;
+      }
+
+      if ($index > 5) {
+        whisper_clear(true);
+        whisper_emit("\n SPECTER {{color-danger}}::{{color-end}} OBSERVER");
+        whisper_emit("\n {{color-success}}{{icon-success}}{{color-secondary}}Successfully clearing your console..");
+        whisper_emit("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
+        $index = 0;
+      }
+      return false;
+    });
+  }
+
+  public static function devserver( $configure ) {
+    $config = (object) $configure;
+    
+    // Default value
+    $config->host ??= '127.0.0.1';
+    $config->port ??= '8000';
+    $config->mode ??= 'private';
+    
+    // Jika mode public, ubah host ke 0.0.0.0
+    if ($config->mode == 'public') {
+      $config->host = '0.0.0.0';
+    }
+    
+    // Path ke direktori
+    $path = !empty($config->path) ? ' -t ' . escapeshellarg($config->path) : '';
+    
+    // Jika ada file router (kayak router.php)
+    $file = !empty($config->file) ? ' ' . escapeshellarg($config->file) : '';
+    
+    // Gabungkan semua
+    $command = 'php -S ' . $config->host . ':' . $config->port . $path . $file;
+    
+    // whisper
+    whisper_emit("\n SPECTER {{color-danger}}::{{color-end}} DEVSERVER");
+    whisper_emit("\n {{color-secondary}}Your local development server in http://{$config->host}:{$config->port}");
+    whisper_emit("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
+    
+    // Jalankan server
+    shell_exec($command);
+  }
+
+
   public static function soul( String $name, Mixed $value = NULL ) {
     if ($value) {
       specter_soul_set($name, $value);

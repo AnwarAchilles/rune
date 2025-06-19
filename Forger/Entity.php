@@ -255,7 +255,16 @@ function forger_clone( string $from, string $to ): bool {
 }
 
 
-
+/* Observer */
+function forger_observer($path) {
+  $lastModifiedTime = 0;
+  foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)) as $f) {
+    if (!$f->isFile()) continue;
+    $time = $f->getMTime();
+    $lastModifiedTime = max($lastModifiedTime, $time);
+  }
+  return $lastModifiedTime;
+}
 
 
 

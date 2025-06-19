@@ -105,6 +105,78 @@ Chanter::cast('sentinel', function() {
     Whisper::clear()::emit('{{COLOR-DANGER}} Inspect is deprecated {{nl}}');
   }
 
+
+  // /* LOCALHOST
+  //  *  */
+  // $processing__localhost = function($configure) {
+  //   Whisper::clear(true);
+  //   Whisper::emit("\n SENTINEL {{color-danger}}::{{color-end}} LOCAL DEVELOPMENT SERVER");
+  //   Whisper::emit("\n {{color-secondary}}Your watch this directory '$repo'");
+  //   Whisper::emit("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
+
+  //   Aether::localhost($configure);
+  // };
+  // if (Chanter::spell('catalyst-serve')) {
+  //   if (Chanter::spell('catalyst-serve') !== '1') {
+  //     $config = json_decode(Chanter::spell('catalyst-serve'));
+  //   }else {
+  //     $config = [];
+  //     Whisper::clear();
+  //     $config['file'] = Whisper::reap('Insert a filepath: ');
+  //     $config['host'] = Whisper::reap('Insert a host or leave empty: ') ?? 'localhost';
+  //     $config['port'] = Whisper::reap('Insert a port or leave empty: ') ?? 8000;
+  //     $config['mode'] = Whisper::reap('Insert a mode [public/private]: ') ?? 'private';
+  //   }
+
+  //   $processing__localhost( $config );
+  // }
+
+
+  // /* WATCH
+  //  *  */
+  // $processing__watch = function($repo) {
+  //   if (!file_exists($repo)) {
+  //     Whisper::emit("{{COLOR-DANGER}}{{ICON-WARNING}} Repo not exits!! {{nl}}");
+  //     aether_exit(true);  
+  //   }
+
+  //   $index = 0;
+  //   $last = Forger::observer( $repo );
+
+  //   Whisper::emit("\n SENTINEL {{color-danger}}::{{color-end}} WATCHER");
+  //   Whisper::emit("\n {{color-secondary}}Your watch this directory '$repo'");
+  //   Whisper::emit("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
+  //   Specter::seer( function($animation) use (&$last, &$index, $repo) {
+  //     $current = Forger::observer($repo);
+      
+  //     if ($last !== $current) {
+  //       global $AETHER_STOPWATCH;
+  //       $AETHER_STOPWATCH = microtime(true);
+  //       Chanter::cast('build')();
+  //       $index++;
+  //       $last = $current;
+  //     }
+
+  //     if ($index > 5) {
+  //       Whisper::clear(true);
+  //       Whisper::emit("\n SENTINEL {{color-danger}}::{{color-end}} WATCHER");
+  //       Whisper::emit("\n {{color-success}}{{icon-success}}{{color-secondary}}Successfully clearing your console..\n\n");
+  //       $index = 0;
+  //     }
+  //     return false;
+  //   });
+  // };
+  // if (Chanter::spell('catalyst-watch')) {
+  //   if (Chanter::spell('catalyst-watch') !== '1') {
+  //     $repo = Chanter::spell('catalyst-watch');
+  //   }else {
+  //     $repo = Whisper::reap('Give us the rune repo: ');
+  //   }
+
+  //   Whisper::clear(true);
+  //   $processing__watch($repo);
+  // }
+
   
 
 

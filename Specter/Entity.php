@@ -203,7 +203,6 @@ function specter_seer_set(Callable $condition) {
     gc_enable();
     $start = microtime(true);
 
-    whisper_clear();
     $frame = $frames[$i % count($frames)];
     $stop = $condition($frame);
     $i++;
