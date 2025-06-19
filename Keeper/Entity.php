@@ -282,7 +282,10 @@ function keeper_shard_invoke( Object $forger_info ) {
   $file = cipher_base64($patch.PHP_EOL.$source);
   $file = cipher_encode($file);
 
-  forger_item(KEEPER_ECHOES_SHARDS . '/' . $forger_info->base . '.rune', $file);
+  // not use
+  $rune_name = str_replace('/', '-', $forger_info->target . '.rune');
+
+  forger_item(KEEPER_ECHOES_SHARDS . '/' . cipher_hash($rune_name) . '.rune', $file);
 
   aether_arcane('Keeper.entity.keeper_shard_invoke');
   return true;

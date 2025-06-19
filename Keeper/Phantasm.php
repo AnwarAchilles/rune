@@ -11,7 +11,7 @@ class Phantasm extends \Rune\Phantasm {
 
   public $origin = __DIR__;
 
-  public $version = 1.4;
+  public $version = 1.5;
   
   public $main = 'Keeper';
 
