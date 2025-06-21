@@ -22,8 +22,8 @@ Aether::origin();
 
 Chanter::cast('awakening', function() {
   Whisper::clear();
-  Whisper::emit("\n{{tab}}RUNE {{COLOR-DANGER}}::{{color-end}} AWAKENING");
-  Whisper::emit("\n{{tab}}{{COLOR-SECONDARY}}awaken the rune from the void...\n");
+  Whisper::echo("\n{{tab}}RUNE {{COLOR-DANGER}}::{{color-end}} AWAKENING");
+  Whisper::echo("\n{{tab}}{{COLOR-SECONDARY}}awaken the rune from the void...\n");
 
   $rune = '';
   $processing = function( $rune, $timing ) {
@@ -44,14 +44,14 @@ Chanter::cast('awakening', function() {
     }
 
     Whisper::drain(function($loader) {
-      Whisper::emit("{{COLOR-DANGER}}[$loader] A W A K E N I N G ");
+      Whisper::echo("{{COLOR-DANGER}}[$loader] A W A K E N I N G ");
     },[
       'speed' => 100,
       'delay' => $timing,
     ]);
     Whisper::clear();
     Whisper::clear_force();
-    Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} A W A K E N I N G ");
+    Whisper::echo("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} A W A K E N I N G ");
   };
   $processing_revoke = function( $from, $to ) {
     $prefix_newPage = PHP_EOL.'- - - - -'.PHP_EOL;
@@ -78,13 +78,13 @@ Chanter::cast('awakening', function() {
     }
 
     Whisper::clear();
-    Whisper::emit("\n{{tab}}RUNE {{COLOR-DANGER}}::{{color-end}} AWAKENED {{COLOR-SUCCESS}}{{ICON-SUCCESS}}");
-    Whisper::emit("\n{{tab}}{{COLOR-SECONDARY}}Check with command {{color-danger}}php ".AETHER_FILE."\n");
+    Whisper::echo("\n{{tab}}RUNE {{COLOR-DANGER}}::{{color-end}} AWAKENED {{COLOR-SUCCESS}}{{ICON-SUCCESS}}");
+    Whisper::echo("\n{{tab}}{{COLOR-SECONDARY}}Check with command {{color-danger}}php ".AETHER_FILE."\n");
   };
 
   // check minimum requirement
   if (!version_compare(PHP_VERSION, AETHER_PHP_VERSION, '>=')) {
-    Whisper::emit('{{COLOR-ERROR}}{{ICON-ERROR}} Need PHP version '.AETHER_PHP_VERSION.' or higher required.');
+    Whisper::echo('{{COLOR-ERROR}}{{ICON-ERROR}} Need PHP version '.AETHER_PHP_VERSION.' or higher required.');
     exit;
   }
 
@@ -94,8 +94,8 @@ Chanter::cast('awakening', function() {
   
   // without kit
   Whisper::clear();
-  Whisper::emit('you will choose rank D as default, {{nl}}Did you want to choose another rank?{{nl}}');
-  if (Whisper::reap('Enter your answer [y/n]: ') !== 'y') {
+  Whisper::echo('you will choose rank D as default, {{nl}}Did you want to choose another rank?{{nl}}');
+  if (Whisper::call('Enter your answer [y/n]: ') !== 'y') {
     $processing_revoke(
       __DIR__ . '/rank/d--plain.rune',
       AETHER_REPO.'/'.AETHER_FILE
@@ -106,29 +106,29 @@ Chanter::cast('awakening', function() {
   
   // choosing
   Whisper::clear();
-  Whisper::emit('Choose you want to use. {{nl}}');
-  Whisper::emit('');
+  Whisper::echo('Choose you want to use. {{nl}}');
+  Whisper::echo('');
   $list = [];
-  Whisper::emit("{{COLOR-SECONDARY}}[ID] NAME {{nl}}");
+  Whisper::echo("{{COLOR-SECONDARY}}[ID] NAME {{nl}}");
   foreach (glob(__DIR__.'/rank/*') as $row) {
     if (is_file($row)) {
       $data = explode('--', basename($row));
       $ID = strtoupper($data[0]);
       $name = str_replace('.rune', '', str_replace('-', ' ', $data[1]));
       $default = ($ID=='D') ? ' <- current' : '';
-      Whisper::emit("[$ID] $name {{COLOR-SUCCESS}}$default{{COLOR-DEFAULT}} {{nl}}");
+      Whisper::echo("[$ID] $name {{COLOR-SUCCESS}}$default{{COLOR-DEFAULT}} {{nl}}");
       $list[$ID] = $row;
     }
   }
   
   
   // processing
-  $selected = Whisper::reap('Enter kit ID: ');
+  $selected = Whisper::call('Enter kit ID: ');
   if ($selected) {
     $selected = (empty($selected)) ? 'd' : $selected;
     
     if (!isset($list[strtoupper($selected)])) {
-      Whisper::emit('{{COLOR-ERROR}}{{ICON-ERROR}} Template not found');
+      Whisper::echo('{{COLOR-ERROR}}{{ICON-ERROR}} Template not found');
       exit;
     }
 
@@ -148,7 +148,7 @@ Chanter::cast('awakening', function() {
 //   ]);
 
 //   Whisper::drain(function($loader) {
-//     Whisper::emit("{{COLOR-DANGER}}[$loader] A W A K E N I N G ");
+//     Whisper::echo("{{COLOR-DANGER}}[$loader] A W A K E N I N G ");
 //   }, [
 //     'speed' => 100,
 //     'infinite' => function() {

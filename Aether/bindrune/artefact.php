@@ -21,7 +21,7 @@ Chanter::cast('artefact', function() {
 
   if (aether_has_entity('whisper')) {
     Whisper::clear();
-    Whisper::emit($header);
+    Whisper::echo($header);
   }else {
     aether_whisper($header);
   }
@@ -60,7 +60,7 @@ Chanter::cast('artefact', function() {
     
     Forger::item($runefile, $template);
 
-    Whisper::clear()::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully invoked.{{nl}}");
+    Whisper::clear()::echo("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully invoked.{{nl}}");
   };
   if (Chanter::spell('invoke')) {
     $processing_invoke();
@@ -94,15 +94,15 @@ Chanter::cast('artefact', function() {
       // }
     }
 
-    Whisper::clear()::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully revoked. {{nl}}");
+    Whisper::clear()::echo("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully revoked. {{nl}}");
   };
   if (Chanter::spell('revoke')) {
     Whisper::clear();
     if (Chanter::spell('revoke') !== '1') {
       $link = Chanter::spell('revoke');
     }else {
-      Whisper::emit("{{COLOR-SECONDARY}}{{ICON-INFO}}{{LABEL-INFO}}You will revoke the artefact, Where the artefact?{{nl}}");
-      $link = Whisper::reap('File location: ');
+      Whisper::echo("{{COLOR-SECONDARY}}{{ICON-INFO}}{{LABEL-INFO}}You will revoke the artefact, Where the artefact?{{nl}}");
+      $link = Whisper::call('File location: ');
     }
     if ($link) {
       $processing_revoke($link);
@@ -139,12 +139,12 @@ Chanter::cast('artefact', function() {
   if (Chanter::spell('shards')) {
     $result = [];
     $no = 1;
-    Whisper::emit('{{COLOR-INFO}} Your artefact shard is: {{nl}}');
+    Whisper::echo('{{COLOR-INFO}} Your artefact shard is: {{nl}}');
     foreach (glob(AETHER_ECHOES_ARTEFACT . '/*.rune') as $file) {
       $time = filemtime($file);
       $file = pathinfo($file);
       $file['timestamp'] = date('Y-m-d H:i:s', $time);
-      Whisper::emit('['.$no.'] ' . $file['basename'] . ' - ' . date('Y-m-d H:i:s', $time) . ' {{nl}}');
+      Whisper::echo('['.$no.'] ' . $file['basename'] . ' - ' . date('Y-m-d H:i:s', $time) . ' {{nl}}');
       $result[] = $file;
       $no++;
     }
@@ -155,7 +155,7 @@ Chanter::cast('artefact', function() {
     $target = AETHER_ECHOES_ARTEFACT . '/' . Chanter::spell('remove_process');
     if (file_exists($target)) {
       unlink($target);
-      Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully removed.");
+      Whisper::echo("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully removed.");
     }
   }
 

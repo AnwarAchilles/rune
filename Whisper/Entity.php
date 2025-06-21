@@ -1,101 +1,6 @@
 <?php
 
 
-
-// function whisper( String $message, Bool $inLine=false) {
-//   if ($inLine ) {
-//     whisper_il($message);
-//   }else {
-//     whisper_nl($message);
-//   }
-// }
-
-// function whisper_nl( String $message ) {
-//   $message = whisper_var_search($message . '{{COLOR-DEFAULT}}');
-//   print($message . PHP_EOL);
-// }
-
-// function whisper_il( String $message ) {
-//   $message = whisper_var_search($message . '{{COLOR-DEFAULT}}');
-//   print($message);
-// }
-
-// function whisper_loader(callable $callback, array $option) {
-//   $frames = ['-', '\\', '|', '/'];
-//   $speed = $option['speed'] ?? 100;
-//   $delay = $option['delay'] ?? null;
-//   $infinite = $option['infinite'] ?? null;
-//   $i = 0;
-
-//   if (is_callable($infinite)) {
-//     while ($infinite()) {
-//       whisper_clear();
-//       $callback($frames[$i % count($frames)]);
-//       usleep($speed * 1000);
-//       $i++;
-//     }
-//   } else {
-//     $steps = $delay ? (int)($delay / $speed) : 10;
-//     for ($i = 0; $i < $steps; $i++) {
-//       whisper_clear();
-//       $callback($frames[$i % count($frames)]);
-//       usleep($speed * 1000);
-//     }
-//   }
-// }
-
-// function whisper_input( String $prompt ) {
-//   echo $prompt;
-//   return trim(fgets(STDIN));
-// }
-
-// function whisper_var_search( String $value ) {
-//   global $WHISPER;
-//   $matches = [];
-//   preg_match_all('/{{(.*?)}}/', $value, $matches);
-//   $match = array_values(array_unique($matches[1]));
-//   foreach ($match as $m) {
-//     $key = explode('-', strtoupper($m));
-//     // $value = str_replace("{{" . $m . "}}", $WHISPER[$key[0]][$key[1]], $value);
-//     $value = weaver_bind($value, $m, $WHISPER[$key[0]][$key[1]]);
-//   }
-//   return $value;
-// }
-
-// function whisper_http(string $url, string $method = 'GET', array $headers = [], $body = null) {
-//   $ch = curl_init();
-
-//   curl_setopt($ch, CURLOPT_URL, $url);
-//   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, strtoupper($method));
-
-//   // Header
-//   if (!empty($headers)) {
-//     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-//   }
-
-//   // Body (untuk POST, PUT, dll)
-//   if (in_array(strtoupper($method), ['POST', 'PUT', 'PATCH']) && $body !== null) {
-//     curl_setopt($ch, CURLOPT_POSTFIELDS, is_array($body) ? http_build_query($body) : $body);
-//   }
-
-//   // Eksekusi curl
-//   $response = curl_exec($ch);
-//   $error = curl_error($ch);
-//   $info = curl_getinfo($ch);
-
-//   curl_close($ch);
-
-//   return [
-//     'body' => $response,
-//     'error' => $error,
-//     'info' => $info,
-//   ];
-// }
-
-
-
-
 function whisper() {
   return true;
 }
@@ -118,42 +23,42 @@ function whisper_delay( Int $ms ) {
 /* EMIT
  * todo set whisper to user 
  * */
-function whisper_emit( String $message, Bool $asString = false ) {
+function whisper_echo( String $message, Bool $asString = false ) {
   $return = true;
 
   if ($asString) {
-    $return = whisper_emit_get($message);
+    $return = whisper_echo_get($message);
   }else {
-    whisper_emit_set($message);
+    whisper_echo_set($message);
   }
 
-  aether_arcane('Whisper.entity.whisper_emit');
+  aether_arcane('Whisper.entity.whisper_echo');
   return $return;
 }
 
-function whisper_emit_get( String $message ) {
-  $return = whisper_emit_imbue($message . '{{color-end}}');
+function whisper_echo_get( String $message ) {
+  $return = whisper_echo_imbue($message . '{{color-end}}');
 
-  aether_arcane('Whisper.entity.whisper_emit_get');
+  aether_arcane('Whisper.entity.whisper_echo_get');
   return $return;
 }
 
-function whisper_emit_set( String $message ) {
-  global $WHISPER_LATCH_STATE;
+function whisper_echo_set( String $message ) {
+  global $WHISPER_DRAIN_STATE;
 
-  $return = whisper_emit_imbue($message . '{{color-end}}');
+  $return = whisper_echo_imbue($message . '{{color-end}}');
   
-  if ($WHISPER_LATCH_STATE) {
-    whisper_latch_set($return);
+  if ($WHISPER_DRAIN_STATE) {
+    whisper_drain_set($return);
   }else {
     print($return);
   }
 
-  aether_arcane('Whisper.entity.whisper_emit_set');
+  aether_arcane('Whisper.entity.whisper_echo_set');
   return true;
 }
 
-function whisper_emit_imbue( String $text ) {
+function whisper_echo_imbue( String $text ) {
   global $WHISPER_VARS;
   global $WHISPER_COLORS;
   global $WHISPER_ICONS;
@@ -184,7 +89,7 @@ function whisper_emit_imbue( String $text ) {
   // }
   $text = weaver_bind_multiple($text, $maps);
 
-  aether_arcane('Whisper.entity.whisper_emit_imbue');
+  aether_arcane('Whisper.entity.whisper_echo_imbue');
   return $text;
 }
 
@@ -193,71 +98,43 @@ function whisper_emit_imbue( String $text ) {
 /* REAP
  * todo get user whisper
  *  */
-function whisper_reap( String $prompt ) {
-  whisper_emit("{{COLOR-INFO}}{{ICON-INFO}} $prompt");
+function whisper_call( String $prompt ) {
+  whisper_echo("{{COLOR-INFO}}{{ICON-INFO}} $prompt");
   $response = trim(fgets(STDIN));
 
-  aether_arcane('Whisper.entity.whisper_reap'); 
+  aether_arcane('Whisper.entity.whisper_call'); 
   return $response;
 }
 
 
 /* LATCH
  *  */
-function whisper_latch() {}
+function whisper_drain() {}
 
-function whisper_latch_start() {
-  global $WHISPER_LATCH_STATE;
-  $WHISPER_LATCH_STATE = true;
+function whisper_drain_start() {
+  global $WHISPER_DRAIN_STATE;
+  $WHISPER_DRAIN_STATE = true;
   return true;
 }
 
-function whisper_latch_set( String $message ) {
-  global $WHISPER_LATCH;
-  $WHISPER_LATCH[] = $message;
+function whisper_drain_set( String $message ) {
+  global $WHISPER_DRAIN;
+  $WHISPER_DRAIN[] = $message;
 }
 
-function whisper_latch_get() {
-  global $WHISPER_LATCH;
-  return implode('', $WHISPER_LATCH);
+function whisper_drain_get() {
+  global $WHISPER_DRAIN;
+  return implode('', $WHISPER_DRAIN);
 }
 
-function whisper_latch_end() {
-  global $WHISPER_LATCH;
-  global $WHISPER_LATCH_STATE;
+function whisper_drain_end() {
+  global $WHISPER_DRAIN;
+  global $WHISPER_DRAIN_STATE;
 
-  $WHISPER_LATCH = [];
-  $WHISPER_LATCH_STATE = false;
+  $WHISPER_DRAIN = [];
+  $WHISPER_DRAIN_STATE = false;
 
-  return whisper_latch_get();
-}
-
-
-/* DRAIN
- * todo draining the callback
- *  */
-function whisper_drain( callable $callback, array $option) {
-  $frames = ['-', '\\', '|', '/'];
-  $speed = $option['speed'] ?? 100;
-  $delay = $option['delay'] ?? null;
-  $infinite = $option['infinite'] ?? null;
-  $i = 0;
-
-  if (is_callable($infinite)) {
-    while ($infinite()) {
-      whisper_clear();
-      $callback($frames[$i % count($frames)]);
-      usleep($speed * 1000);
-      $i++;
-    }
-  } else {
-    $steps = $delay ? (int)($delay / $speed) : 10;
-    for ($i = 0; $i < $steps; $i++) {
-      whisper_clear();
-      $callback($frames[$i % count($frames)]);
-      usleep($speed * 1000);
-    }
-  }
+  return whisper_drain_get();
 }
 
 

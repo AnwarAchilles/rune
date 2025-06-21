@@ -175,18 +175,18 @@ function chanter_cast_get( String $arg ) {
     $return = function() use ($CHANTER_ARG_CAST, $CHANTER_ECHO) {
       
       if (aether_has_entity('whisper')) {
-        whisper_emit("{{color-warning}}{{icon-warning}}{{label-warning}}Chanter cast with '$CHANTER_ARG_CAST' not found.");
+        whisper_echo("{{color-warning}}{{icon-warning}}{{label-warning}}Chanter cast with '$CHANTER_ARG_CAST' not found.");
       }else {
         print("[!] Chanter cast with '$CHANTER_ARG_CAST' not found.");
       }
 
-      whisper_emit("\n{{color-info}}{{icon-info}}{{label-info}}You mean: ");
+      whisper_echo("\n{{color-info}}{{icon-info}}{{label-info}}You mean: ");
       foreach (array_keys($CHANTER_ECHO) as $cast) {
         similar_text($cast, $CHANTER_ARG_CAST, $persen);
 
         if ($persen >= 70) { // ambil yang mirip banget aja, bisa diatur sendiri
           if (aether_has_entity('whisper')) {
-            whisper_emit("{{color-info}}{$cast}, ");
+            whisper_echo("{{color-info}}{$cast}, ");
           }
           break; // cukup ambil satu yang paling relevan dulu
         }
@@ -319,10 +319,10 @@ function chanter_echo_get( String $arg ) {
 
 
 /* WHISPER LATCH */
-function chanter_whisper_latch( $run ) {
-  whisper_latch_start();
+function chanter_whisper_drain( $run ) {
+  whisper_drain_start();
   $x = $run();
-  $return = whisper_latch_get();
-  whisper_latch_end();
-  whisper_emit($return);
+  $return = whisper_drain_get();
+  whisper_drain_end();
+  whisper_echo($return);
 }

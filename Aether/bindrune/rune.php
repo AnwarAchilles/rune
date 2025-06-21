@@ -88,7 +88,7 @@ Chanter::cast('rune', function() {
   }
   
   if (aether_has_entity('whisper')) {
-    Whisper::clear()::emit($header);
+    Whisper::clear()::echo($header);
   }else {
     aether_whisper($header);
   }

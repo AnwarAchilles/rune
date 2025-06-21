@@ -54,7 +54,7 @@ function aether_exit( $force = false ) {
 
     $total_rune = count(aether_arised());
     // aether_dd($arised);
-    whisper_emit("\n\n{{COLOR-SECONDARY}}{{ICON-INFO}}EXIT: {$icon_execute}Execute={$end}s, {$icon_memory}Memory=$usage - ^$peak");
+    whisper_echo("\n\n{{COLOR-SECONDARY}}{{ICON-INFO}}EXIT: {$icon_execute}Execute={$end}s, {$icon_memory}Memory=$usage - ^$peak");
   }else {
     print("\n\nRUNE: Execute={$end}s, Memory=$usage - ^$peak");
   }
@@ -123,7 +123,7 @@ function aether_dd($data) {
   $x = str_replace('  ', '{{color-secondary}}:{{color-end}} ', $x);
   
   whisper_clear();
-  whisper_emit($x);
+  whisper_echo($x);
   die;
 }
 
@@ -136,19 +136,19 @@ function aether_dd($data) {
 /* PHANTASM OF WHISPER */
 function aether_whisper( $text ) {
   // if (aether_has_entity('whisper')) {
-  //   whisper_emit($text);
+  //   whisper_echo($text);
   // }else {
   // }
   print(preg_replace('/\{\{.*?\}\}/', '', $text).PHP_EOL);
 }
-function aether_whisper_emit( $text ) {
+function aether_whisper_echo( $text ) {
   if (aether_has_entity('whisper')) {
-    whisper_emit($text);
+    whisper_echo($text);
   }else {
     print(preg_replace('/\{\{.*?\}\}/', '', $text).PHP_EOL);
   }
 
-  aether_arcane("Aether.entity.aether_whisper_emit");
+  aether_arcane("Aether.entity.aether_whisper_echo");
 }
 
 
@@ -238,7 +238,7 @@ function aether_arcane_pretty_print() {
       }else {
         $state = '{{color-default}}';
       }
-      // whisper_emit("{{color-secondary}}[$datetime] [$stopwatch] {$state}{$response} {{nl}}");
+      // whisper_echo("{{color-secondary}}[$datetime] [$stopwatch] {$state}{$response} {{nl}}");
       $datas .= "{{color-secondary}}[$datetime] [$stopwatch] {$state}{$response}: $value {{nl}}";
     }else {
       // print("[$datetime] [$stopwatch] $response" . PHP_EOL);
@@ -246,7 +246,7 @@ function aether_arcane_pretty_print() {
     }
   }
   if (aether_has_entity('whisper')) {
-    whisper_emit($datas);
+    whisper_echo($datas);
   }else {
     print($datas);
   }

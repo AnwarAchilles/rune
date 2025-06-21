@@ -37,7 +37,7 @@ class Manifest extends \Rune\Manifest {
 
     if (chanter_spell_get('zero-trust')) {
       aether_arcane_disable();
-      chanter_whisper_latch( $run );
+      chanter_whisper_drain( $run );
       
       if (aether_has_entity('specter')) {
         specter_exit('php '.chanter_arg());

@@ -6,7 +6,7 @@ class Phantasm extends \Rune\Phantasm {
 
   public $origin = __DIR__;
 
-  public $version = 1.1;
+  public $version = 1.5;
   
   public $main = 'Whisper';
 
@@ -108,27 +108,27 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type'=> 'entity',
-      'call'=> 'whisper_emit( String $message, Bool $asString = false )',
+      'call'=> 'whisper_echo( String $message, Bool $asString = false )',
       'note'=> '',
     ],
     [
       'type'=> 'entity',
-      'call'=> 'whisper_emit_get( String $message )',
+      'call'=> 'whisper_echo_get( String $message )',
       'note'=> '',
     ],
     [
       'type'=> 'entity',
-      'call'=> 'whisper_emit_set( String $message )',
+      'call'=> 'whisper_echo_set( String $message )',
       'note'=> '',
     ],
     [
       'type'=> 'entity',
-      'call'=> 'whisper_emit_imbue( String $text )',
+      'call'=> 'whisper_echo_imbue( String $text )',
       'note'=> '',
     ],
     [
       'type'=> 'entity',
-      'call'=> 'whisper_reap( String $prompt )',
+      'call'=> 'whisper_call( String $prompt )',
       'note'=> '',
     ],
     [

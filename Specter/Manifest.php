@@ -35,16 +35,16 @@ class Manifest extends \Rune\Manifest {
 
   public static function observer( $repo, $callback ) {
     if (!file_exists($repo)) {
-      whisper_emit("{{COLOR-DANGER}}{{ICON-WARNING}}{{label-warning}} Specter Repo not exits!! {{nl}}");
+      whisper_echo("{{COLOR-DANGER}}{{ICON-WARNING}}{{label-warning}} Specter Repo not exits!! {{nl}}");
       aether_exit(true);  
     }
 
     $index = 0;
     $last = forger_observer( $repo );
 
-    whisper_emit("\n SPECTER {{color-danger}}::{{color-end}} OBSERVER");
-    whisper_emit("\n {{color-secondary}}Your watch this directory '$repo'");
-    whisper_emit("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
+    whisper_echo("\n SPECTER {{color-danger}}::{{color-end}} OBSERVER");
+    whisper_echo("\n {{color-secondary}}Your watch this directory '$repo'");
+    whisper_echo("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
     self::seer( function($animation) use (&$last, &$index, $repo, $callback) {
       $current = forger_observer($repo);
       
@@ -58,9 +58,9 @@ class Manifest extends \Rune\Manifest {
 
       if ($index > 5) {
         whisper_clear(true);
-        whisper_emit("\n SPECTER {{color-danger}}::{{color-end}} OBSERVER");
-        whisper_emit("\n {{color-success}}{{icon-success}}{{color-secondary}}Successfully clearing your console..");
-        whisper_emit("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
+        whisper_echo("\n SPECTER {{color-danger}}::{{color-end}} OBSERVER");
+        whisper_echo("\n {{color-success}}{{icon-success}}{{color-secondary}}Successfully clearing your console..");
+        whisper_echo("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
         $index = 0;
       }
       return false;
@@ -90,9 +90,9 @@ class Manifest extends \Rune\Manifest {
     $command = 'php -S ' . $config->host . ':' . $config->port . $path . $file;
     
     // whisper
-    whisper_emit("\n SPECTER {{color-danger}}::{{color-end}} DEVSERVER");
-    whisper_emit("\n {{color-secondary}}Your local development server in http://{$config->host}:{$config->port}");
-    whisper_emit("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
+    whisper_echo("\n SPECTER {{color-danger}}::{{color-end}} DEVSERVER");
+    whisper_echo("\n {{color-secondary}}Your local development server in http://{$config->host}:{$config->port}");
+    whisper_echo("\n {{color-secondary}}Running successfully exit with [{{color-danger}}Ctrl+C{{color-end}}].\n\n");
     
     // Jalankan server
     shell_exec($command);

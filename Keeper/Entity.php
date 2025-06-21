@@ -340,9 +340,9 @@ function keeper_glitch_boot() {
 
     forger_item(KEEPER_ECHOES_GLITCH, "[$data->time] [$data->type] [$data->line] [$data->file] $data->message".PHP_EOL, FILE_APPEND);
     
-    whisper_emit("{{COLOR-DANGER}}{{ICON-DANGER}} [$data->time] {{COLOR-WARNING}}//$data->type{{nl}}");
-    whisper_emit("{{COLOR-INFO}}($data->line) $data->file{{nl}}");
-    whisper_emit("{{COLOR-DEFAULT}}$data->message{{nl}}{{nl}}");
+    whisper_echo("{{COLOR-DANGER}}{{ICON-DANGER}} [$data->time] {{COLOR-WARNING}}//$data->type{{nl}}");
+    whisper_echo("{{COLOR-INFO}}($data->line) $data->file{{nl}}");
+    whisper_echo("{{COLOR-DEFAULT}}$data->message{{nl}}{{nl}}");
     
     if (aether_has_entity('specter')) {
       specter_exit('php '.chanter_arg());

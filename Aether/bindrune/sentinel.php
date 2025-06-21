@@ -22,7 +22,7 @@ Chanter::cast('sentinel', function() {
 
   if (aether_has_entity('whisper')) {
     whisper_clear();
-    Whisper::emit($header);
+    Whisper::echo($header);
   }else {
     aether_whisper($header);
   }
@@ -70,10 +70,10 @@ Chanter::cast('sentinel', function() {
     $processing_altar();
 
     whisper_clear();
-    Whisper::emit('');
-    Whisper::emit('{{COLOR-DANGER}} RUNE ALTAR IS RUNNING ON PORT 8100');
-    Whisper::emit('{{COLOR-SECONDARY}} stop terminal with CTL+C');
-    Whisper::emit('');
+    Whisper::echo('');
+    Whisper::echo('{{COLOR-DANGER}} RUNE ALTAR IS RUNNING ON PORT 8100');
+    Whisper::echo('{{COLOR-SECONDARY}} stop terminal with CTL+C');
+    Whisper::echo('');
 
     Aether::localhost([
       'host'=> 'localhost',
@@ -101,7 +101,7 @@ Chanter::cast('sentinel', function() {
    *  */
   if (Chanter::spell('inspect')) {  
 
-    Whisper::clear()::emit('{{COLOR-DANGER}} Inspect is deprecated {{nl}}');
+    Whisper::clear()::echo('{{COLOR-DANGER}} Inspect is deprecated {{nl}}');
   }
   
 
@@ -166,7 +166,7 @@ Chanter::cast('sentinel', function() {
       }
 
       Forger::item(AETHER_REPO . '/'. AETHER_FILE, $rune);
-      Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do invoke with '$manifest' {{nl}}");
+      Whisper::echo("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do invoke with '$manifest' {{nl}}");
     }
   };
   if (Chanter::spell('invoke')) {
@@ -174,8 +174,8 @@ Chanter::cast('sentinel', function() {
     if (Chanter::spell('invoke') !== '1') {
       $input = Chanter::spell('invoke');
     }else {
-      Whisper::emit("{{COLOR-SECONDARY}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune()) . "{{nl}}");
-      $input = Whisper::reap('Give us the rune name: ');
+      Whisper::echo("{{COLOR-SECONDARY}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune()) . "{{nl}}");
+      $input = Whisper::call('Give us the rune name: ');
     }
     if ($input) {
       $processing_invoke($input);
@@ -249,7 +249,7 @@ Chanter::cast('sentinel', function() {
       }
       
       Forger::item(AETHER_REPO . '/'. AETHER_FILE, $rune);
-      Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do revoke with '$manifest' {{nl}}");
+      Whisper::echo("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Sentinel do revoke with '$manifest' {{nl}}");
     }
   };
   if (Chanter::spell('revoke')) {
@@ -259,8 +259,8 @@ Chanter::cast('sentinel', function() {
     if (Chanter::spell('revoke') !== '1') {
       $input = Chanter::spell('revoke');
     }else {
-      Whisper::emit("{{COLOR-SECONDARY}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune())."{{nl}}");
-      $input = Whisper::reap('Give us the rune name: ');
+      Whisper::echo("{{COLOR-SECONDARY}}{{ICON-INFO}} Avaliable rune: " . implode(', ', $avalaible_rune())."{{nl}}");
+      $input = Whisper::call('Give us the rune name: ');
     }
     if ($input) {
       $processing_revoke($input);
@@ -272,7 +272,7 @@ Chanter::cast('sentinel', function() {
    * todo sentinel generate codex
    *  */
   if (Chanter::spell('codex')) {
-    Whisper::emit("{{COLOR-DANGER}}{{ICON-WARNING}} Under Development, feature will be added soon.. {{nl}}");
+    Whisper::echo("{{COLOR-DANGER}}{{ICON-WARNING}} Under Development, feature will be added soon.. {{nl}}");
   }
 
 
@@ -280,7 +280,7 @@ Chanter::cast('sentinel', function() {
    * todo sentinel give you back to selected chronicle
    *  */
   if (Chanter::spell('cronicle')) {
-    Whisper::emit("{{COLOR-DANGER}}{{ICON-WARNING}} Under Development, feature will be added soon.. {{nl}}");
+    Whisper::echo("{{COLOR-DANGER}}{{ICON-WARNING}} Under Development, feature will be added soon.. {{nl}}");
   }
   
 
@@ -333,12 +333,12 @@ Chanter::cast('sentinel', function() {
     if (Chanter::spell('create-rune') !== '1') {
       $name = Chanter::spell('create-rune');
     }else {
-      $name = Whisper::reap('Give us the rune name: ');
+      $name = Whisper::call('Give us the rune name: ');
     }
     $name = ucfirst(strtolower($name));
 
     if (!file_exists(AETHER_REPO . '/.bindrune/')) {
-      Whisper::emit("{{COLOR-DANGER}}{{ICON-WARNING}} You are not eligible!! {{nl}}");
+      Whisper::echo("{{COLOR-DANGER}}{{ICON-WARNING}} You are not eligible!! {{nl}}");
       die();
     }
 
@@ -346,7 +346,7 @@ Chanter::cast('sentinel', function() {
 
     $processing__create_rune($name, $repo);
 
-    Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} Success create rune: $name {{nl}}");
+    Whisper::echo("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} Success create rune: $name {{nl}}");
   }
 
 
@@ -435,16 +435,16 @@ Chanter::cast('sentinel', function() {
       
       Forger::item($phantasm->origin . '/Phantasm.php', $template);
 
-      Whisper::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} Success update phantasm: $name {{nl}}");
+      Whisper::echo("{{COLOR-SUCCESS}}{{ICON-SUCCESS}} Success update phantasm: $name {{nl}}");
     }else {
-      Whisper::emit("{{COLOR-DANGER}}{{ICON-WARNING}} Phantasm not have origin!! {{nl}}");
+      Whisper::echo("{{COLOR-DANGER}}{{ICON-WARNING}} Phantasm not have origin!! {{nl}}");
     }
   };
   if (Chanter::spell('phantasm-fix-list')) {
     if (Chanter::spell('phantasm-fix-list') !== '1') {
       $name = Chanter::spell('phantasm-fix-list');
     }else {
-      $name = Whisper::reap('Give us the rune name: ');
+      $name = Whisper::call('Give us the rune name: ');
     }
     $name = ucfirst(strtolower($name));
     
