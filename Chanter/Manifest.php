@@ -57,7 +57,7 @@ class Manifest extends \Rune\Manifest {
   }
 
   // cast
-  public static function cast( String $args, Callable $callable = NULL ) {
+  public static function cast( String $args, ?Callable $callable = NULL ) {
     if (empty($callable)) {
       $return = chanter_cast_get($args);
     }else {
@@ -89,75 +89,5 @@ class Manifest extends \Rune\Manifest {
     aether_arcane("Chanter.manifest.echo");
     return $text;
   }
-
-  
-  /* CONTROLS METHOD */
-  // public static function get( String $arg ) {
-  //   global $CHANTER_LIST;
-
-  //   chanter_arg($arg);
-  //   $arg = chanter_option_clean($arg);
-  //   if (isset($CHANTER_LIST[$arg])) {
-  //     $return = $CHANTER_LIST[$arg];
-  //   }else {
-  //     $return = function() use ($arg) {
-  //       global $AETHER_FAMILIAR;
-  //       global $CHANTER_REGISTERED;
-  //       global $CHANTER_NOTE;
-
-  //       (!aether_has_entity('whisper')) ?: 
-  //         whisper_nl('{{COLOR-WARNING}}{{ICON-WARNING}}{{LABEL-WARNING}}Unknown chanter "' . $arg . '"');
-
-  //       if ($AETHER_FAMILIAR) {
-  //         $catch = [];
-  //         foreach ($CHANTER_REGISTERED as $registered) {
-  //           if (soundex($arg) == soundex($registered)) {
-  //             $catch[] = $registered;
-  //           }
-  //         }
-  //         (!aether_has_entity('whisper')) ?: 
-  //           whisper_nl("{{COLOR-SECONDARY}}{{ICON-INFO}}Did you mean?: ".implode(", ", $catch));
-  //       }
-  //     };
-  //   };
-
-  //   aether_arcane("Chanter.manifest.get");
-  //   return $return;
-  // }
-  
-  // public static function set( String $arg, Callable $callable ) {
-  //   global $CHANTER_LIST;
-  //   global $CHANTER_REGISTERED;
-    
-  //   if ($arg !== 'base') {
-  //     $CHANTER_REGISTERED[] = $arg;
-  //   }
-  //   $arg = chanter_option_clean($arg);
-  //   $CHANTER_LIST[$arg] = $callable;
-
-  //   aether_arcane("Chanter.manifest.set");
-  // }
-
-  // public static function run( String $arg ) {
-  //   global $AETHER_FAMILIAR;
-    
-  //   $arg = chanter_option_clean($arg);
-  //   self::get($arg)();
-  // }
-
-
-  // public static function note( String $arg, String $text ) {
-  //   global $CHANTER_NOTE;
-    
-  //   $CHANTER_NOTE[$arg] = $text;
-  // }
-
-  // // public static function cast( String $args ) {
-  // //   return chanter_cast($args);
-  // // }
-
-  // public static function option( String $text ) {
-  //   return chanter_option($text);
-  // }
 
 }

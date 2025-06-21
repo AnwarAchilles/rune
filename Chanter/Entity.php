@@ -9,78 +9,6 @@ function chanter() {
   return true;
 }
 
-// function chanter_arg( String $newArg = '' ) {
-//   global $CHANTER_ARG;
-//   if ($newArg !== '') {
-//     $CHANTER_ARG = $newArg;
-//   }
-  
-//   aether_arcane("Chanter.entity.chanter_arg");
-//   return $CHANTER_ARG;
-// }
-
-// function chanter_args() {
-//   global $CHANTER_ARGS;
-  
-//   aether_arcane("Chanter.entity.chanter_args");
-//   return $CHANTER_ARGS;
-// }
-
-// function chanter_cast( String $arg ) {
-//   $arg = weaver_bind($arg, 'self', 'php ' . AETHER_FILE);
-  
-//   aether_arcane("Chanter.entity.chanter_cast");
-//   return shell_exec($arg);
-// }
-
-// function chanter_option(string $name) {
-//   global $CHANTER_ARG_REAL;
-//   $search = '--' . $name;
-  
-//   $pos = strpos($CHANTER_ARG_REAL, $search);
-//   if ($pos === false) {
-//     aether_arcane("Chanter.entity.chanter_option");
-//     return false;
-//   }
-  
-//   $nextCharPos = $pos + strlen($search);
-//   $nextChar = $CHANTER_ARG_REAL[$nextCharPos] ?? '';
-  
-//   if ($nextChar !== '' && $nextChar !== '=' && $nextChar !== ' ') {
-//     aether_arcane("Chanter.entity.chanter_option");
-//     return false;
-//   }
-  
-//   if ($nextChar === '=') {
-//     $valueStart = $nextCharPos + 1;
-//     $valueEnd = strpos($CHANTER_ARG_REAL, ' ', $valueStart);
-//     $value = $valueEnd === false
-//       ? substr($CHANTER_ARG_REAL, $valueStart)
-//       : substr($CHANTER_ARG_REAL, $valueStart, $valueEnd - $valueStart);
-//     if (
-//       defined('AETHER_FILE') &&
-//       substr($value, 0, strlen(AETHER_FILE)) === AETHER_FILE &&
-//       strlen($value) === strlen(AETHER_FILE)
-//     ) {
-//       $value = '';
-//     }
-    
-//     aether_arcane("Chanter.entity.chanter_option");
-//     return $value;
-//   }
-  
-//   aether_arcane("Chanter.entity.chanter_option");
-//   return true;
-// }
-
-// function chanter_option_clean(string $str) {
-//   $arg = preg_replace('/--\w+(=[^\s]+)?\s*/', '', $str);
-  
-//   aether_arcane("Chanter.entity.chanter_option_clean");
-//   return trim($arg);
-// }
-
-
 /* ARG
  * todo get arguments */
 function chanter_arg( String $newArg = '' ) {
@@ -134,8 +62,8 @@ function chanter_arg_extract( String $newArg = '' ) {
 /* CAST
  * todo cast a chanter
  * */
-function chanter_cast( String $args, Callable $callable = NULL ) {
-  if (empty($callable)) {
+function chanter_cast( String $args, ?Callable $callable ) {
+  if (is_callable($callable)) {
     $return = chanter_cast_get($args);
   }else {
     chanter_cast_set($args, $callable);
@@ -146,7 +74,7 @@ function chanter_cast( String $args, Callable $callable = NULL ) {
   return $return;
 }
 
-function chanter_cast_set( String $arg, Callable $callable ) {
+function chanter_cast_set( String $arg, ?Callable $callable ) {
   global $CHANTER_ARG_CAST;
   global $CHANTER_CAST;
   global $CHANTER_CAST_LIST;
