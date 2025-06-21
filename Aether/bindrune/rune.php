@@ -24,8 +24,8 @@ Chanter::cast('rune', function() {
   $base_cast = implode(PHP_EOL, $base_cast);
   $registered_cast = implode(PHP_EOL, $list_chanter);
   
-  $base_cast = str_replace('php '.AETHER_FILE, '{{color-secondary}}php '.AETHER_FILE.'{{color-end}}', $base_cast);
-  $registered_cast = str_replace('php '.AETHER_FILE, '{{color-secondary}}php '.AETHER_FILE.'{{color-end}}', $registered_cast);
+  $base_cast = str_replace('php '.AETHER_FILE, '{{color-info}} ∙ {{color-secondary}}php '.AETHER_FILE.'{{color-end}}', $base_cast);
+  $registered_cast = str_replace('php '.AETHER_FILE, '{{color-info}} ∙ {{color-secondary}}php '.AETHER_FILE.'{{color-end}}', $registered_cast);
 
 
   $echoes_state = '{{color-secondary}}';
@@ -55,6 +55,15 @@ Chanter::cast('rune', function() {
   }
 
   $header = Weaver::item(__DIR__ . '/weaver/rune-header.txt');
+
+  // $color = 'danger';
+  // $header = str_replace('╚', '{{color-'.$color.'}}╚{{color-end}}', $header);
+  // $header = str_replace('═', '{{color-'.$color.'}}═{{color-end}}', $header);
+  // $header = str_replace('╔', '{{color-'.$color.'}}╔{{color-end}}', $header);
+  // $header = str_replace('║', '{{color-'.$color.'}}║{{color-end}}', $header);
+  // $header = str_replace('╝', '{{color-'.$color.'}}╝{{color-end}}', $header);
+  // $header = str_replace('╗', '{{color-'.$color.'}}╗{{color-end}}', $header);
+  
   $header = Weaver::bind($header, [
     'FILE'=> AETHER_FILE,
     'REPO'=> AETHER_REPO,

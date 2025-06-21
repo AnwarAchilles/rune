@@ -1,22 +1,24 @@
-  
-  {{COLOR-DANGER}}DEVNEET-ID - Project Rune | @anwarachilles{{COLOR-DEFAULT}}
-  ██████╗ ██╗   ██╗███╗   ██╗███████╗ 
-  ██╔══██╗██║   ██║████╗  ██║██╔════╝ 
-  ██████╔╝██║   ██║██╔██╗ ██║█████╗  
-  ██╔══██╗██║   ██║██║╚██╗██║██╔══╝   
-  ██║  ██║╚██████╔╝██║ ╚████║███████╗ PHP-Lang
-  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝ v{{VERSION}} - {{color-danger}}The Awakening{{color-end}}
-  {{COLOR-SECONDARY}}Rune is a versatile, modular, and maintainable PHP framework.
-  It is designed to make your application development smooth and scalable.{{COLOR-DEFAULT}}
+{{color-danger}}©{{color-end}}Project Rune {{color-secondary}}———{{color-end}} DEVNEET-ID {{color-danger}}::{{color-end}} @anwarachilles{{COLOR-DEFAULT}}
+██████╗  ██╗   ██╗ ███╗   ██╗ ███████╗ 
+██╔══██╗ ██║   ██║ ████╗  ██║ ██╔════╝ 
+██████╔╝ ██║   ██║ ██╔██╗ ██║ █████╗  
+██╔══██╗ ██║   ██║ ██║╚██╗██║ ██╔══╝   
+██║  ██║ ╚██████╔╝ ██║ ╚████║ ███████╗ PHP-Lang
+╚═╝  ╚═╝  ╚═════╝  ╚═╝  ╚═══╝ ╚══════╝ v{{VERSION}}
+{{COLOR-SECONDARY}}
+Rune is a versatile, modular, and maintainable 
+PHP framework — It is designed to make your 
+application development smooth and scalable.
+{{color-default}}
 
-{{COLOR-PRIMARY}}{{ICON-SECONDARY}} Your Stats{{COLOR-DEFAULT}}
-Main   {{color-danger}}-{{color-end}} {{color-secondary}}{{FILE}} - {{SIZE}}{{color-end}}
-Repo   {{color-danger}}-{{color-end}} {{color-secondary}}{{REPO}}{{color-end}}
-Rune   {{color-danger}}-{{color-end}} {{color-secondary}}Manifest={{TOTAL-RUNE}}, Ether={{RUNE-ETHER}}, Essence={{RUNE-ESSENCE}}, Entity={{RUNE-ENTITY}} {{color-end}}
-Echoes {{color-danger}}-{{color-end}} {{ECHOES}}
+{{color-danger}}::{{color-default}} S T A T S{{color-danger}}.{{color-default}}{{color-default}}
+{{color-info}} ∙{{color-end}} Main:   {{color-secondary}}{{FILE}} - {{SIZE}}{{color-end}}
+{{color-info}} ∙{{color-end}} Repo:   {{color-secondary}}{{REPO}}{{color-end}}
+{{color-info}} ∙{{color-end}} Rune:   {{color-secondary}}Manifest={{TOTAL-RUNE}}, Ether={{RUNE-ETHER}}, Essence={{RUNE-ESSENCE}}, Entity={{RUNE-ENTITY}} {{color-end}}
+{{color-info}} ∙{{color-end}} Echoes: {{ECHOES}}
 
-{{COLOR-PRIMARY}}{{ICON-SECONDARY}} Default Cast{{COLOR-DEFAULT}}
+{{color-danger}}::{{color-default}} D E F A U L T{{color-danger}}.{{color-default}}{{color-default}}
 {{BASE-CAST}}
 
-{{COLOR-PRIMARY}}{{ICON-SECONDARY}} Registered Cast{{COLOR-DEFAULT}}
+{{color-danger}}::{{color-default}} R E G I S T E R E D{{color-danger}}.{{color-default}}{{color-default}}
 {{REGISTERED-CAST}}
