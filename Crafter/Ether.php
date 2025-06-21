@@ -7,16 +7,6 @@
 
 define('CRAFTER', true);
 
-// define('CRAFTER_BASE', [
-//   'TYPE'=> 'class',
-//   'LANGUAGE'=> ['html', 'css', 'js', 'php'],
-//   'MINIFIED'=> [],
-//   'CHARSET'=> 'UTF-8',
-//   'ENCRYPTION'=> 'base64',
-//   'LINT'=> false,
-//   'REPO'=> AETHER_REPO . '/',
-// ]);
-
 define('CRAFTER_WEAVER', [
   [
     ['html','css','js','php'],

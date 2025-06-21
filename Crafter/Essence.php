@@ -7,24 +7,6 @@
 
 $GLOBALS['CRAFTER'] = true;
 
-// $GLOBALS['CRAFTER_BASE'] = [];
-
-// $GLOBALS['CRAFTER_APPS'] = [];
-
-// $GLOBALS['CRAFTER_MAPS'] = [];
-
-// $GLOBALS['CRAFTER_ITEMS'] = [];
-
-// $GLOBALS['CRAFTER_CLUSTERS'] = [
-//   'head.html'=> [],
-//   'html'=> [],
-//   'css'=> [],
-//   'js'=> [],
-//   'php'=> [],
-// ];
-
-// $GLOBALS['CRAFTER_DIST'] = '@{INITIALIZE}';
-
 
 /* ITEM */
 $GLOBALS['CRAFTER_ITEM'] = [];

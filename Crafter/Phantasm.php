@@ -11,9 +11,13 @@ class Phantasm extends \Rune\Phantasm {
 
   public $origin = __DIR__;
 
-  public $version = 1.1;
+  public $version = 1.2;
   
   public $main = 'Crafter';
+
+  public $user = 'Anwar Achilles';
+
+  public $note = 'Focused on dynamic creation and composition—designed to build, shape, and assemble various data structures or logic units through modular, seed-based, and spark-driven processes.';
 
   public $need = [
     ['Aether', 'ether:essence:entity', 1.0],
@@ -23,196 +27,198 @@ class Phantasm extends \Rune\Phantasm {
   ];
 
   public $list = [
-    // manifest
     [
-      'type' => 'manifest',
-      'call' => '_arise()',
-      'note'=> '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => '_aether_awaken()',
-      'note'=> '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'awaken()',
-      'note'=> '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'item( String $name, ?Callable $callable = NULL )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'seed( String $name, Mixed $value = NULL )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'shard( String $source, ?Callable $injection = NULL )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'spark( Mixed $name_or_callable = NULL, ?Callable $injection = NULL )',
-      'note'=> '',
-    ],
-    // ether
-    [
-      'type' => 'ether',
+      'type' => 'essence',
       'call' => 'CRAFTER',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'ether',
       'call' => 'CRAFTER_WEAVER',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'ether',
       'call' => 'CRAFTER_VARIABLE',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'ether',
       'call' => 'CRAFTER_CLEANING',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'ether',
       'call' => 'CRAFTER_RESET_SEED',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'ether',
       'call' => 'CRAFTER_RESET_SPARK',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'ether',
       'call' => 'CRAFTER_RESET_SPARK_STATE',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'ether',
       'call' => 'CRAFTER_RESET_SPARK_CLUSTER',
-      'note'=> '',
-    ],
-    // essence
-    [
-      'type' => 'essence',
-      'call' => '$CRAFTER',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'essence',
-      'call' => '$CRAFTER_ITEM',
-      'note'=> '',
+      'call' => 'CRAFTER_ITEM',
+      'note' => '',
     ],
     [
       'type' => 'essence',
-      'call' => '$CRAFTER_SEED',
-      'note'=> '',
+      'call' => 'CRAFTER_SEED',
+      'note' => '',
     ],
     [
       'type' => 'essence',
-      'call' => '$CRAFTER_SHARD',
-      'note'=> '',
+      'call' => 'CRAFTER_SHARD',
+      'note' => '',
     ],
     [
       'type' => 'essence',
-      'call' => '$CRAFTER_SHARD_LIST',
-      'note'=> '',
+      'call' => 'CRAFTER_SHARD_LIST',
+      'note' => '',
     ],
     [
       'type' => 'essence',
-      'call' => '$CRAFTER_SHARD_INJECTION',
-      'note'=> '',
+      'call' => 'CRAFTER_SHARD_INJECTION',
+      'note' => '',
     ],
     [
       'type' => 'essence',
-      'call' => '$CRAFTER_SPARK_STATE',
-      'note'=> '',
+      'call' => 'CRAFTER_SPARK',
+      'note' => '',
     ],
     [
       'type' => 'essence',
-      'call' => '$CRAFTER_SPARK_CLUSTER',
-      'note'=> '',
+      'call' => 'CRAFTER_SPARK_STATE',
+      'note' => '',
     ],
     [
       'type' => 'essence',
-      'call' => '$CRAFTER_SPARK_DISTRIBUTE',
-      'note'=> '',
-    ],
-    // entity
-    [
-      'type' => 'entity',
-      'call' => 'crafter()',
-      'note'=> '',
+      'call' => 'CRAFTER_SPARK_CLUSTER',
+      'note' => '',
     ],
     [
-      'type' => 'entity',
-      'call' => 'crafter_seed_set( String $name, Mixed $value )',
-      'note'=> '',
+      'type' => 'essence',
+      'call' => 'CRAFTER_SPARK_DISTRIBUTE',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_seed_get( String $name )',
-      'note'=> '',
+      'call' => 'crafter',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_item_set( String $name, ?Callable $callable )',
-      'note'=> '',
+      'call' => 'crafter_reset',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_item_get( String $name )',
-      'note'=> '',
+      'call' => 'crafter_seed_set',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_shard_set( String $file_path, ?Callable $injection = NULL )',
-      'note'=> '',
+      'call' => 'crafter_seed_get',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_shard_get( String $file_path, ?Callable $injection = NULL )',
-      'note'=> '',
+      'call' => 'crafter_item_set',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_spark( String $name, ?Callable $injection = NULL )',
-      'note'=> '',
+      'call' => 'crafter_item_get',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_reset()',
-      'note'=> '',
+      'call' => 'crafter_shard_set',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_spark_clustering()',
-      'note'=> '',
+      'call' => 'crafter_shard_get',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_spark_cleaning()',
-      'note'=> '',
+      'call' => 'crafter_spark',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_spark_bundling()',
-      'note'=> '',
+      'call' => 'crafter_spark_message',
+      'note' => '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_spark_distributing()',
-      'note'=> '',
+      'call' => 'crafter_spark_clustering',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'crafter_spark_cleaning',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'crafter_spark_bundling',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'crafter_spark_distributing',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => '_arise()',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => '_aether_awaken()',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'awaken()',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'item( String $name, ?Callable $callable = NULL )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'seed( String $name, Mixed $value = NULL )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'shard( String $source, ?Callable $injection = NULL )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'spark( Mixed $name_or_callable = NULL, ?Callable $injection = NULL )',
+      'note' => '',
     ],
   ];
+
 
   public function awakening() {}
   
