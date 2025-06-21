@@ -11,13 +11,13 @@ class Phantasm extends \Rune\Phantasm {
 
   public $origin = __DIR__;
 
-  public $version = 1.2;
+  public $version = 1.3;
   
   public $main = 'Specter';
 
   public $user = 'Anwar Achilles';
 
-  public $note = '?';
+  public $note = 'Enables out-of-process operations through soul-like abstractions—designed for managing complex, asynchronous, or decoupled executions by temporarily separating logic from the main flow while maintaining active control.';
 
   public $need = [
     ['Aether', 'ether:essence:ether', 1.0], 
@@ -158,12 +158,22 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type' => 'manifest',
+      'call' => 'observer( $repo, $callback )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'devserver( $configure )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
       'call' => 'soul( String $name, Mixed $value = NULL )',
       'note' => '',
     ],
     [
       'type' => 'manifest',
-      'call' => 'cast( String $arg, array $options = NULL )',
+      'call' => 'cast( String $arg, Array $options = [] )',
       'note' => '',
     ],
     [
@@ -176,47 +186,8 @@ class Phantasm extends \Rune\Phantasm {
       'call' => 'exit( String $arg )',
       'note' => '',
     ],
-    [
-      'type' => 'manifest',
-      'call' => 'observer( $folder, $runner )',
-      'note' => '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'open(string $arg, array $options = [])',
-      'note' => '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'close(string $arg)',
-      'note' => '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'set( Array $args )',
-      'note' => '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'get( String $arg )',
-      'note' => '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'observer( $x )',
-      'note' => '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'open( $x )',
-      'note' => '',
-    ],
-    [
-      'type' => 'manifest',
-      'call' => 'seer( $x )',
-      'note' => '',
-    ],
   ];
+
 
 
   public function awakening() {}
