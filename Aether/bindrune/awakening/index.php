@@ -97,7 +97,7 @@ Chanter::cast('awakening', function() {
   Whisper::emit('you will choose rank D as default, {{nl}}Did you want to choose another rank?{{nl}}');
   if (Whisper::reap('Enter your answer [y/n]: ') !== 'y') {
     $processing_revoke(
-      __DIR__ . '/rank/d.rune',
+      __DIR__ . '/rank/d--plain.rune',
       AETHER_REPO.'/'.AETHER_FILE
     );
     aether_exit(true);
