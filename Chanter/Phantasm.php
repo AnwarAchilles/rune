@@ -6,13 +6,13 @@ class Phantasm extends \Rune\Phantasm {
 
   public $origin = __DIR__;
 
-  public $version = 1.4;
+  public $version = 1.5;
   
   public $main = 'Chanter';
 
   public $user = 'Anwar Achilles';
 
-  public $note = 'to encapsulate and manage command-line interactions for invoking application logic via CLI.';
+  public $note = 'Encapsulates processes and CLI-style operations to maintain immutability—structures input, spell logic, and execution flow into controlled, traceable, and reusable command definitions.';
 
   public $need = [
     ['Aether', 'ether:essence:entity', 1.4],

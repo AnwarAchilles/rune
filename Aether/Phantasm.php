@@ -11,13 +11,13 @@ class Phantasm extends \Rune\Phantasm {
 
   public $origin = __DIR__;
 
-  public $version = 1.8;
+  public $version = 1.9;
   
   public $main = 'Aether';
 
   public $user = 'Anwar Achilles';
 
-  public $note = 'to perform the initial infrastructure setup required to build other infrastructures.';
+  public $note = 'Represents the foundational flow that permeates all components—serves as the invisible layer connecting, powering, and synchronizing every part of the system.';
 
   public $need = [
     ['Chanter', 'ether:essence:entity', 1.0],

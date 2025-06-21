@@ -12,7 +12,7 @@ class Phantasm extends \Rune\Phantasm {
 
   public $user = 'Anwar Achilles';
 
-  public $note = 'to provide output to the command line interface (CLI) along with creator text color, icon, and label.';
+  public $note = 'Handles user-facing output through styled messages, prompts, and echoes—focused on delivering clear, customizable system feedback and visual communication.';
 
   public $need = [];
   
