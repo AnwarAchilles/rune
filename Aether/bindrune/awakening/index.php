@@ -22,10 +22,8 @@ Aether::origin();
 
 Chanter::cast('awakening', function() {
   Whisper::clear();
-  Whisper::emit('{{COLOR-DANGER}} RUNE AWAKENING {{nl}}');
-  Whisper::emit('{{COLOR-SECONDARY}} awaken the rune from the void... {{nl}}');
-
-  
+  Whisper::emit("\n{{tab}}RUNE {{COLOR-DANGER}}::{{color-end}} AWAKENING");
+  Whisper::emit("\n{{tab}}{{COLOR-SECONDARY}}awaken the rune from the void...\n");
 
   $rune = '';
   $processing = function( $rune, $timing ) {
@@ -79,7 +77,9 @@ Chanter::cast('awakening', function() {
       }
     }
 
-    Whisper::clear()::emit("{{COLOR-SUCCESS}}{{ICON-SUCCESS}}{{LABEL-SUCCESS}}Artefact successfully revoked. {{nl}}");
+    Whisper::clear();
+    Whisper::emit("\n{{tab}}RUNE {{COLOR-DANGER}}::{{color-end}} AWAKENED {{COLOR-SUCCESS}}{{ICON-SUCCESS}}");
+    Whisper::emit("\n{{tab}}{{COLOR-SECONDARY}}Check with command {{color-danger}}php ".AETHER_FILE."\n");
   };
 
   // check minimum requirement
@@ -96,64 +96,49 @@ Chanter::cast('awakening', function() {
   Whisper::clear();
   Whisper::emit('you will choose rank D as default, {{nl}}Did you want to choose another rank?{{nl}}');
   if (Whisper::reap('Enter your answer [y/n]: ') !== 'y') {
-    $rune = Forger::item( __DIR__ . '/kit/D/rune.php.rune');
-    // $processing( $rune, 2000 );
     $processing_revoke(
-      __DIR__ . '/kit/D/rune.php.rune',
+      __DIR__ . '/rank/d.rune',
       AETHER_REPO.'/'.AETHER_FILE
     );
-    exit;
+    aether_exit(true);
   }
   
   
-  // choose kit
+  // choosing
   Whisper::clear();
-  Whisper::emit('{{COLOR-INFO}}Choose kit you want to use.');
+  Whisper::emit('Choose you want to use. {{nl}}');
   Whisper::emit('');
-  $kit_list = [];
-  Whisper::emit('{{COLOR-SECONDARY}}[ID] NAME');
-  foreach (glob(__DIR__.'/kit/*') as $row) {
-    if (is_dir($row)) {
-      $data = explode('-', basename($row));
+  $list = [];
+  Whisper::emit("{{COLOR-SECONDARY}}[ID] NAME {{nl}}");
+  foreach (glob(__DIR__.'/rank/*') as $row) {
+    if (is_file($row)) {
+      $data = explode('--', basename($row));
       $ID = strtoupper($data[0]);
-      $name = $data[1];
+      $name = str_replace('.rune', '', str_replace('-', ' ', $data[1]));
       $default = ($ID=='D') ? ' <- current' : '';
-      Whisper::emit("[$ID] $name {{COLOR-SUCCESS}}$default{{COLOR-DEFAULT}}");
-      $kit_list[$ID] = $row;
+      Whisper::emit("[$ID] $name {{COLOR-SUCCESS}}$default{{COLOR-DEFAULT}} {{nl}}");
+      $list[$ID] = $row;
     }
   }
-  Whisper::emit('');
   
-  // processing kit
-  $kit_input = Whisper::reap('Enter kit ID: ');
-  if ($kit_input) {
-    $kit_input = (empty($kit_input)) ? 'D' : $kit_input;
+  
+  // processing
+  $selected = Whisper::reap('Enter kit ID: ');
+  if ($selected) {
+    $selected = (empty($selected)) ? 'd' : $selected;
     
-    if (!isset($kit_list[strtoupper($kit_input)])) {
+    if (!isset($list[strtoupper($selected)])) {
       Whisper::emit('{{COLOR-ERROR}}{{ICON-ERROR}} Template not found');
       exit;
     }
+
     
-    $kit_select = $kit_list[strtoupper($kit_input)];
-    $rune->act = Forger::item($kit_select . '/rune.act.txt');
-    $rune->main = Forger::item($kit_select . '/rune.txt');
-    foreach (glob($kit_select . '/*') as $row) {
-      if (is_dir($row)) {
-        $rune->asset[] = [
-          'location'=> $row,
-          'destination'=> AETHER_REPO . '/' . basename($row),
-        ];
-      }
-    }
-
-    $processing( $rune, 5000 );
+    $target = $list[strtoupper($selected)];
+    $processing_revoke(
+      $target,
+      AETHER_REPO.'/'.AETHER_FILE
+    );
   }
-  
-  
-  Whisper::clear();
-
-
-
   
 });
 
