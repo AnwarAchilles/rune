@@ -11,112 +11,157 @@ class Phantasm extends \Rune\Phantasm {
 
   public $origin = __DIR__;
 
-  public $version = 1.5;
+  public $version = 1.6;
   
   public $main = 'Forger';
 
   public $user = 'Anwar Achilles';
 
-  public $note = '?';
+  public $note = 'Built for structured file and directory operations such as tracing, scanning, fixing, moving, and cloning. Enables content analysis and automated organization through dynamic, logic-driven routines.';
 
   public $need = [];
 
   public $list = [
-    // manifest
+    [
+      'type' => 'essence',
+      'call' => 'FORGER',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_trace',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_trace_recursive',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_scan',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_fix',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_move',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_sort',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_clean',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_repo',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_item',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_info',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_clone',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'forger_observer',
+      'note' => '',
+    ],
     [
       'type' => 'manifest',
       'call' => '_arise()',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'manifest',
       'call' => '_aether_awaken()',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'manifest',
       'call' => 'awaken()',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'manifest',
       'call' => 'trace( String $source_path )',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'manifest',
       'call' => 'scan( String $source_path, $callback )',
-      'note'=> '',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'info( String $source_path )',
+      'note' => '',
     ],
     [
       'type' => 'manifest',
       'call' => 'fix( Array $source_path )',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'manifest',
-      'call' => 'clone( string $from, string $to )',
-      'note'=> '',
+      'call' => 'clean( String $source_path, bool $force = false )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'move( Array $source_path )',
+      'note' => '',
     ],
     [
       'type' => 'manifest',
       'call' => 'repo( String $source_path, ?Callable $callback )',
-      'note'=> '',
+      'note' => '',
     ],
     [
       'type' => 'manifest',
-      'call' => 'item( String $source_path, String $content = "" )',
-      'note'=> '',
-    ],
-    // ether
-    [
-      'type' => 'ether',
-      'call' => 'FORGER',
-      'note'=> '',
-    ],
-    // essence
-    [
-      'type' => 'entity',
-      'call' => '$FORGER',
-      'note'=> '',
-    ],
-    // entity
-    [
-      'type' => 'entity',
-      'call' => 'forger( String $source_path )',
-      'note'=> '',
+      'call' => 'item( String $source_path, $content = false )',
+      'note' => '',
     ],
     [
-      'type' => 'entity',
-      'call' => 'forger_trace( String $source_path )',
-      'note'=> '',
+      'type' => 'manifest',
+      'call' => 'clone( string $from, string $to )',
+      'note' => '',
     ],
     [
-      'type' => 'entity',
-      'call' => 'forger_scan( String $source_path, $callback )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'entity',
-      'call' => 'forger_fix( Array $source_path )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'entity',
-      'call' => 'forger_clone( string $from, string $to )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'entity',
-      'call' => 'forger_repo( String $source_path, ?Callable $callback )',
-      'note'=> '',
-    ],
-    [
-      'type' => 'entity',
-      'call' => 'forger_item( String $source_path, String $content = "" )',
-      'note'=> '',
+      'type' => 'manifest',
+      'call' => 'observer( string $path )',
+      'note' => '',
     ],
   ];
+
+
+
+
 
   public function awakening() {}
   
