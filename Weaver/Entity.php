@@ -67,6 +67,21 @@ function weaver_item( $source ) {
 
 
 
+function weaver_wrap_echo($text, $wrap, $divider) {
+    $lines = wordwrap($text, $wrap, "\n"); // Wrap dengan newline
+    $wrapped = explode("\n", $lines);      // Pecah jadi array per baris
+
+    // Tambahkan divider di depan tiap baris
+    foreach ($wrapped as &$line) {
+        $line = $divider . $line;
+    }
+
+    return implode("\n", $wrapped); // Gabungkan lagi jadi string utuh
+  }
+
+
+
+
 /* WEBS
  * 
  * */

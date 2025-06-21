@@ -6,102 +6,129 @@ class Phantasm extends \Rune\Phantasm {
 
   public $origin = __DIR__;
   
-  public $version = 1.0;
+  public $version = 1.2;
 
   public $main = 'Weaver';
 
   public $user = 'Anwar Achilles';
 
-  public $note = '?';
+  public $note = 'Built for advanced string manipulation, data binding, and template weaving—transforming raw data into structured text with flexible, context-aware logic.';
 
   public $need = [];
 
   public $list = [
-    // manifest
     [
-      'type'=> 'manifest',
-      'call'=> '_arise()',
-      'note'=> '',
+      'type' => 'essence',
+      'call' => 'WEAVER',
+      'note' => '',
     ],
     [
-      'type'=> 'manifest',
-      'call'=> '_aether_awaken()',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver',
+      'note' => '',
     ],
     [
-      'type'=> 'manifest',
-      'call'=> 'awaken()',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_load',
+      'note' => '',
     ],
     [
-      'type'=> 'manifest',
-      'call'=> 'bind( String $template, $searchOrArray, String $data="" )',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_bind',
+      'note' => '',
     ],
     [
-      'type'=> 'manifest',
-      'call'=> 'item( $source )',
-      'note'=> '',
-    ],
-    // ether
-    [
-      'type'=> 'ether',
-      'call'=> 'WEAVER',
-      'note'=> '',
-    ],
-    // essence
-    [
-      'type'=> 'essence',
-      'call'=> '$WEAVER',
-      'note'=> '',
-    ],
-    // entity
-    [
-      'type'=> 'entity',
-      'call'=> 'weaver()',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_bind_extract',
+      'note' => '',
     ],
     [
-      'type'=> 'entity',
-      'call'=> 'weaver_bind( $template, $search, $data )',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_bind_multiple',
+      'note' => '',
     ],
     [
-      'type'=> 'entity',
-      'call'=> 'weaver_bind_extract( $value )',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_bind_custom',
+      'note' => '',
     ],
     [
-      'type'=> 'entity',
-      'call'=> 'weaver_bind_multiple( $template, $datas )',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_item',
+      'note' => '',
     ],
     [
-      'type'=> 'entity',
-      'call'=> 'weaver_min( $input, $type="html" )',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_wrap_echo',
+      'note' => '',
     ],
     [
-      'type'=> 'entity',
-      'call'=> 'weaver_min_css( $input )',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_min',
+      'note' => '',
     ],
     [
-      'type'=> 'entity',
-      'call'=> 'weaver_min_js( $input )',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_min_css',
+      'note' => '',
     ],
     [
-      'type'=> 'entity',
-      'call'=> 'weaver_min_html( $input )',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_min_js',
+      'note' => '',
     ],
     [
-      'type'=> 'entity',
-      'call'=> 'weaver_min_php( $input )',
-      'note'=> '',
+      'type' => 'entity',
+      'call' => 'weaver_min_html',
+      'note' => '',
+    ],
+    [
+      'type' => 'entity',
+      'call' => 'weaver_min_php',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => '_arise()',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => '_aether_awaken()',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'awaken()',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'bind( String $template, $searchOrArray, String $data=\'\' )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'item( $source )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'load( $source )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'bind( $template, $search, $data )',
+      'note' => '',
+    ],
+    [
+      'type' => 'manifest',
+      'call' => 'bindAll( $template, $list)',
+      'note' => '',
     ],
   ];
+
 
   public function awakening() {}
   

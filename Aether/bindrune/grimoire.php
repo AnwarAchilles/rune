@@ -87,36 +87,53 @@ Chanter::cast('grimoire', function() {
     $phantasm = new $phantasm();
     $phantasm->list = array_merge($default_list, $phantasm->list);
 
-    Whisper::echo("{{tab}}{{COLOR-PRIMARY}}{{ICON-PRIMARY}} $phantasm->main {{nl}}");
-    Whisper::echo("{{tab}}-{{tab}}{{COLOR-INFO}}v$phantasm->version {{nl}}");
+    $runename = strtoupper(implode(' ', str_split($phantasm->main)));
+    $note = weaver_wrap_echo($phantasm->note, 50, '{{tab}}');
+    Whisper::echo("{{color-danger}}::{{color-end}} $runename — v$phantasm->version {{nl}}");
+    Whisper::echo("{{color-secondary}}$note {{nl}}{{nl}}");
     if ($phantasm->mark !== 'VOID') {
-      Whisper::echo("{{tab}}{{tab}}{{COLOR-WARNING}}{{ICON-WARNING}}{{LABEL-WARNING}}This rune is marked as $phantasm->mark.{{nl}}");
+      Whisper::echo("{{tab}}{{COLOR-WARNING}}{{ICON-WARNING}}{{LABEL-WARNING}}This rune is marked as $phantasm->mark.{{nl}}");
     }
-    Whisper::echo("{{tab}}{{tab}}{{COLOR-SECONDARY}}[M] $manifest {{nl}}");
-    Whisper::echo("{{tab}}{{tab}}{{COLOR-SECONDARY}}[U] $phantasm->user {{nl}}");
-    Whisper::echo("{{tab}}{{tab}}{{COLOR-SECONDARY}}[N] $phantasm->note {{nl}}");
+    Whisper::echo("{{tab}}{{color-default}}[M]{{color-secondary}} $manifest {{nl}}");
+    Whisper::echo("{{tab}}{{color-default}}[O]{{color-secondary}} $phantasm->origin {{nl}}");
+    Whisper::echo("{{tab}}{{color-default}}[U]{{color-secondary}} $phantasm->user {{nl}}");
 
     // check if rune is tandalone or need
-    Whisper::echo("{{tab}}{{tab}}{{COLOR-INFO}}Need of Rune: {{nl}}");
+    Whisper::echo("\n{{tab}}{{color-danger}}::{{color-end}}N E E D {{nl}}");
     if (count($phantasm->need) == 0) {
-      Whisper::echo("{{tab}}{{tab}}{{COLOR-SECONDARY}} (THIS RUNE IS STANDALONE) {{nl}}");
+      Whisper::echo("{{tab}}{{tab}}{{color-info}} (THIS RUNE IS STANDALONE) {{nl}}");
     }
     foreach ($phantasm->need as $need) {
-      Whisper::echo("{{tab}}{{tab}}");
-      Whisper::echo("{{tab}}{{COLOR-DEFAULT}}$need[0]");
+      Whisper::echo("{{tab}}{{tab}}{{COLOR-DEFAULT}}$need[0]");
       Whisper::echo("{{tab}}{{COLOR-DANGER}}$need[1]");
       Whisper::echo("{{tab}}{{COLOR-SECONDARY}}v$need[2]^");
       Whisper::echo("{{nl}}");
     }
     
     // list of phantasm
-    Whisper::echo("{{tab}}{{tab}}{{COLOR-INFO}}List of Phantasm: {{nl}}");
+    Whisper::echo("\n{{tab}}{{color-danger}}::{{color-end}}L I S T {{nl}}");
     foreach ($phantasm->list as $list) {
       $list = (object) $list;
-      Whisper::echo("{{tab}}{{tab}}");
-      Whisper::echo("{{tab}}{{COLOR-DANGER}}$list->type");
-      Whisper::echo("{{tab}}{{COLOR-DEFAULT}}$list->call");
-      Whisper::echo("{{tab}}{{COLOR-SECONDARY}}$list->note");
+      $list_note = weaver_wrap_echo($list->note, 50, "{{tab}}{{tab}}{{tab}}");
+      if (empty($list->note)) {
+        $list_note = "{{tab}}{{tab}}{{tab}}no note";
+      }
+      $list_color = '{{color-default}}';
+      if ($list->type=='manifest') {
+        $list_color = '{{color-danger}}';
+      }
+      if ($list->type=='ether') {
+        $list_color = '{{color-primary}}';
+      }
+      if ($list->type=='essence') {
+        $list_color = '{{color-warning}}';
+      }
+      if ($list->type=='entity') {
+        $list_color = '{{color-info}}';
+      }
+      Whisper::echo("{{tab}}{{tab}}{$list_color}{$list->type}");
+      Whisper::echo("\n{{tab}}{{tab}}{{COLOR-DEFAULT}}$list->call");
+      Whisper::echo("\n{{COLOR-SECONDARY}}$list_note");
       Whisper::echo("{{nl}}");
     }
 
@@ -129,7 +146,7 @@ Chanter::cast('grimoire', function() {
       $input = Whisper::call('Give us the rune name: ');
     }
     if ($input) {
-      Whisper::clear();
+      Whisper::clear(true);
       $processing_get_rune( $input );
     }
     Whisper::echo($footer);
