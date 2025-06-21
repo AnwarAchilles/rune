@@ -171,7 +171,7 @@ function aether_arised() {
 /* ARCANE
  * need: Forger, Keeper
  *  */
-function aether_arcane(String $text, String $value = NULL) {
+function aether_arcane(String $text, String $value = '') {
   global $AETHER_ARCANE;
   global $AETHER_STOPWATCH;
   global $AETHER_ARCANE_STATE;

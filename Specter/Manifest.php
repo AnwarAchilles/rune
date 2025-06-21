@@ -111,7 +111,7 @@ class Manifest extends \Rune\Manifest {
     return $return;
   }
 
-  public static function cast( String $arg, array $options = NULL ) {
+  public static function cast( String $arg, Array $options = [] ) {
     if (is_array($options)) {
       specter_cast_set($arg, $options);
       $return = true;
