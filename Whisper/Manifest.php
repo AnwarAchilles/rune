@@ -24,7 +24,7 @@ class Manifest extends \Rune\Manifest {
     return $return;
   }
 
-  public static function reap( String $text ) {
+  public static function call( String $text ) {
     $result = whisper_call( $text );
     
     aether_arcane('Whisper.manifest.drain');
