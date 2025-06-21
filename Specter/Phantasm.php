@@ -168,7 +168,7 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type' => 'manifest',
-      'call' => 'seer( Callable $callback )',
+      'call' => 'seer( ?Callable $callback )',
       'note' => '',
     ],
     [

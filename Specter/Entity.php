@@ -194,7 +194,7 @@ function specter_cast_save( $arg, $alive = true, $option = [] ) {
 /* SEER
  * todo spectating changed
  *  */
-function specter_seer_set(Callable $condition) {
+function specter_seer_set(?Callable $condition) {
   $frames = ['-', '\\', '|', '/'];
   $targetSpeed = SPECTER_SEER_OPTION['speed'] / 1000 ?? 0.1;
   $i = 0;

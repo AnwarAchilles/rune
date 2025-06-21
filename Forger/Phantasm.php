@@ -60,7 +60,7 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type' => 'manifest',
-      'call' => 'repo( String $source_path, Callable $callback )',
+      'call' => 'repo( String $source_path, ?Callable $callback )',
       'note'=> '',
     ],
     [
@@ -108,7 +108,7 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type' => 'entity',
-      'call' => 'forger_repo( String $source_path, Callable $callback )',
+      'call' => 'forger_repo( String $source_path, ?Callable $callback )',
       'note'=> '',
     ],
     [

@@ -59,7 +59,7 @@ class Manifest extends \Rune\Manifest {
     return $return;
   }
   
-  public static function repo( String $source_path, Callable $callback ) {
+  public static function repo( String $source_path, ?Callable $callback ) {
     $return = forger_repo( $source_path, $callback );
 
     aether_arcane('Forger.manifest.repo');

@@ -74,7 +74,7 @@ function forger_trace_recursive(string $path): array {
 
 /* SCAN
  * */
-function forger_scan( String $source_path, Callable $callback ) {
+function forger_scan( String $source_path, ?Callable $callback ) {
   $return = [];
   foreach (glob( $source_path . '/*' ) as $item) {
     $reitem = pathinfo($item);
@@ -197,7 +197,7 @@ function forger_clean( String $source_path, $force_repo = false ) {
 
 /* REPO
  * todo working with folder */
-function forger_repo( String $source_path, Callable $callback = null ) {
+function forger_repo( String $source_path, ?Callable $callback = null ) {
   $trace = forger_trace( $source_path );
   forger_fix( $trace );
   

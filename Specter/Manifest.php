@@ -123,7 +123,7 @@ class Manifest extends \Rune\Manifest {
     return $return;
   }
   
-  public static function seer( Callable $callback ) {
+  public static function seer( ?Callable $callback ) {
     specter_seer_set($callback);
 
     aether_arcane("Specter.manifest.seer");
@@ -163,7 +163,7 @@ class Manifest extends \Rune\Manifest {
   //   });
   // }
   
-  // public static function seer( Callable $callback ) {
+  // public static function seer( ?Callable $callback ) {
   //   $targetSpeed = 0.1;
   //   while (true) {
   //       gc_enable();

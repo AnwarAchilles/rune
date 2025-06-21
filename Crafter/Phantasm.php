@@ -41,7 +41,7 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type' => 'manifest',
-      'call' => 'item( String $name, Callable $callable = NULL )',
+      'call' => 'item( String $name, ?Callable $callable = NULL )',
       'note'=> '',
     ],
     [
@@ -51,12 +51,12 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type' => 'manifest',
-      'call' => 'shard( String $source, Callable $injection = NULL )',
+      'call' => 'shard( String $source, ?Callable $injection = NULL )',
       'note'=> '',
     ],
     [
       'type' => 'manifest',
-      'call' => 'spark( Mixed $name_or_callable = NULL, Callable $injection = NULL )',
+      'call' => 'spark( Mixed $name_or_callable = NULL, ?Callable $injection = NULL )',
       'note'=> '',
     ],
     // ether
@@ -164,7 +164,7 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_item_set( String $name, Callable $callable )',
+      'call' => 'crafter_item_set( String $name, ?Callable $callable )',
       'note'=> '',
     ],
     [
@@ -174,17 +174,17 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_shard_set( String $file_path, Callable $injection = NULL )',
+      'call' => 'crafter_shard_set( String $file_path, ?Callable $injection = NULL )',
       'note'=> '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_shard_get( String $file_path, Callable $injection = NULL )',
+      'call' => 'crafter_shard_get( String $file_path, ?Callable $injection = NULL )',
       'note'=> '',
     ],
     [
       'type' => 'entity',
-      'call' => 'crafter_spark( String $name, Callable $injection = NULL )',
+      'call' => 'crafter_spark( String $name, ?Callable $injection = NULL )',
       'note'=> '',
     ],
     [

@@ -58,7 +58,7 @@ function crafter_seed_get( String $name ) {
 /* ITEM
  * todo crafter item 
  * */
-function crafter_item_set( String $name, Callable $callable ) {
+function crafter_item_set( String $name, ?Callable $callable ) {
   global $CRAFTER_ITEM;
 
   $CRAFTER_ITEM[$name] = $callable;
@@ -92,7 +92,7 @@ function crafter_item_get( String $name ) {
 /* SHARD
  * todo get shard and crafting shards
  *  */
-function crafter_shard_set( String $file_path, Callable $injection = NULL ) {
+function crafter_shard_set( String $file_path, ?Callable $injection = NULL ) {
   global $CRAFTER_SHARD;
   global $CRAFTER_SHARD_LIST;
   global $CRAFTER_SHARD_INJECTION;
@@ -106,7 +106,7 @@ function crafter_shard_set( String $file_path, Callable $injection = NULL ) {
   aether_arcane("Crafter.entity.crafter_shard_set");
   return $CRAFTER_SHARD;
 }
-function crafter_shard_get( String $file_path, Callable $injection = NULL ) {
+function crafter_shard_get( String $file_path, ?Callable $injection = NULL ) {
   global $CRAFTER_SHARD;
   global $CRAFTER_SHARD_LIST;
   
@@ -122,7 +122,7 @@ function crafter_shard_get( String $file_path, Callable $injection = NULL ) {
 
 /* SPARK
  *  */
-function crafter_spark( String $name, Callable $injection = NULL ) {
+function crafter_spark( String $name, ?Callable $injection = NULL ) {
   global $CRAFTER_SHARD;
   global $CRAFTER_SHARD_INJECTION;
   global $CRAFTER_SHARD_LIST;

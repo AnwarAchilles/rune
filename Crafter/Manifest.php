@@ -20,7 +20,7 @@ class Manifest extends \Rune\Manifest {
   public static function awaken() {}
 
 
-  public static function item( String $name, Callable $callable = NULL ) {
+  public static function item( String $name, ?Callable $callable = NULL ) {
     if ($callable) {
       crafter_item_set($name, $callable);
       self::$inName = $name;
@@ -44,14 +44,14 @@ class Manifest extends \Rune\Manifest {
     return $return;
   }
 
-  public static function shard( String $source, Callable $injection = NULL ) {
+  public static function shard( String $source, ?Callable $injection = NULL ) {
     $return = crafter_shard_get($source, $injection);
 
     aether_arcane("Crafter.manifest.shard");
     return $return;
   }
   
-  public static function spark( Mixed $name_or_callable = NULL, Callable $injection = NULL ) {
+  public static function spark( Mixed $name_or_callable = NULL, ?Callable $injection = NULL ) {
     if (empty($name_or_callable)) {
       $name = self::$inName;
     }else {

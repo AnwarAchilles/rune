@@ -45,7 +45,7 @@ class Phantasm extends \Rune\Phantasm {
     ],
     [
       'type'=> 'manifest',
-      'call'=> 'drain( Callable $callable, Array $option = [] )',
+      'call'=> 'drain( ?Callable $callable, Array $option = [] )',
       'note'=> '',
     ],
     [
